@@ -5,7 +5,6 @@ import LoginRegister from "./Components/LoginRegister/loginregister"
 import Dashboard from "./Components/Dashboard/dashboard"
 import userProfile from "./Components/UserProfile/UserProfile"
 import Tutorial from "./Components/Tutorial/Tutorial"
-import Finish from "./Components/Finish/Finish"
 
 
 export default(
@@ -14,7 +13,6 @@ export default(
         <Route path = "/loginRegister" component = {LoginRegister}/>
         <Route path = "/dashboard" component = {Dashboard}/>
         <Route path = "/profile" component = {userProfile}/>
-        <Route path = "/finish" component = {Finish}/>
         <Route path = "/tutorial" component = {Tutorial}/>
     </Switch>
 )
