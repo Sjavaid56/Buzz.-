@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Dashboard extends Component {
+class FinishRegistration extends Component {
     constructor(props) {
         super(props);
 
@@ -12,7 +12,7 @@ class Dashboard extends Component {
     render() {
         return (
             <div>
-                Dashboard! A Container for the MAPS Component and the ROOMS Components(available and current)!
+                After tutorial, finish profile here - REQUIRED add username, OPTIONAL add card
             </div>
         )
     }
