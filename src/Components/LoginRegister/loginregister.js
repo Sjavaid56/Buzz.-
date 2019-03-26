@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class LoginRegister extends Component {
+export default class LoginRegister extends Component {
     constructor(props) {
         super(props);
 

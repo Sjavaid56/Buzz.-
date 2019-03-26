@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class FinishRegistration extends Component {
+export default class FinishRegistration extends Component {
     constructor(props) {
         super(props);
 
