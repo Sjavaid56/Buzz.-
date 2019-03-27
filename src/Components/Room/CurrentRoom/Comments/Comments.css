@@ -1,6 +1,6 @@
 /* change width to 100% after rendering inside of posts. */
-.comment-comment-parent{
-    border: dotted #ffcb34 1px;
+.comment-parent{
+    border: dashed #ffcb34 1px;
     background: #fffce7;
     border-radius: 15px;
     height:auto;
@@ -8,34 +8,46 @@
     word-break: break-word;
     padding:10px;
 }
-.comment-comment-profile-picture{
+.comment-parent__header > p{
+    font-size: 13px;
+}
+.comment-parent__user-info{
+    width:60%;
+    height:100%;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.comment-parent__profile-picture{
     height:auto;
     width:40px;
     border-radius:50px;
-    margin-right: 20px;
 }
-.comment-comment-header {
+
+.comment-parent__header {
     width:100%;
     height:50px;
     display:flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
 }
-.comment-comment-content{
-    
+
+.comment-parent__user-name{
+    margin-right:20%;
 }
-.comment-comment-footer{
+.comment-parent__footer{
     width:100%;
     height:30px;
     display:flex;
     justify-content: flex-start;
     align-items: center;
 }
-.comment-comment-vote{
+.comment-parent__vote{
     background:none;
     border:none;
 }
-.comment-comment-time{
+.comment-parent__time{
     width:100%;
     height:40px;
     display: flex;

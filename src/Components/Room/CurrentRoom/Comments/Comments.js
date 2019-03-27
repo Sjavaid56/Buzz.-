@@ -30,26 +30,26 @@ export default class Comment extends Component {
 
     render() {
         return (
-            <div className = "comment-comment-parent">
-                <div className = "comment-comment-header">
+            <div className = "comment-parent">
+                <div className = "comment-parent__header">
                     {/* Change all data to equal props from Posts */}
-                    <img className = "comment-comment-profile-picture" src = "https://avatars0.githubusercontent.com/u/42726824?s=460&v=4"/> 
-                    <p className = "comment-comment-user-name">@JimmyJohn444</p>
+                    <div className = "comment-parent__user-info">
+                    <img className = "comment-parent__profile-picture" src = "https://avatars0.githubusercontent.com/u/42726824?s=460&v=4"/> 
+                    <p className = "comment-parent__user-name">@JimmyJohn444</p>
+                    </div>
+                    <p>3.29.19</p>
+                    <p>3:05pm</p>
                 </div>
 
-                <div className = "comment-comment-time">
-                <p>3:05pm</p>
-                </div>
-
-                <div className = "comment-comment-content">
+                <div className = "comment-parent__content">
                 Render styling for a comment under an associated post
                 </div>
 
-                <div className = "comment-comment-footer">
+                <div className = "comment-parent__footer">
                     <p>3</p>
-                    <button className = "comment-comment-vote"><img src = {up}></img></button>
+                    <button className = "comment-parent__vote"><img src = {up}></img></button>
                     <p>0</p>
-                    <button className = "comment-comment-vote"><img src = {down}></img></button>
+                    <button className = "comment-parent__vote"><img src = {down}></img></button>
                 </div>
             </div>
         )
