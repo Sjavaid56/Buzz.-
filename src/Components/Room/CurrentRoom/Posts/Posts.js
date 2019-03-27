@@ -12,7 +12,7 @@ export default class Post extends Component {
     render() {
         return (
             <div>
-                Render a single post
+                
             </div>
         )
     }
