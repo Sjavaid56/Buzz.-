@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import "./Posts/CurrentRoom.css"
+import "./CurrentRoom.css"
 import back from "./back.png"
 import Axios from 'axios';
 import Post from "./Posts/Posts"
@@ -51,7 +51,14 @@ export default class CurrentRoom extends Component {
         let mappedComments = this.state.comments.map(comment =>{
             return(
                 <div>
-                    <Comment />
+                    <Comment comment_content = {comment.comment_content}
+                             comment_downvotes = {comment.comment_downvotes}
+                             comment_id = {comment.comment_id}
+                             comment_upvotes = {comment.comment_upvotes}
+                             commenter_img = {comment.commenter_img}
+                             commenter_user_name = {comment.commenter_user_name}
+                             post_id = {comment.post_id}
+                             room_id = {comment.room_id}/>
                 </div>
             )
         })
@@ -70,6 +77,7 @@ export default class CurrentRoom extends Component {
                 If the screen is in mobile view, show the bottom navigation. If it isn't, it will be next to 
                 map component.
                 {mappedPosts.length? mappedPosts:null}
+                {mappedComments.length? mappedComments:null}
                 </main>
             </div>
         )

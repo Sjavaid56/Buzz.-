@@ -34,21 +34,21 @@ export default class Comment extends Component {
                 <div className = "comment-parent__header">
                     {/* Change all data to equal props from Posts */}
                     <div className = "comment-parent__user-info">
-                    <img className = "comment-parent__profile-picture" src = "https://avatars0.githubusercontent.com/u/42726824?s=460&v=4"/> 
-                    <p className = "comment-parent__user-name">@JimmyJohn444</p>
+                    <img className = "comment-parent__profile-picture" src = {this.props.commenter_img}/> 
+                    <p className = "comment-parent__user-name">@{this.props.commenter_user_name}</p>
                     </div>
                     <p>3.29.19</p>
                     <p>3:05pm</p>
                 </div>
 
                 <div className = "comment-parent__content">
-                Render styling for a comment under an associated post
+                {this.props.comment_content}
                 </div>
 
                 <div className = "comment-parent__footer">
-                    <p>3</p>
+                    <p>{this.props.comment_upvotes}</p>
                     <button className = "comment-parent__vote"><img src = {up}></img></button>
-                    <p>0</p>
+                    <p>{this.props.comment_downvotes}</p>
                     <button className = "comment-parent__vote"><img src = {down}></img></button>
                 </div>
             </div>

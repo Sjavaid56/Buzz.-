@@ -30,7 +30,7 @@ massive(
 
 //Endpoints for rooms
 app.get("/getPosts/:id", roomsController.getRoomData)
-app.get("getComments/:id", roomsController.getComments)
+app.get("/getComments/:id", roomsController.getComments)
 
 //Server listen
 const port = process.env.PORT
