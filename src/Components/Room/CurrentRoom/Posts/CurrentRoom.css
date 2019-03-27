@@ -1,0 +1,30 @@
+.Current-room{
+    width:100%;
+    height:100vh;
+    border: solid #ffcb34 2px;
+}
+.Current-room__header{
+    width:100%;
+    height:70px;
+    border: solid #ffcb34 2px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+/* .Current-room__Info{
+    width:50%;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+} */
+.Current-room__header button{
+    background:none;
+    border:none;
+    justify-self: left!important;
+}
+.Current-room__title{
+    font-size: 30px;
+    /* justify-self: center;  */
+    /* text-align: center; */
+    /* align-self: center; */
+}
