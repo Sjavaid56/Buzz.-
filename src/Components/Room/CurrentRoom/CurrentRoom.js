@@ -1,17 +1,51 @@
 import React, { Component } from 'react';
 import "./Posts/CurrentRoom.css"
 import back from "./back.png"
+import Axios from 'axios';
+import Post from "./Posts/Posts"
+import Comment from "./Comments/Comments"
 
 export default class CurrentRoom extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-
+            posts:[],
+            comments:[]
         }
+    }
+    //When screen loads, get all the room data for current room
+    componentDidMount = () =>{
+        Axios.get("/getPosts").then(posts =>{
+            this.setState({
+                posts:posts.data
+            })
+        })
+        //get comments that are associated with correct room and posts
+        Axios.get("/getComments").then(comments =>{
+            this.setState({
+                comments:comments.data
+            })
+        })
     }
 
     render() {
+        let mappedPosts = this.state.posts.map(post =>{
+            return(
+                <div>
+                    <Post post_id = {post.post_id}
+                          poster_username = {post.poster_username}
+                          poster_pic = {post.poster_pic}
+                          time_posted = {post.time_posted}
+                          post_content = {post.post_content}
+                          post_img = {post.post_img}
+                          upvotes = {post.upvotes}
+                          downvotes = {post.downvotes}
+                          drinks_given = {post.drinks_given}
+                          room_id = {post.room_id}/>
+                </div>
+            )
+        })
         return (
             <div className = "Current-room">
                 <header className = "Current-room__header">
@@ -24,6 +58,9 @@ export default class CurrentRoom extends Component {
                 <main>
 
                 Showing the current room - renders CREATE POST, mapped POSTS and mapped COMMENTS
+                If the screen is in mobile view, show the bottom navigation. If it isn't, it will be next to 
+                map component.
+                {mappedPosts.length? mappedPosts:null}
                 </main>
             </div>
         )
