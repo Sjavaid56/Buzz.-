@@ -3,19 +3,19 @@ import './GoogleMaps.css'
 import axios from 'axios'
 const getGeoLocation = () => {
   const geolocation = navigator.geolocation;
-  
+
   const location = new Promise((resolve, reject) => {
     if (!geolocation) {
       reject(new Error('Not Supported'));
     }
-    
+
     geolocation.getCurrentPosition((position) => {
       resolve(position);
     }, () => {
-      reject (new Error('Permission denied'));
+      reject(new Error('Permission denied'));
     });
   });
-  
+
   return location
 };
 class App extends Component {
@@ -33,12 +33,12 @@ class App extends Component {
     this.getVenues2()
     this.initGeoLocation();
   }
- 
-  componentWillUpdate(){
+
+  componentWillUpdate() {
     this.initGeoLocation()
   }
   initGeoLocation() {
-    getGeoLocation().then(location=> {
+    getGeoLocation().then(location => {
       this.setState({
         currentLatLng: {
           lat: location.coords.latitude,
@@ -75,7 +75,7 @@ class App extends Component {
       .catch(error => {
         console.log("ERROR!! " + error)
       })
-   
+
   }
   getVenues2 = () => {
     const endPoint2 = "https://api.foursquare.com/v2/venues/explore?"
@@ -95,17 +95,17 @@ class App extends Component {
       .catch(error => {
         console.log("ERROR!! " + error)
       })
-   
+
   }
- 
+
   initMap = () => {
     // Create A Map
     var map = new window.google.maps.Map(document.getElementById('map'), {
-      center: {lat: 33.4486, lng: -112.0773},
+      center: { lat: 33.4486, lng: -112.0773 },
       zoom: 12
-      
+
     })
-    
+
     // Create An InfoWindow
     var infowindow = new window.google.maps.InfoWindow()
     // Display Dynamic Markers
@@ -113,39 +113,39 @@ class App extends Component {
       var contentString = `${myVenue.venue.name}`
       // Create A Marker
       var marker = new window.google.maps.Marker({
-        position: {lat: myVenue.venue.location.lat , lng: myVenue.venue.location.lng},
+        position: { lat: myVenue.venue.location.lat, lng: myVenue.venue.location.lng },
         map: map,
         title: myVenue.venue.name
       })
       // Click on A Marker!
-      marker.addListener('click', function() {
+      marker.addListener('click', function () {
         // Change the content
         infowindow.setContent(contentString)
         // Open An InfoWindow
         infowindow.open(map, marker)
       })
     })
-   
+
     this.state.venues2.map(myVenue => {
-      console.log("latlong",this.currentLatLng)
+      console.log("latlong", this.currentLatLng)
       var contentString2 = `${myVenue.venue.name}`
       // Create A Marker
       var marker2 = new window.google.maps.Marker({
-        position: {lat: myVenue.venue.location.lat , lng: myVenue.venue.location.lng},
+        position: { lat: myVenue.venue.location.lat, lng: myVenue.venue.location.lng },
         map: map,
         title: myVenue.venue.name
       })
       // Click on A Marker!
-      marker2.addListener('click', function() {
+      marker2.addListener('click', function () {
         // Change the content
         infowindow.setContent(contentString2)
         // Open An InfoWindow
         infowindow.open(map, marker2)
       })
-      
+
     })
-    
-    
+
+
   }
   render() {
     return (
@@ -156,7 +156,7 @@ class App extends Component {
   }
 }
 function loadScript(url) {
-  var index  = window.document.getElementsByTagName("script")[0]
+  var index = window.document.getElementsByTagName("script")[0]
   var script = window.document.createElement("script")
   script.src = url
   script.async = true
