@@ -16,16 +16,18 @@ export default class CurrentRoom extends Component {
     }
     //When screen loads, get all the room data for current room
     componentDidMount = () =>{
-        Axios.get("/getPosts").then(posts =>{
+        Axios.get(`/getPosts/${1}`).then(posts =>{
             this.setState({
                 posts:posts.data
             })
+            console.log(posts.data)
         })
         //get comments that are associated with correct room and posts
-        Axios.get("/getComments").then(comments =>{
+        Axios.get(`/getComments/${1}`).then(comments =>{
             this.setState({
                 comments:comments.data
             })
+            console.log(comments.data)
         })
     }
 
@@ -43,6 +45,13 @@ export default class CurrentRoom extends Component {
                           downvotes = {post.downvotes}
                           drinks_given = {post.drinks_given}
                           room_id = {post.room_id}/>
+                </div>
+            )
+        })
+        let mappedComments = this.state.comments.map(comment =>{
+            return(
+                <div>
+                    <Comment />
                 </div>
             )
         })
