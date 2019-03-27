@@ -1,0 +1,43 @@
+/* change width to 100% after rendering inside of posts. */
+.comment-comment-parent{
+    border: dotted #ffcb34 1px;
+    background: #fffce7;
+    border-radius: 15px;
+    height:auto;
+    width:400px;
+    word-break: break-word;
+    padding:10px;
+}
+.comment-comment-profile-picture{
+    height:auto;
+    width:40px;
+    border-radius:50px;
+    margin-right: 20px;
+}
+.comment-comment-header {
+    width:100%;
+    height:50px;
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.comment-comment-content{
+    
+}
+.comment-comment-footer{
+    width:100%;
+    height:30px;
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.comment-comment-vote{
+    background:none;
+    border:none;
+}
+.comment-comment-time{
+    width:100%;
+    height:40px;
+    display: flex;
+    justify-content: flex-end;
+}
