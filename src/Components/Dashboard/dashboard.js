@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+import socketIOClient from 'socket.io-client';
+import Map from '../GoogleMaps/GoogleMaps'
+import AvailableRooms from "../Room/AvailableRooms/AvailableRooms"
+
+const socket = socketIOClient();
 
 export default class Dashboard extends Component {
     constructor(props) {
@@ -12,7 +17,8 @@ export default class Dashboard extends Component {
     render() {
         return (
             <div>
-                Dashboard! A Container for the MAPS Component and the ROOMS Components(available and current)!
+                <Map/>
+                <AvailableRooms/>
             </div>
         )
     }
