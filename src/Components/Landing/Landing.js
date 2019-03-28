@@ -30,7 +30,7 @@ export default class Landing extends Component {
     render() {
         return (
             <div>
-                Landing! Animations! Videos! Cool Stuff!
+                <button onClick={this.login}>LOGIN</button>
             </div>
         )
     }
