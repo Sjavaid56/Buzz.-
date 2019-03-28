@@ -1,0 +1,29 @@
+.profile-parent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.profile-header__picture {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%
+}
+
+.profile-tabs button {
+    font-family: 'Montserrat', sans-serif;
+    background: #fffce7;
+    margin: 10px 0;
+    width: 110px;
+    height: 30px;
+    border: .5px solid rgba(28, 30, 31, 0.76);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.profile-tabs button:hover {
+    background-color: #ffcb34;
+    outline: 0;
+}

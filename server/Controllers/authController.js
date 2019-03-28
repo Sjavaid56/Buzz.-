@@ -32,7 +32,7 @@ module.exports = {
         if (users.length) {
           const user = users[0];
           req.session.user = user;
-          res.redirect('/profile');
+          res.redirect('/dashboard');
         } else {
           const createData = [userData.sub, userData.email, userData.name, userData.picture];
           return req.app.get('db').create_user(createData).then(newUsers => {
