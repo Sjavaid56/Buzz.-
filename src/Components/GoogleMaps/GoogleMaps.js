@@ -68,9 +68,19 @@ class App extends Component {
     }
     axios.get(endPoint + new URLSearchParams(parameters))
       .then(response => {
+        console.log(response)
         this.setState({
           venues: response.data.response.groups[0].items
         }, this.renderMap())
+        const bdata = response.data.response.groups[0].items.map(business => {
+          return {
+            Name: business.venue.name,
+            Type: business.venue.categories[0].pluralName,
+            lat: business.venue.location.lat,
+            Lng: business.venue.location.lng
+         }
+        })
+        console.log("the stuff",bdata)
       })
       .catch(error => {
         console.log("ERROR!! " + error)
@@ -94,11 +104,9 @@ class App extends Component {
         let body =  response.data.response.groups[0].items
         console.log("body: ", body)
       }).then(()=>{
-        let body = this.state.venues2
-        console.log("sending data",body)
-        axios.post("/getVenues", body)
+
       })
-      
+
       .catch(error => {
         console.log("ERROR!! " + error)
       })
@@ -150,20 +158,38 @@ class App extends Component {
         infowindow.open(map, marker2)
       })
 
+
     })
 
-
+        
   }
+  sendLocToBack = () =>{
+    for(let i = 0; i < this.state.venues2.length; i++){
+      let body = {
+        business_name:this.state.venues2[i].venue.name,
+        business_type:this.state.venues2[i].venue.categories[i].pluralName,
+        latitude:this.state.venues2[i].venue.location.lat,
+        longitude:this.state.venues2[i].venue.location.lng,
+        // number_of_users:0
+      }
+      console.log("SENDING: ", body)
+      // axios.post("/getVenues")
+    }
+}
   render() {
+    console.log("map buss",)
+
     console.log(this.state.venues)
     return (
       <main>
+        <button onClick={this.sendLocToBack}> </button>
         <div id="map"></div>
       </main>
     )
   }
+
 }
-function loadScript(url) {
+  function loadScript(url) {
   var index = window.document.getElementsByTagName("script")[0]
   var script = window.document.createElement("script")
   script.src = url
@@ -171,4 +197,5 @@ function loadScript(url) {
   script.defer = true
   index.parentNode.insertBefore(script, index)
 }
+
 export default App;

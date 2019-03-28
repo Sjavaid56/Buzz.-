@@ -24,16 +24,15 @@ app.use(session({
     resave:false
 }))
 
+//testing location info for db 
+app.post("/getVenues",(req,res) =>{
+console.log("Reieved: ", req.body)
+})
+
+
 //auth endpoint
 app.get("/auth", authController.login) 
 app.get("/api/user-data", authController.getUserData) 
-
-//test endpoint
-app.post("/getVenues", (req,res) =>{
-    const db = req.app.get("db")
-    const {venues} = req.body
-    console.log("maps test", req.body)
-})
 
 //Connect to Database
 massive(
