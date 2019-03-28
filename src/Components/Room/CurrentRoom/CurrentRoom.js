@@ -45,7 +45,7 @@ export default class CurrentRoom extends Component {
                           downvotes = {post.downvotes}
                           drinks_given = {post.drinks_given}
                           room_id = {post.room_id}/>
-                </div>
+                </div> 
             )
         })
         let mappedComments = this.state.comments.map(comment =>{

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import "./Comments.css"
-import up from "./up.png"
-import down from "./down.png"
+import up from "../up.png"
+import down from "../down.png"
 import axios from "axios"
 
 export default class Comment extends Component {
