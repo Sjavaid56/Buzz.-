@@ -41,6 +41,17 @@ app.get("/getPosts/:id", roomsController.getRoomData)
 app.get("/getComments/:id", roomsController.getComments)
 app.post("/newPost", roomsController.newPost)
 
+//Sockets
+io.sockets.on('connection', (socket) =>{
+    console.log("User Connected")
+    socket.join("Home")
+    // io.in("Home").emit("NewPost", {})
+    socket.on("NewPost", body =>{
+        console.log("NEW POST!!!!!",body)
+        io.in("Home").emit("Newmessage", body)
+    })
+})
+
 
 //Server listen
 const port = process.env.PORT
