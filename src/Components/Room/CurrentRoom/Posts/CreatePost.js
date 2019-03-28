@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import './createPost.css';
 import Axios from 'axios';
+import {connect} from 'react-redux'
 
-export default class CreatePost extends Component {
+
+
+class CreatePost extends Component {
     constructor(props) {
         super(props);
 
@@ -16,24 +19,27 @@ export default class CreatePost extends Component {
         })
     }
     sendPost = () =>{
-        //Need to have current user to send username, poster_pic
+        //UPDATED TO SEND NEW POST WITH ACTUAL USER INFORMATION, NEED TO GET USERNAME THOUGH
         //Need to have current room info to send to specific room
         //Below is placeholder information until specific data is accessible
         let body = {
             post_content:this.state.message,
-            poster_username:"Test User",
-            poster_pic:"https://tinyurl.com/y4qvnf77",
+            poster_username:this.props.currentUser.profile_name,
+            poster_pic:this.props.currentUser.picture,
             upvotes:0,
             downvotes:0,
             drinks_given:0,
             room_id:1
         }
+        console.log("Sending body: ", body)
         Axios.post("/newPost", body).then(response =>{
             console.log("New message: ", response.data)
         })
     }
 
     render() {
+        console.log("Props in create post: " , this.props)
+        console.log("hi")
         return (
             <div className='create-post__container'>
                 {/* <p>get buzzing!</p> */}
@@ -56,3 +62,9 @@ export default class CreatePost extends Component {
         )
     }
 }
+const mapStateToProps = (state) =>{
+    return{
+        currentUser:state.currentUser
+    }
+}
+export default connect(mapStateToProps,null)(CreatePost)
