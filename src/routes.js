@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom"
 import Landing from "./Components/Landing/Landing"
 import Dashboard from "./Components/Dashboard/Dashboard"
 import userProfile from "./Components/UserProfile/UserProfile"
+import FinishRegistration from './Components/UserProfile/FinishRegistration';
 import Tutorial from "./Components/Tutorial/Tutorial"
 import Comment from "./Components/Room/CurrentRoom/Comments/Comments";
 import DrinkSender from "./Components/Modals/DrinkSender";
@@ -15,6 +16,7 @@ export default (
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/profile" component={userProfile} />
         <Route path="/tutorial" component={Tutorial} />
+        <Route path='/finishregistration' component={FinishRegistration} />
         {/* All below lines are for test purposes */}
         {/* <Route path = "/comment" component = {Comment}/>
         <Route path = "/sweettest" component = {DrinkSender}/>
