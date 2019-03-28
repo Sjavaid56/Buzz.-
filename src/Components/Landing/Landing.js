@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class LoginRegister extends Component {
+export default class Landing extends Component {
     constructor(props) {
         super(props);
 
@@ -12,8 +12,7 @@ export default class LoginRegister extends Component {
     render() {
         return (
             <div>
-                Login/Register! Auth0! Things!
-                After this - routes to dashboard for existing users OR tutorial for new users
+                Landing! Animations! Videos! Cool Stuff!
             </div>
         )
     }

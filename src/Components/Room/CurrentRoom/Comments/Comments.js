@@ -52,10 +52,11 @@ export default class Comment extends Component {
                 </div>
 
                 <div className="comment-parent__footer">
-                    <p>{this.props.comment_upvotes}</p>
                     <button className="comment-parent__vote"><img src={up}></img></button>
-                    <p>{this.props.comment_downvotes}</p>
+                    <p>{this.props.comment_upvotes}</p>
+
                     <button className="comment-parent__vote"><img src={down}></img></button>
+                    <p>{this.props.comment_downvotes}</p>
                 </div>
             </div>
         )

@@ -12,9 +12,7 @@ export default class CreatePost extends Component {
     render() {
         return (
             <div>
-                Shows business name at top
-                Shows create post component
-                Maps through posts/comments
+                This will need to correspond to a button in the header on the page with an onClick function which will then animate this component coming out/sliding out/whatever
             </div>
         )
     }
