@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom"
 
 export default class Tutorial extends Component {
     constructor(props) {
@@ -15,6 +16,12 @@ export default class Tutorial extends Component {
                 Carousel for Tutorial
                 -explain toggle for anonymity
                 -explain buying a drink
+
+                <button>
+                    <Link to='/finishregistration'>
+                        Got it!
+                    </Link>
+                </button>
             </div>
         )
     }
