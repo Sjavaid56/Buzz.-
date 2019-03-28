@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import up from "../up.png"
+import down from "../down.png"
+import './posts.css';
 
 export default class Post extends Component {
     constructor(props) {
@@ -27,8 +30,33 @@ export default class Post extends Component {
 
     render() {
         return (
-            <div className='post-parent'>
-                Render a single post
+            <div className="post-parent">
+                <div className="comment-parent__header">
+
+                    {/* Change all data to equal props from Posts */}
+                    <div className="comment-parent__user-info">
+                        <img className="comment-parent__profile-picture" src={this.props.poster_pic} />
+
+                        <p className="comment-parent__user-name">@{this.props.poster_username}</p>
+                    </div>
+
+                    <div className='comment-parent__timestamp'>
+                        <p className='comment-parent__timeInfo'>3.29.19</p>
+                        <p className='comment-parent__timeInfo'>3:05pm</p>
+                    </div>
+
+                </div>
+
+                <div className="comment-parent__content">
+                    {this.props.post_content}
+                </div>
+
+                <div className="comment-parent__footer">
+                    <p>{this.props.upvotes}</p>
+                    <button className="comment-parent__vote"><img src={up}></img></button>
+                    <p>{this.props.downvotes}</p>
+                    <button className="comment-parent__vote"><img src={down}></img></button>
+                </div>
             </div>
         )
     }
