@@ -18,6 +18,11 @@ export default class CurrentRoom extends Component {
             createPostHidden: true,
             commentsHidden: true
         }
+        props.socket.on("Newmessage", post =>{
+            this.setState({
+                posts:post
+            })
+        })
     }
     //When screen loads, get all the room data for current room
     componentDidMount = () => {
