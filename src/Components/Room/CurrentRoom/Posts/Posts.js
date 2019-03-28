@@ -31,11 +31,6 @@ export default class Post extends Component {
 
     render() {
         return (
-<<<<<<< HEAD
-
-            <div className='post-parent'>
-                Render a single post
-=======
             <div className="post-parent">
                 <div className="comment-parent__header">
 
@@ -66,7 +61,6 @@ export default class Post extends Component {
                     <p>{this.props.downvotes}</p>
 
                 </div>
->>>>>>> 9b0fb73ff865c2833c93aa7e1d69bd8dd4af1680
             </div>
         )
     }
