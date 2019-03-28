@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import up from "../up.png"
 import down from "../down.png"
+import '../Comments/Comments.css';
 import './posts.css';
 
 export default class Post extends Component {
@@ -52,10 +53,13 @@ export default class Post extends Component {
                 </div>
 
                 <div className="comment-parent__footer">
-                    <p>{this.props.upvotes}</p>
+
                     <button className="comment-parent__vote"><img src={up}></img></button>
-                    <p>{this.props.downvotes}</p>
+                    <p>{this.props.upvotes}</p>
+
                     <button className="comment-parent__vote"><img src={down}></img></button>
+                    <p>{this.props.downvotes}</p>
+
                 </div>
             </div>
         )
