@@ -3,7 +3,9 @@ import back from "./back.png"
 import Axios from 'axios';
 import Post from "./Posts/Posts"
 import Comment from "./Comments/Comments"
+import CreatePost from './Posts/CreatePost';
 import pencilIcon from '../../../images/icons8-edit.svg';
+import cancelIcon from '../../../images/icons8-delete-24.png';
 import "./CurrentRoom.css"
 
 export default class CurrentRoom extends Component {
@@ -12,7 +14,9 @@ export default class CurrentRoom extends Component {
 
         this.state = {
             posts: [],
-            comments: []
+            comments: [],
+            createPostHidden: true,
+            commentsHidden: true
         }
     }
     //When screen loads, get all the room data for current room
@@ -32,6 +36,19 @@ export default class CurrentRoom extends Component {
         })
     }
 
+    toggleCreatePost = () => {
+        this.setState({
+            createPostHidden: !this.state.createPostHidden
+        })
+    }
+
+    toggleComments = () => {
+        this.setState({
+            commentsHidden: !this.state.commentsHidden
+        })
+        console.log(this.state.commentsHidden)
+    }
+
     render() {
         let mappedPosts = this.state.posts.map(post => {
             return (
@@ -45,7 +62,8 @@ export default class CurrentRoom extends Component {
                         upvotes={post.upvotes}
                         downvotes={post.downvotes}
                         drinks_given={post.drinks_given}
-                        room_id={post.room_id} />
+                        room_id={post.room_id}
+                        toggleComments={this.toggleComments} />
                 </div>
             )
         })
@@ -67,21 +85,35 @@ export default class CurrentRoom extends Component {
             <div className="Current-room">
                 <header className="Current-room__header">
                     {/* Replace placeholder with props */}
-                    {/* <div className = "Current-room__Info"> */}
-                    <button className="Current-room__back"><img src={back}></img></button>
-                    <p className="Current-room__title">Berdena's</p>
-                    <button className='Current-room__createPost'>
-                        <img src={pencilIcon} />
-                    </button>
-                    {/* </div> */}
+                    <div className="Current-room__Info">
+                        <button className="Current-room__back">
+                            <img src={back} />
+                        </button>
+
+                        <p className="Current-room__title">Berdena's</p>
+
+                        <button className='Current-room__createPost'
+                            onClick={this.toggleCreatePost}>
+                            <img src={this.state.createPostHidden ? pencilIcon : cancelIcon} />
+                        </button>
+                    </div>
+                    <div>
+                        {this.state.createPostHidden ? null :
+                            <CreatePost />}
+                    </div>
                 </header>
                 <main>
+                    {/* Showing the current room - renders CREATE POST, mapped POSTS and mapped COMMENTS */}
+                    {/* If the screen is in mobile view, show the bottom navigation. If it isn't, it will be next to
+                    map component. */}
+                    <div>
 
-                    Showing the current room - renders CREATE POST, mapped POSTS and mapped COMMENTS
-                    If the screen is in mobile view, show the bottom navigation. If it isn't, it will be next to
-                    map component.
-                {mappedPosts.length ? mappedPosts : null}
-                    {mappedComments.length ? mappedComments : null}
+                        {mappedPosts.length ? mappedPosts : null}
+                    </div>
+                    <div className={this.state.commentsHidden ? 'inactive' : 'active'}>
+
+                        {mappedComments.length ? mappedComments : null}
+                    </div>
                 </main>
             </div>
         )

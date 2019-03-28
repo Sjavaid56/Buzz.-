@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import up from "../up.png"
 import down from "../down.png"
+import comment from '../../../../images/icons8-topic-50.png';
 import '../Comments/Comments.css';
 import './posts.css';
 
@@ -58,13 +59,33 @@ export default class Post extends Component {
 
                 <div className="comment-parent__footer">
 
+                    <button className="comment-parent__vote">
+                        {/* will need to add onClick functionality to increment upvotes per the above */}
+                        <img src={up}></img>
+                    </button>
 
-                    <button className="comment-parent__vote"><img src={up}></img></button>
                     <p>{this.props.upvotes}</p>
 
-                    <button className="comment-parent__vote"><img src={down}></img></button>
+                    <button className="comment-parent__vote">
+                        {/* will need to add onClick functionality to increment downvotes per the above */}
+                        <img src={down}></img>
+                    </button>
                     <p>{this.props.downvotes}</p>
 
+                    <button className='post-parent__commentToggle'
+                    // onClick={this will inherit toggle functionality from CurrentRoom}
+                    >
+                        <img src={comment} style={{
+                            height: 24,
+                            width: 24
+                        }}
+                            onClick={this.props.toggleComments} />
+                    </button>
+
+                    <button className='post-parent__sendDrink'>
+                        {/* add onClick functionality to send user a drink */}
+                        send honey
+                    </button>
                 </div>
             </div>
         )
