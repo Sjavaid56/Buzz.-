@@ -21,6 +21,7 @@
     "react-stripe-elements": "^2.0.3",
     "react-webcam": "^1.1.1",
     "redux": "^4.0.1",
+    "semantic-ui-react": "^0.86.0",
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0",
     "sweetalert": "^2.1.2"
@@ -40,6 +41,6 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "main":"server/index.js",
-  "proxy":"http://localhost:4000"
+  "main": "server/index.js",
+  "proxy": "http://localhost:4000"
 }
