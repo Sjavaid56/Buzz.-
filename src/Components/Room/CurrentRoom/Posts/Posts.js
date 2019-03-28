@@ -35,6 +35,10 @@ export default class Post extends Component {
             <div className="post-parent">
                 <div className="comment-parent__header">
 
+
+            <div className="post-parent">
+                <div className="comment-parent__header">
+
                     {/* Change all data to equal props from Posts */}
                     <div className="comment-parent__user-info">
                         <img className="comment-parent__profile-picture" src={this.props.poster_pic} />
@@ -59,6 +63,7 @@ export default class Post extends Component {
                         {/* will need to add onClick functionality to increment upvotes per the above */}
                         <img src={up}></img>
                     </button>
+
                     <p>{this.props.upvotes}</p>
 
                     <button className="comment-parent__vote">
