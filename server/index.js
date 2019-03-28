@@ -1,3 +1,7 @@
+
+
+const authController = require("./Controllers/authController")
+
 //Require Packages
 const express = require("express")
 const bodyParser = require("body-parser")
@@ -20,6 +24,10 @@ app.use(session({
     resave:false
 }))
 
+//auth endpoint
+app.get("/auth", authController.login) 
+app.get("/api/user-data", authController.getUserData) 
+
 //Connect to Database
 massive(
     process.env.CONNECTION_STRING
@@ -35,3 +43,4 @@ app.get("/getComments/:id", roomsController.getComments)
 //Server listen
 const port = process.env.PORT
 server.listen(port, ()=> console.log(`Server listening on port ${port}`));
+
