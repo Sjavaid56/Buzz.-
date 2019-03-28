@@ -31,8 +31,8 @@ export default class Post extends Component {
 
     render() {
         return (
-            <div className="post-parent">
-                <div className="comment-parent__header">
+            // <div className="post-parent">
+            //     <div className="comment-parent__header">
 
 
             <div className="post-parent">
