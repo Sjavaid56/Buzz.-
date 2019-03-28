@@ -34,6 +34,10 @@ export default class Post extends Component {
             <div className="post-parent">
                 <div className="comment-parent__header">
 
+
+            <div className="post-parent">
+                <div className="comment-parent__header">
+
                     {/* Change all data to equal props from Posts */}
                     <div className="comment-parent__user-info">
                         <img className="comment-parent__profile-picture" src={this.props.poster_pic} />
@@ -53,6 +57,7 @@ export default class Post extends Component {
                 </div>
 
                 <div className="comment-parent__footer">
+
 
                     <button className="comment-parent__vote"><img src={up}></img></button>
                     <p>{this.props.upvotes}</p>
