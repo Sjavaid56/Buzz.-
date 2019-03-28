@@ -41,6 +41,7 @@ app.get("/getPosts/:id", roomsController.getRoomData)
 app.get("/getComments/:id", roomsController.getComments)
 app.post("/newPost", roomsController.newPost)
 
+
 //Server listen
 const port = process.env.PORT
 server.listen(port, ()=> console.log(`Server listening on port ${port}`));

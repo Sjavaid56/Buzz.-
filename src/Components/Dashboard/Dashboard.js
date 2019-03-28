@@ -4,6 +4,7 @@ import Map from '../GoogleMaps/GoogleMaps'
 import AvailableRooms from "../Room/AvailableRooms/AvailableRooms"
 import CurrentRoom from '../Room/CurrentRoom/CurrentRoom';
 import './dashboard.css';
+import Axios from 'axios';
 
 const socket = socketIOClient();
 
@@ -14,6 +15,12 @@ export default class Dashboard extends Component {
         this.state = {
 
         }
+    }
+    //Get user data on mount
+    ComponentDidMount = () =>{
+        Axios.get("/api/user-data").then(userData =>{
+            console.log("current User : " ,userData.data)
+        })
     }
 
     render() {

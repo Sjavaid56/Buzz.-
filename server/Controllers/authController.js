@@ -49,7 +49,7 @@ module.exports = {
     .catch(err => console.log(err))
 },
 getUserData(req,res){
-  console.log("Shawn")
+  console.log("Sending", req.session.user);
     res.status(200).json(req.session.user);
 }
 }
