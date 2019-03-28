@@ -1,7 +1,7 @@
 import React, {Component} from "react"
 import {Switch, Route} from "react-router-dom"
 import Landing from "./Components/Landing/landing"
-import LoginRegister from "./Components/LoginRegister/Loginregister"
+import LoginRegister from "./Components/LoginRegister/LoginRegister"
 import Dashboard from "./Components/Dashboard/dashboard"
 import userProfile from "./Components/UserProfile/UserProfile"
 import Tutorial from "./Components/Tutorial/Tutorial"
