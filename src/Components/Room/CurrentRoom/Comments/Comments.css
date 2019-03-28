@@ -6,7 +6,8 @@
     border-top: none;
     border-right: none;
     height:auto;
-    width:400px;
+    width:88%;
+    float: right;
     word-break: break-word;
     padding:10px;
 }
@@ -44,24 +45,29 @@
     font-size: 13px;
 }
 
-
-
-.comment-parent__content {
-    padding: 5px 25px;
+.comment-parent__timeInfo {
+    padding: 5px;
 }
 
-.comment-parent__footer{
+.comment-parent__content {
+    padding: 8px 30px;
+}
+
+.comment-parent__footer {
     width:100%;
+    padding-left: 10px;
     height:30px;
     display:flex;
     justify-content: flex-start;
     align-items: center;
 }
-.comment-parent__vote{
+
+.comment-parent__vote {
     background:none;
     border:none;
 }
-.comment-parent__time{
+
+.comment-parent__time {
     width:100%;
     height:40px;
     display: flex;

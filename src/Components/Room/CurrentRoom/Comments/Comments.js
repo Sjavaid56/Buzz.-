@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import "./Comments.css"
-import up from "./up.png"
-import down from "./down.png"
+import up from "../up.png"
+import down from "../down.png"
 import axios from "axios"
 
 export default class Comment extends Component {
@@ -52,10 +52,11 @@ export default class Comment extends Component {
                 </div>
 
                 <div className="comment-parent__footer">
-                    <p>{this.props.comment_upvotes}</p>
                     <button className="comment-parent__vote"><img src={up}></img></button>
-                    <p>{this.props.comment_downvotes}</p>
+                    <p>{this.props.comment_upvotes}</p>
+
                     <button className="comment-parent__vote"><img src={down}></img></button>
+                    <p>{this.props.comment_downvotes}</p>
                 </div>
             </div>
         )
