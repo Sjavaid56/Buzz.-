@@ -12,9 +12,6 @@ class CreatePost extends Component {
         this.state = {
             message:""
         }
-        props.socket.on("Newmessage", post =>{
-            console.log("New post: ", post)
-        })
     }
     handleChange = (value) =>{
         this.setState({
@@ -34,11 +31,11 @@ class CreatePost extends Component {
             drinks_given:0,
             room_id:1
         }
-        console.log("Sending body: ", body)
-        Axios.post("/newPost", body).then(response =>{
-            console.log("New message: ", response.data)
-        })
-        console.log(this.props.socket)
+        // console.log("Sending body: ", body)
+        // Axios.post("/newPost", body).then(response =>{
+        //     console.log("New message: ", response.data)
+        // })
+        // console.log(this.props.socket)
         this.props.socket.emit("NewPost", body)
     }
 

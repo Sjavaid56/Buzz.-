@@ -43,12 +43,16 @@ app.post("/newPost", roomsController.newPost)
 
 //Sockets
 io.sockets.on('connection', (socket) =>{
+    const db = app.get("db")
     console.log("User Connected")
     socket.join("Home")
     // io.in("Home").emit("NewPost", {})
     socket.on("NewPost", body =>{
-        console.log("NEW POST!!!!!",body)
-        io.in("Home").emit("Newmessage", body)
+        const {poster_username,poster_pic,post_content,post_img,upvotes,downvotes,drinks_given,room_id} = body
+        db.newPost([poster_username,poster_pic,post_content,post_img,upvotes,downvotes,drinks_given,room_id]).then(response =>{
+            console.log("Response after adding message: ", response)
+            io.in("Home").emit("Newmessage", response)
+        })
     })
 })
 
