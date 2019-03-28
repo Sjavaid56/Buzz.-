@@ -99,7 +99,7 @@ export default class CurrentRoom extends Component {
                     </div>
                     <div>
                         {this.state.createPostHidden ? null :
-                            <CreatePost />}
+                            <CreatePost socket = {this.props.socket}/>}
                     </div>
                 </header>
                 <main>

@@ -8,7 +8,7 @@ import Axios from 'axios';
 import {connect} from "react-redux"
 import { updateCurrentUser } from "../../redux/reducer"
 
-const socket = socketIOClient();
+const socket = socketIOClient("http://localhost:4000/");
 
 class Dashboard extends Component {
     constructor(props) {
@@ -30,7 +30,7 @@ class Dashboard extends Component {
             <div className='dashboard-container'>
 
                 <div className='hive-container'>
-                    <CurrentRoom />
+                    <CurrentRoom socket = {socket}/>
                 </div>
 
                 <div className='map-container'>
