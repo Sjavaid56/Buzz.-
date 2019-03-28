@@ -28,6 +28,13 @@ app.use(session({
 app.get("/auth", authController.login) 
 app.get("/api/user-data", authController.getUserData) 
 
+//test endpoint
+app.post("/getVenues", (req,res) =>{
+    const db = req.app.get("db")
+    const {venues} = req.body
+    console.log("maps test", req.body)
+})
+
 //Connect to Database
 massive(
     process.env.CONNECTION_STRING

@@ -91,7 +91,14 @@ class App extends Component {
         this.setState({
           venues2: response.data.response.groups[0].items
         }, this.renderMap())
+        let body =  response.data.response.groups[0].items
+        console.log("body: ", body)
+      }).then(()=>{
+        let body = this.state.venues2
+        console.log("sending data",body)
+        axios.post("/getVenues", body)
       })
+      
       .catch(error => {
         console.log("ERROR!! " + error)
       })
@@ -148,6 +155,7 @@ class App extends Component {
 
   }
   render() {
+    console.log(this.state.venues)
     return (
       <main>
         <div id="map"></div>
