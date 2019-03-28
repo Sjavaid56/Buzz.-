@@ -19,7 +19,7 @@ export default class Dashboard extends Component {
     //Get user data on mount
     ComponentDidMount = () =>{
         Axios.get("/api/user-data").then(userData =>{
-            console.log("current User : " ,userData.data)
+            console.log("current User : " , userData.data)
         })
     }
 
