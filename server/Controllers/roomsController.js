@@ -29,18 +29,11 @@ module.exports = {
             res.status(200).json(allPosts)
         })
     },
-<<<<<<< HEAD
-    getRooms:(req,res) =>{
-        const db = req.app.get("db")
-        db.getRooms().then(businesses =>{
-            res.status(200).json(businesses)
-=======
     getRooms: (req, res) => {
         const db = req.app.get('db')
 
         db.get_rooms().then(rooms => {
             res.status(200).json(rooms)
->>>>>>> 7fe1e8882e3079e3c2938d99adb41c7b3ed64be7
         })
     }
  }

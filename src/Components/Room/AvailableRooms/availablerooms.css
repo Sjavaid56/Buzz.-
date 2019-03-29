@@ -10,13 +10,10 @@
     align-items: center;
     font-size: 35px;
     min-height: 98px;
-<<<<<<< HEAD
-=======
 }
 
 .mapped-businesses {
     overflow-y: scroll;
->>>>>>> 7fe1e8882e3079e3c2938d99adb41c7b3ed64be7
 }
 
 .available-rooms {
