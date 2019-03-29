@@ -29,9 +29,9 @@ class CreatePost extends Component {
             upvotes: 0,
             downvotes: 0,
             drinks_given: 0,
-            room_id: 1
+            room_id: this.props.currentRoom
         }
-
+        console.log("SENDING THIS POST.", body)
         this.props.socket.emit("NewPost", body)
     }
 
@@ -62,7 +62,8 @@ class CreatePost extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        currentUser: state.currentUser
+        currentUser: state.currentUser,
+        currentRoom: state.currentRoom
     }
 }
 export default connect(mapStateToProps, null)(CreatePost)

@@ -58,6 +58,7 @@ io.sockets.on('connection', (socket) => {
     // io.in("Home").emit("NewPost", {})
     socket.on("NewPost", body => {
         const { poster_username, poster_pic, post_content, post_img, upvotes, downvotes, drinks_given, room_id } = body
+        console.log("RECIEVED POST DATA ON BACKEND", body)
         db.newPost([poster_username, poster_pic, post_content, post_img, upvotes, downvotes, drinks_given, room_id]).then(response => {
             console.log("Response after adding message: ", response)
             io.in(room_id).emit("Newmessage", response)
@@ -77,6 +78,7 @@ io.sockets.on('connection', (socket) => {
 
         db.join_user_to_room(room_id).then(room => {
             db.getPostsinRoom(room_id).then(roomData => {
+                console.log("This is the found room data for room", room_id + "   " + roomData)
                 io.in(room_id).emit('SendRoomData', roomData)
             })
         })

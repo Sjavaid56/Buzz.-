@@ -28,7 +28,7 @@ class CurrentRoom extends Component {
             this.setState({
                 posts: post
             })
-            console.log(post)
+            console.log("RECIEVED ALL POSTS FOR THIS ROOM,", post)
         })
         props.socket.on("AllComments", comments => {
             this.setState({
