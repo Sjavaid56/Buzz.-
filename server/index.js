@@ -54,6 +54,13 @@ io.sockets.on('connection', (socket) =>{
             io.in("Home").emit("Newmessage", response)
         })
     })
+    socket.on("NewComment", body =>{
+        console.log("Got body", body)
+        const {comment_message,post_id,commenter_user_name,commenter_img,comment_upvotes,comment_downvotes,room_id} = body
+        db.newComment([post_id,commenter_user_name,comment_message,comment_upvotes,comment_downvotes,commenter_img,room_id]).then(allComments =>{
+            io.in("Home").emit("AllComments", allComments)
+        })
+    })
 })
 
 

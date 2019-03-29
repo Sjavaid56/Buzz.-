@@ -8,8 +8,10 @@ import CreatePost from './Posts/CreatePost';
 import pencilIcon from '../../../images/icons8-edit.svg';
 import cancelIcon from '../../../images/icons8-delete-24.png';
 import "./CurrentRoom.css"
+import {connect} from "react-redux"
 
-export default class CurrentRoom extends Component {
+
+class CurrentRoom extends Component {
     constructor(props) {
         super(props);
 
@@ -17,11 +19,17 @@ export default class CurrentRoom extends Component {
             posts: [],
             comments: [],
             createPostHidden: true,
-            commentsHidden: true
+            commentsHidden: true,
+            commentMessage:""
         }
         props.socket.on("Newmessage", post => {
             this.setState({
                 posts: post
+            })
+        })
+        props.socket.on("AllComments", comments =>{
+            this.setState({
+                comments:comments
             })
         })
     }
@@ -54,9 +62,46 @@ export default class CurrentRoom extends Component {
         })
         console.log(this.state.commentsHidden)
     }
+    handleCommentChange = (value) =>{
+        this.setState({
+            commentMessage:value
+        })
+    }
+    newComment = (post_id) =>{
+        let body = {
+            comment_message:this.state.commentMessage,
+            post_id:post_id,
+            commenter_user_name:this.props.currentUser.profile_name,
+            commenter_img:this.props.currentUser.picture,
+            comment_upvotes:0,
+            comment_downvotes:0,
+            //CHANGE TO BE RIGHT ROOM
+            room_id:1
+        }
+        this.props.socket.emit("NewComment", body)
+        this.setState({
+            commentMessage:""
+        })
+    }
 
     render() {
         let mappedPosts = this.state.posts.map(post => {
+            let mappedComments = this.state.comments.map(comment =>{
+                if(comment.post_id == post.post_id){
+                    return (
+                        <div>
+                            <Comment comment_content={comment.comment_content}
+                                comment_downvotes={comment.comment_downvotes}
+                                comment_id={comment.comment_id}
+                                comment_upvotes={comment.comment_upvotes}
+                                commenter_img={comment.commenter_img}
+                                commenter_user_name={comment.commenter_user_name}
+                                post_id={comment.post_id}
+                                room_id={comment.room_id} />
+                        </div>
+                    )
+                }
+            })
             return (
                 <div>
                     <Post post_id={post.post_id}
@@ -70,23 +115,19 @@ export default class CurrentRoom extends Component {
                         drinks_given={post.drinks_given}
                         room_id={post.room_id}
                         toggleComments={this.toggleComments} />
+                        
+                        {/* <div className={this.state.commentsHidden ? 'inactive' : 'active'}> */}
+                            {mappedComments}
+                        {/* </div> */}
+                        <div className = "leaveComment-parent" >
+                            <input onChange = {(e) => {this.handleCommentChange(e.target.value)}} className = "leaveComment-parent__input" placeholder = "Enter Comment here!">
+                            </input>
+                            <button onClick = {() =>{this.newComment(post.post_id)}} className = "leaveComment-parent__button">buzz</button>
+                        </div>              
                 </div>
             )
         })
-        let mappedComments = this.state.comments.map(comment => {
-            return (
-                <div>
-                    <Comment comment_content={comment.comment_content}
-                        comment_downvotes={comment.comment_downvotes}
-                        comment_id={comment.comment_id}
-                        comment_upvotes={comment.comment_upvotes}
-                        commenter_img={comment.commenter_img}
-                        commenter_user_name={comment.commenter_user_name}
-                        post_id={comment.post_id}
-                        room_id={comment.room_id} />
-                </div>
-            )
-        })
+        
         return (
             <div className="Current-room">
                 <header className="Current-room__header">
@@ -109,7 +150,7 @@ export default class CurrentRoom extends Component {
                             <CreatePost socket={this.props.socket} />}
                     </div>
                 </header>
-                <main>
+                <main className = "Current-room__main">
                     {/* Showing the current room - renders CREATE POST, mapped POSTS and mapped COMMENTS */}
                     {/* If the screen is in mobile view, show the bottom navigation. If it isn't, it will be next to
                     map component. */}
@@ -117,12 +158,14 @@ export default class CurrentRoom extends Component {
 
                         {mappedPosts.length ? mappedPosts : null}
                     </div>
-                    <div className={this.state.commentsHidden ? 'inactive' : 'active'}>
-
-                        {mappedComments.length ? mappedComments : null}
-                    </div>
                 </main>
             </div>
         )
     }
 }
+const MapStateToProps = (state) =>{
+    return{
+        currentUser:state.currentUser
+    }
+}
+export default connect(MapStateToProps, null)(CurrentRoom)
