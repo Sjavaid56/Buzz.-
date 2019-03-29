@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import back from "./back.png"
 import Axios from 'axios';
 import Post from "./Posts/Posts"
@@ -9,6 +9,7 @@ import pencilIcon from '../../../images/icons8-edit.svg';
 import cancelIcon from '../../../images/icons8-delete-24.png';
 import "./CurrentRoom.css"
 import { connect } from "react-redux"
+import { updateCurrentRoom } from '../../../redux/reducer';
 
 
 class CurrentRoom extends Component {
@@ -20,29 +21,39 @@ class CurrentRoom extends Component {
             comments: [],
             createPostHidden: true,
             commentsHidden: true,
-            commentMessage: ""
+            commentMessage: "",
+            currentRoomData: []
         }
         props.socket.on("Newmessage", post => {
             this.setState({
                 posts: post
             })
+            console.log(post)
         })
         props.socket.on("AllComments", comments => {
             this.setState({
                 comments: comments
             })
         })
+        props.socket.on('SendRoomData', roomData => {
+            this.setState({
+                currentRoomData: roomData
+            })
+            console.log('this is the room data!', roomData)
+        })
     }
     //When screen loads, get all the room data for current room
     componentDidMount = () => {
-        Axios.get(`/getPosts/${1}`).then(posts => {
+        const { currentRoom } = this.props;
+
+        Axios.get(`/getPosts/${currentRoom}`).then(posts => {
             this.setState({
                 posts: posts.data
             })
             console.log(posts.data)
         })
         //get comments that are associated with correct room and posts
-        Axios.get(`/getComments/${1}`).then(comments => {
+        Axios.get(`/getComments/${currentRoom}`).then(comments => {
             this.setState({
                 comments: comments.data
             })
@@ -76,7 +87,7 @@ class CurrentRoom extends Component {
             comment_upvotes: 0,
             comment_downvotes: 0,
             //CHANGE TO BE RIGHT ROOM
-            room_id: 1
+            room_id: this.props.currentRoom
         }
         this.props.socket.emit("NewComment", body)
         this.setState({
@@ -85,6 +96,7 @@ class CurrentRoom extends Component {
     }
 
     render() {
+        console.log(this.state.posts)
         let mappedPosts = this.state.posts.map(post => {
             let mappedComments = this.state.comments.map(comment => {
                 if (comment.post_id == post.post_id) {
@@ -168,7 +180,8 @@ class CurrentRoom extends Component {
 }
 const MapStateToProps = (state) => {
     return {
-        currentUser: state.currentUser
+        currentUser: state.currentUser,
+        currentRoom: state.currentRoom
     }
 }
-export default connect(MapStateToProps, null)(CurrentRoom)
+export default connect(MapStateToProps, { updateCurrentRoom })(CurrentRoom)

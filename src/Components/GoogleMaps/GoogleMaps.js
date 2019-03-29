@@ -130,7 +130,7 @@ class App extends Component {
 
 
     this.state.venues2.map(myVenue => {
-      console.log("latlong", myVenue.latitude)
+      // console.log("latlong", myVenue.latitude)
       var contentString2 = `${myVenue.business_name}`
       // Create A Marker
 

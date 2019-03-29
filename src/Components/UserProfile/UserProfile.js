@@ -16,7 +16,7 @@ export default class UserProfile extends Component {
         return (
             <div className='profile-parent'>
                 <div className='profile-header'>
-                    <img src={profileplaceholder}
+                    <img src={profileplaceholder} alt='profile placeholder'
                         className='profile-header__picture' />
                 </div>
 

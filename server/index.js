@@ -60,23 +60,23 @@ io.sockets.on('connection', (socket) => {
         const { poster_username, poster_pic, post_content, post_img, upvotes, downvotes, drinks_given, room_id } = body
         db.newPost([poster_username, poster_pic, post_content, post_img, upvotes, downvotes, drinks_given, room_id]).then(response => {
             console.log("Response after adding message: ", response)
-            io.in("Home").emit("Newmessage", response)
+            io.in(room_id).emit("Newmessage", response)
         })
     })
     socket.on("NewComment", body => {
         console.log("Got body", body)
         const { comment_message, post_id, commenter_user_name, commenter_img, comment_upvotes, comment_downvotes, room_id } = body
         db.newComment([post_id, commenter_user_name, comment_message, comment_upvotes, comment_downvotes, commenter_img, room_id]).then(allComments => {
-            io.in("Home").emit("AllComments", allComments)
+            io.in(room_id).emit("AllComments", allComments)
         })
     })
     socket.on('JoinedRoom', body => {
-        const { room_id, business_name, business_type, latitude, longitude, number_of_users } = body
-
+        const { room_id } = body
+        console.log(room_id)
         socket.join(room_id)
 
         db.join_user_to_room(room_id).then(room => {
-            db.getPostsinRooms(room_id).then(roomData => {
+            db.getPostsinRoom(room_id).then(roomData => {
                 io.in(room_id).emit('SendRoomData', roomData)
             })
         })
