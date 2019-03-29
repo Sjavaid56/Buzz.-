@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './GoogleMaps.css'
 import axios from 'axios'
-import Diamond from '/Users/shawnjavaid/Documents/Buzz.-/src/images/assets/logo/buzz-logo-orange-nobg.png';
+import BeeIcon from '../../images/assets/logo/buzz-bee-charcoal.svg';
 
 const getGeoLocation = () => {
   const geolocation = navigator.geolocation;
@@ -34,7 +34,7 @@ class App extends Component {
     // this.getVenues()
     this.getVenues2()
     this.initGeoLocation();
-    
+
   }
 
   componentWillUpdate() {
@@ -81,7 +81,7 @@ class App extends Component {
 
   }
   getVenues2 = () => {
-    axios.get("/dbvenues")
+    axios.get("/getRooms")
       .then(business => {
         this.setState({
           venues2: business.data
@@ -93,7 +93,7 @@ class App extends Component {
   }
 
 
-  
+
   initMap = () => {
     // Create A Map
     var map = new window.google.maps.Map(document.getElementById('map'), {
@@ -109,7 +109,13 @@ class App extends Component {
       var contentString = `${myVenue.venue.name}`
       // Create A Marker
       var marker = new window.google.maps.Marker({
-        position: { lat: myVenue.venue.location.lat, lng: myVenue.venue.location.lng },
+        position: {
+          lat: myVenue.venue.location.lat, lng: myVenue.venue.location.lng
+        },
+        // icon: {
+        //   url: '../../images/assets/logo/buzz-bee-charcoal.svg',
+        //   scaledSize: new window.google.maps.Size(64, 64)
+        // },
         map: map,
         title: myVenue.venue.name
       })
@@ -127,14 +133,16 @@ class App extends Component {
       console.log("latlong", myVenue.latitude)
       var contentString2 = `${myVenue.business_name}`
       // Create A Marker
-      var image = 'https://www.flaticon.com/free-icon/beehive_424052#term=beehive&page=1&position=9';
-   
+
 
       var marker2 = new window.google.maps.Marker({
         position: { lat: myVenue.latitude, lng: myVenue.longitude },
         map: map,
         title: myVenue.business_name,
-        icon: image
+        icon: {
+          url: BeeIcon,
+          scaledSize: new window.google.maps.Size(60, 60)
+        }
         // animation: google.maps.Animation.DROP,
 
       })
@@ -175,19 +183,19 @@ export default App;
 
 // const getGeoLocation = () => {
 //   const geolocation = navigator.geolocation;
-  
+
 //   const location = new Promise((resolve, reject) => {
 //     if (!geolocation) {
 //       reject(new Error('Not Supported'));
 //     }
-    
+
 //     geolocation.getCurrentPosition((position) => {
 //       resolve(position);
 //     }, () => {
 //       reject (new Error('Permission denied'));
 //     });
 //   });
-  
+
 //   return location
 // };
 
@@ -216,9 +224,9 @@ export default App;
   //     })
   //   })
   // }
-  
 
-  
+
+
 
 
 //   componentWillUpdate(){
@@ -243,18 +251,18 @@ export default App;
 //     this.initGeoLocation()
 //   }
 
- 
+
 //   render() {
 
-    
+
 //     const { loading, isMarkerShown, currentLatLng } = this.state;
 
 //     if (loading) {
 //       return 'One second, Buzz is looking for some hives near you.';
 //     }
-    
+
 //     return (
-      
+
 //       <MapComponent
 //         isMarkerShown={isMarkerShown}
 //         onMarkerClick={this.handleMarkerClick}

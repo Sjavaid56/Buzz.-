@@ -27,7 +27,7 @@ app.use(session({
 //testing location info for db 
 // app.post("/venues",roomsController.postBusiness)
 // plotting from db 
-app.get("/dbvenues", roomsController.getBusiness) 
+// app.get("/dbvenues", roomsController.getBusiness) 
 
 
 //auth endpoint
