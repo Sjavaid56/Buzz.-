@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import './GoogleMaps.css'
 import axios from 'axios'
+import Diamond from '/Users/shawnjavaid/Documents/Buzz.-/src/images/assets/logo/buzz-logo-orange-nobg.png';
+
 const getGeoLocation = () => {
   const geolocation = navigator.geolocation;
 
@@ -22,10 +24,6 @@ class App extends Component {
   state = {
     venues: [],
     venues2: [],
-    venues3: [],
-    venues4: [],
-    venues5: [],
-    venues6: [],
     currentLatLng: {
       lat: 0,
       lng: 0,
@@ -33,13 +31,10 @@ class App extends Component {
     isMarkerShown: false
   }
   componentDidMount() {
-    this.getVenues()
+    // this.getVenues()
     this.getVenues2()
-    this.getVenues3()
-    this.getVenues4()
-    this.getVenues5()
-    this.getVenues6()
     this.initGeoLocation();
+    
   }
 
   componentWillUpdate() {
@@ -76,24 +71,9 @@ class App extends Component {
     }
     axios.get(endPoint + new URLSearchParams(parameters))
       .then(response => {
-        console.log(response)
         this.setState({
           venues: response.data.response.groups[0].items
         }, this.renderMap())
-        const bdata = response.data.response.groups[0].items.map(business => {
-          return {
-            Name: business.venue.name,
-            Type: business.venue.categories[0].pluralName,
-            Lat: business.venue.location.lat,
-            Lng: business.venue.location.lng
-         }
-        })
-        axios.post('/venues', bdata)
-        .then(function (response){
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
       })
       .catch(error => {
         console.log("ERROR!! " + error)
@@ -101,135 +81,24 @@ class App extends Component {
 
   }
   getVenues2 = () => {
-    const endPoint2 = "https://api.foursquare.com/v2/venues/explore?"
-    const parameters2 = {
-      client_id: "PMHC2WA1VCBHVYOPPSJ0QSBYTLRF4PNJ04OWVWV0PZJ0QFIR",
-      client_secret: "CULSZZ44YAEBOWBFGPB4BF5ISRXXSNYR0EE3JV3CNE2ZWHV0",
-      query: "books",
-      near: "Phoenix",
-      v: "20182507"
-    }
-    axios.get(endPoint2 + new URLSearchParams(parameters2))
-      .then(response => {
+    axios.get("/dbvenues")
+      .then(business => {
         this.setState({
-          venues2: response.data.response.groups[0].items
+          venues2: business.data
         }, this.renderMap())
-        let body =  response.data.response.groups[0].items
-        console.log("body: ", body)
-      }).then(()=>{
-
       })
-
       .catch(error => {
         console.log("ERROR!! " + error)
       })
-
-  }
-  getVenues3 = () => {
-    const endPoint3 = "https://api.foursquare.com/v2/venues/explore?"
-    const parameters3 = {
-      client_id: "PMHC2WA1VCBHVYOPPSJ0QSBYTLRF4PNJ04OWVWV0PZJ0QFIR",
-      client_secret: "CULSZZ44YAEBOWBFGPB4BF5ISRXXSNYR0EE3JV3CNE2ZWHV0",
-      query: "Hotel",
-      near: "Phoenix",
-      v: "20182507"
-    }
-    axios.get(endPoint3 + new URLSearchParams(parameters3))
-      .then(response => {
-        this.setState({
-          venues3: response.data.response.groups[0].items
-        }, this.renderMap())
-        let body =  response.data.response.groups[0].items
-        console.log("body: ", body)
-      }).then(()=>{
-
-      })
-
-      .catch(error => {
-        console.log("ERROR!! " + error)
-      })
-
-    }
-      getVenues4 = () => {
-        const endPoint4 = "https://api.foursquare.com/v2/venues/explore?"
-        const parameters4 = {
-          client_id: "PMHC2WA1VCBHVYOPPSJ0QSBYTLRF4PNJ04OWVWV0PZJ0QFIR",
-          client_secret: "CULSZZ44YAEBOWBFGPB4BF5ISRXXSNYR0EE3JV3CNE2ZWHV0",
-          query: "airport",
-          near: "Phoenix",
-          v: "20182507"
-        }
-        axios.get(endPoint4 + new URLSearchParams(parameters4))
-          .then(response => {
-            this.setState({
-              venues4: response.data.response.groups[0].items
-            }, this.renderMap())
-            let body =  response.data.response.groups[0].items
-            console.log("body: ", body)
-          }).then(()=>{
-    
-          })
-    
-          .catch(error => {
-            console.log("ERROR!! " + error)
-          })
-        }
-        getVenues5 = () => {
-          const endPoint5 = "https://api.foursquare.com/v2/venues/explore?"
-          const parameters5 = {
-            client_id: "PMHC2WA1VCBHVYOPPSJ0QSBYTLRF4PNJ04OWVWV0PZJ0QFIR",
-            client_secret: "CULSZZ44YAEBOWBFGPB4BF5ISRXXSNYR0EE3JV3CNE2ZWHV0",
-            query: "Arenas",
-            near: "Phoenix",
-            v: "20182507"
-          }
-          axios.get(endPoint5 + new URLSearchParams(parameters5))
-            .then(response => {
-              this.setState({
-                venues5: response.data.response.groups[0].items
-              }, this.renderMap())
-              let body =  response.data.response.groups[0].items
-              console.log("body: ", body)
-            }).then(()=>{
-      
-            })
-      
-            .catch(error => {
-              console.log("ERROR!! " + error)
-            })
-          }
-            getVenues6 = () => {
-              const endPoint6 = "https://api.foursquare.com/v2/venues/explore?"
-              const parameters6 = {
-                client_id: "PMHC2WA1VCBHVYOPPSJ0QSBYTLRF4PNJ04OWVWV0PZJ0QFIR",
-                client_secret: "CULSZZ44YAEBOWBFGPB4BF5ISRXXSNYR0EE3JV3CNE2ZWHV0",
-                query: "cocktail",
-                near: "Phoenix",
-                v: "20182507"
-              }
-              axios.get(endPoint6 + new URLSearchParams(parameters6))
-                .then(response => {
-                  this.setState({
-                    venues6: response.data.response.groups[0].items
-                  }, this.renderMap())
-                  let body =  response.data.response.groups[0].items
-                  console.log("body: ", body)
-                }).then(()=>{
-          
-                })
-          
-                .catch(error => {
-                  console.log("ERROR!! " + error)
-                })
-              
-
   }
 
+
+  
   initMap = () => {
     // Create A Map
     var map = new window.google.maps.Map(document.getElementById('map'), {
       center: { lat: 33.4486, lng: -112.0773 },
-      zoom: 15
+      zoom: 12
 
     })
 
@@ -253,14 +122,21 @@ class App extends Component {
       })
     })
 
+
     this.state.venues2.map(myVenue => {
-      console.log("latlong", this.currentLatLng)
-      var contentString2 = `${myVenue.venue.name}`
+      console.log("latlong", myVenue.latitude)
+      var contentString2 = `${myVenue.business_name}`
       // Create A Marker
+      var image = 'https://www.flaticon.com/free-icon/beehive_424052#term=beehive&page=1&position=9';
+   
+
       var marker2 = new window.google.maps.Marker({
-        position: { lat: myVenue.venue.location.lat, lng: myVenue.venue.location.lng },
+        position: { lat: myVenue.latitude, lng: myVenue.longitude },
         map: map,
-        title: myVenue.venue.name
+        title: myVenue.business_name,
+        icon: image
+        // animation: google.maps.Animation.DROP,
+
       })
       // Click on A Marker!
       marker2.addListener('click', function () {
@@ -270,115 +146,19 @@ class App extends Component {
         infowindow.open(map, marker2)
       })
 
-
-    })
-    this.state.venues3.map(myVenue => {
-      console.log("latlong", this.currentLatLng)
-      var contentString3 = `${myVenue.venue.name}`
-      // Create A Marker
-      var marker3 = new window.google.maps.Marker({
-        position: { lat: myVenue.venue.location.lat, lng: myVenue.venue.location.lng },
-        map: map,
-        title: myVenue.venue.name
-      })
-      // Click on A Marker!
-      marker3.addListener('click', function () {
-        // Change the content
-        infowindow.setContent(contentString3)
-        // Open An InfoWindow
-        infowindow.open(map, marker3)
-      })
-
-
-    })
-    this.state.venues4.map(myVenue => {
-      console.log("latlong", this.currentLatLng)
-      var contentString4 = `${myVenue.venue.name}`
-      // Create A Marker
-      var marker4 = new window.google.maps.Marker({
-        position: { lat: myVenue.venue.location.lat, lng: myVenue.venue.location.lng },
-        map: map,
-        title: myVenue.venue.name
-      })
-      // Click on A Marker!
-      marker4.addListener('click', function () {
-        // Change the content
-        infowindow.setContent(contentString4)
-        // Open An InfoWindow
-        infowindow.open(map, marker4)
-      })
-
-
-    })
-    this.state.venues5.map(myVenue => {
-      console.log("latlong", this.currentLatLng)
-      var contentString5 = `${myVenue.venue.name}`
-      // Create A Marker
-      var marker5 = new window.google.maps.Marker({
-        position: { lat: myVenue.venue.location.lat, lng: myVenue.venue.location.lng },
-        map: map,
-        title: myVenue.venue.name
-      })
-      // Click on A Marker!
-      marker5.addListener('click', function () {
-        // Change the content
-        infowindow.setContent(contentString5)
-        // Open An InfoWindow
-        infowindow.open(map, marker5)
-      })
-
-
     })
 
-    this.state.venues6.map(myVenue => {
-      console.log("latlong", this.currentLatLng)
-      var contentString6 = `${myVenue.venue.name}`
-      // Create A Marker
-      var marker6 = new window.google.maps.Marker({
-        position: { lat: myVenue.venue.location.lat, lng: myVenue.venue.location.lng },
-        map: map,
-        title: myVenue.venue.name
-      })
-      // Click on A Marker!
-      marker6.addListener('click', function () {
-        // Change the content
-        infowindow.setContent(contentString6)
-        // Open An InfoWindow
-        infowindow.open(map, marker6)
-      })
 
-
-    })
-
-        
   }
-  sendLocToBack = () =>{
-    for(let i = 0; i < this.state.venues2.length; i++){
-      let body = {
-        business_name:this.state.venues2[i].venue.name,
-        business_type:this.state.venues2[i].venue.categories[i].pluralName,
-        latitude:this.state.venues2[i].venue.location.lat,
-        longitude:this.state.venues2[i].venue.location.lng,
-        // number_of_users:0
-      }
-      console.log("SENDING: ", body)
-      // axios.post("/getVenues")
-    }
-}
   render() {
-    console.log("map buss",)
-
-    console.log(this.state.venues)
     return (
       <main>
-        <button onClick={this.sendLocToBack}> </button>
         <div id="map"></div>
       </main>
     )
   }
-
 }
-  function loadScript(url) {
+function loadScript(url) {
   var index = window.document.getElementsByTagName("script")[0]
   var script = window.document.createElement("script")
   script.src = url
@@ -386,5 +166,103 @@ class App extends Component {
   script.defer = true
   index.parentNode.insertBefore(script, index)
 }
-
 export default App;
+
+
+// import React, { Component } from 'react';
+// import MapComponent from './map2';
+// import axios from "axios";
+
+// const getGeoLocation = () => {
+//   const geolocation = navigator.geolocation;
+  
+//   const location = new Promise((resolve, reject) => {
+//     if (!geolocation) {
+//       reject(new Error('Not Supported'));
+//     }
+    
+//     geolocation.getCurrentPosition((position) => {
+//       resolve(position);
+//     }, () => {
+//       reject (new Error('Permission denied'));
+//     });
+//   });
+  
+//   return location
+// };
+
+// class GoogleMaps extends Component {
+//   state = {
+//     loading: true,
+//     venues: [],
+//     name:[],
+//     lat: [],
+//     lng: [],
+//     currentLatLng: {
+//       lat: 0,
+//       lng: 0,
+//     },
+//     isMarkerShown: false
+//   }
+
+  // componentDidMount() {
+  //   this.initGeoLocation();
+  //   axios.get("/dbvenues").then(business => {
+  //     console.log("db bdata", business.data.latitude, business.data.business_name)
+  //     console.log(typeof business.data[0].latitude)
+  //     console.log("full db info",business.data)
+  //     this.setState({
+  //       venues: business.data
+  //     })
+  //   })
+  // }
+  
+
+  
+
+
+//   componentWillUpdate(){
+//     this.initGeoLocation()
+//   }
+
+//   initGeoLocation() {
+//     getGeoLocation().then(location=> {
+//       this.setState({
+//         loading: false,
+//         currentLatLng: {
+//           lat: location.coords.latitude,
+//           lng: location.coords.longitude,
+//         },
+//         isMarkerShown: true
+//       })
+//     });
+//   }
+
+//   handleMarkerClick = () => {
+//     this.setState({ isMarkerShown: false })
+//     this.initGeoLocation()
+//   }
+
+ 
+//   render() {
+
+    
+//     const { loading, isMarkerShown, currentLatLng } = this.state;
+
+//     if (loading) {
+//       return 'One second, Buzz is looking for some hives near you.';
+//     }
+    
+//     return (
+      
+//       <MapComponent
+//         isMarkerShown={isMarkerShown}
+//         onMarkerClick={this.handleMarkerClick}
+//         currentLocation={currentLatLng}
+//         venues = {this.state.venues}
+//       />
+//     );
+//   }
+// }
+
+// export default GoogleMaps;
