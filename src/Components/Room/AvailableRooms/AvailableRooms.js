@@ -10,8 +10,15 @@ export default class AvailableRooms extends Component {
         super(props);
 
         this.state = {
-            rooms: []
+            rooms: [],
+            currentRoomData: []
         }
+
+        props.socket.on('SendRoomData', roomData => {
+            this.setState({
+                currentRoomData: roomData
+            })
+        })
     }
 
     //When screen loads, get all the rooms (change styling based on radius to user's geolocation) within a radius - maybe a mile - of the user's location
@@ -23,7 +30,21 @@ export default class AvailableRooms extends Component {
         })
     }
 
+    joinSingleRoom = (room_id) => {
+        let body = {
+            business_name: this.state.rooms.business_name,
+            business_type: this.state.rooms.business_type,
+            latitude: this.state.rooms.latitude,
+            longitude: this.state.rooms.longitude,
+            number_of_users: this.state.rooms.number_of_users
+        }
+
+        this.props.socket.emit('JoinedRoom', body)
+
+    }
+
     render() {
+        console.log(this.state.currentRoomData)
 
         let mappedRooms = this.state.rooms.map((room) => {
             return (<div className='available-rooms'>

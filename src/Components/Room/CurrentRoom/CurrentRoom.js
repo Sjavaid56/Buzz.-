@@ -8,7 +8,7 @@ import CreatePost from './Posts/CreatePost';
 import pencilIcon from '../../../images/icons8-edit.svg';
 import cancelIcon from '../../../images/icons8-delete-24.png';
 import "./CurrentRoom.css"
-import {connect} from "react-redux"
+import { connect } from "react-redux"
 
 
 class CurrentRoom extends Component {
@@ -20,16 +20,16 @@ class CurrentRoom extends Component {
             comments: [],
             createPostHidden: true,
             commentsHidden: true,
-            commentMessage:""
+            commentMessage: ""
         }
         props.socket.on("Newmessage", post => {
             this.setState({
                 posts: post
             })
         })
-        props.socket.on("AllComments", comments =>{
+        props.socket.on("AllComments", comments => {
             this.setState({
-                comments:comments
+                comments: comments
             })
         })
     }
@@ -62,32 +62,32 @@ class CurrentRoom extends Component {
         })
         console.log(this.state.commentsHidden)
     }
-    handleCommentChange = (value) =>{
+    handleCommentChange = (value) => {
         this.setState({
-            commentMessage:value
+            commentMessage: value
         })
     }
-    newComment = (post_id) =>{
+    newComment = (post_id) => {
         let body = {
-            comment_message:this.state.commentMessage,
-            post_id:post_id,
-            commenter_user_name:this.props.currentUser.profile_name,
-            commenter_img:this.props.currentUser.picture,
-            comment_upvotes:0,
-            comment_downvotes:0,
+            comment_message: this.state.commentMessage,
+            post_id: post_id,
+            commenter_user_name: this.props.currentUser.profile_name,
+            commenter_img: this.props.currentUser.picture,
+            comment_upvotes: 0,
+            comment_downvotes: 0,
             //CHANGE TO BE RIGHT ROOM
-            room_id:1
+            room_id: 1
         }
         this.props.socket.emit("NewComment", body)
         this.setState({
-            commentMessage:""
+            commentMessage: ""
         })
     }
 
     render() {
         let mappedPosts = this.state.posts.map(post => {
-            let mappedComments = this.state.comments.map(comment =>{
-                if(comment.post_id == post.post_id){
+            let mappedComments = this.state.comments.map(comment => {
+                if (comment.post_id == post.post_id) {
                     return (
                         <div>
                             <Comment comment_content={comment.comment_content}
@@ -115,19 +115,19 @@ class CurrentRoom extends Component {
                         drinks_given={post.drinks_given}
                         room_id={post.room_id}
                         toggleComments={this.toggleComments} />
-                        
-                        {/* <div className={this.state.commentsHidden ? 'inactive' : 'active'}> */}
-                            {mappedComments}
-                        {/* </div> */}
-                        <div className = "leaveComment-parent" >
-                            <input onChange = {(e) => {this.handleCommentChange(e.target.value)}} className = "leaveComment-parent__input" placeholder = "Enter Comment here!">
-                            </input>
-                            <button onClick = {() =>{this.newComment(post.post_id)}} className = "leaveComment-parent__button">buzz</button>
-                        </div>              
+
+                    {/* <div className={this.state.commentsHidden ? 'inactive' : 'active'}> */}
+                    {mappedComments}
+                    {/* </div> */}
+                    <div className="leaveComment-parent" >
+                        <input onChange={(e) => { this.handleCommentChange(e.target.value) }} className="leaveComment-parent__input" placeholder="Enter Comment here!">
+                        </input>
+                        <button onClick={() => { this.newComment(post.post_id) }} className="leaveComment-parent__button">buzz</button>
+                    </div>
                 </div>
             )
         })
-        
+
         return (
             <div className="Current-room">
                 <header className="Current-room__header">
@@ -145,15 +145,15 @@ class CurrentRoom extends Component {
                             <img src={this.state.createPostHidden ? pencilIcon : cancelIcon} />
                         </button>
                     </div>
-                    <div className = {this.state.createPostHidden? "Current-room__createPost--hidden":"Current-room__createPost--show"}>
+                    <div className={this.state.createPostHidden ? "Current-room__createPost--hidden" : "Current-room__createPost--show"}>
                         {this.state.createPostHidden ? null :
-                        <div >
-                            <CreatePost socket={this.props.socket} />
-                        </div>
-                            }
+                            <div >
+                                <CreatePost socket={this.props.socket} />
+                            </div>
+                        }
                     </div>
                 </header>
-                <main className = "Current-room__main">
+                <main className="Current-room__main">
                     {/* Showing the current room - renders CREATE POST, mapped POSTS and mapped COMMENTS */}
                     {/* If the screen is in mobile view, show the bottom navigation. If it isn't, it will be next to
                     map component. */}
@@ -166,9 +166,9 @@ class CurrentRoom extends Component {
         )
     }
 }
-const MapStateToProps = (state) =>{
-    return{
-        currentUser:state.currentUser
+const MapStateToProps = (state) => {
+    return {
+        currentUser: state.currentUser
     }
 }
 export default connect(MapStateToProps, null)(CurrentRoom)
