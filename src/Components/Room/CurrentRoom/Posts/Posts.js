@@ -83,6 +83,7 @@ export default class Post extends Component {
                         send honey
                     </button>
                 </div>
+                
             </div>
         )
     }

@@ -145,9 +145,12 @@ class CurrentRoom extends Component {
                             <img src={this.state.createPostHidden ? pencilIcon : cancelIcon} />
                         </button>
                     </div>
-                    <div>
+                    <div className = {this.state.createPostHidden? "Current-room__createPost--hidden":"Current-room__createPost--show"}>
                         {this.state.createPostHidden ? null :
-                            <CreatePost socket={this.props.socket} />}
+                        <div >
+                            <CreatePost socket={this.props.socket} />
+                        </div>
+                            }
                     </div>
                 </header>
                 <main className = "Current-room__main">
