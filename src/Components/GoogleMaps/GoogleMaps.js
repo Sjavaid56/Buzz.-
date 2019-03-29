@@ -90,14 +90,17 @@ class App extends Component {
       .catch(error => {
         console.log("ERROR!! " + error)
       })
+
+
   }
 
 
 
   initMap = () => {
     // Create A Map
+    console.log(this.state.currentLatLng)
     var map = new window.google.maps.Map(document.getElementById('map'), {
-      center: { lat: 33.4486, lng: -112.0773 },
+      center: { lat: this.state.currentLatLng.lat, lng: this.state.currentLatLng.lng },
       zoom: 12
 
     })
@@ -156,9 +159,19 @@ class App extends Component {
 
     })
 
+    var UserLoc = new window.google.maps.Marker({
+      position: { lat: this.state.currentLatLng.lat, lng: this.state.currentLatLng.lng },
+      map: map,
+      title: "MY LOCATION",
+      // icon: image
+      // animation: google.maps.Animation.DROP,
+
+    })
+
 
   }
   render() {
+    console.log("current",this.state.currentLatLng)
     return (
       <main>
         <div id="map"></div>
