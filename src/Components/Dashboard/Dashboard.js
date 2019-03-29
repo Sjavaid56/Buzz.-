@@ -15,7 +15,8 @@ class Dashboard extends Component {
         super(props);
 
         this.state = {
-            currentHive: false
+            currentHive: false,
+            width: window.innerWidth
         }
     }
     //Get user data on mount
@@ -23,6 +24,15 @@ class Dashboard extends Component {
         Axios.get("/api/user-data").then(userData => {
             this.props.updateCurrentUser(userData.data)
         })
+    }
+    componentWillMount() {
+        window.addEventListener('resize', this.handleWindowSizeChange);
+    }
+    handleWindowSizeChange = () => {
+        this.setState({ width: window.innerWidth });
+    };
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleWindowSizeChange);
     }
 
     toggleHiveView = () => {
@@ -32,24 +42,38 @@ class Dashboard extends Component {
     }
 
     render() {
-        console.log(this.state.currentHive)
+        console.log(this.state.width)
+        let dashView
+        if(this.state.width >= 500){
+            dashView = (
+                <div>
+                    <div className='dashboard-container'>
+                    <div className='hive-container'>
+                        {
+                            this.state.currentHive ?
+                                <CurrentRoom socket={socket} toggleHiveView={this.toggleHiveView} />
+                                :
+                                <AvailableRooms socket={socket} toggleHiveView={this.toggleHiveView} />
+                        }
+                    </div>
+
+                        <div className='map-container'>
+                            <Map />
+                        </div>
+                    </div>
+                </div>
+            ) 
+        }
+        else{
+            dashView = (
+                <div className='map-container__responsive'>
+                            <Map />
+                        </div>
+            )
+        }
         return (
-            <div className='dashboard-container'>
-
-                <div className='hive-container'>
-                    {
-                        this.state.currentHive ?
-                            <CurrentRoom socket={socket} toggleHiveView={this.toggleHiveView} />
-                            :
-                            <AvailableRooms socket={socket} toggleHiveView={this.toggleHiveView} />
-                    }
-                </div>
-
-                <div className='map-container'>
-                    <Map />
-                </div>
-
-
+            <div>
+                {dashView}
             </div>
         )
     }
