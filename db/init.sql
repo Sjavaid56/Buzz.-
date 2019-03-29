@@ -28,10 +28,11 @@ comment_id serial primary key
 ,commenter_img text
 ,room_id integer);
 
+
 create table rooms(
 room_id serial primary key
-,buisness_name text
-,buisness_type text
+,business_name text
+,business_type text
 ,latitude integer
 ,longitude integer
 ,number_of_users integer);

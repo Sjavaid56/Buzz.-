@@ -24,6 +24,12 @@ app.use(session({
     resave: false
 }))
 
+//testing location info for db 
+// app.post("/venues",roomsController.postBusiness)
+// plotting from db 
+// app.get("/dbvenues", roomsController.getBusiness) 
+
+
 //auth endpoint
 app.get("/auth", authController.login)
 app.get("/api/user-data", authController.getUserData)
