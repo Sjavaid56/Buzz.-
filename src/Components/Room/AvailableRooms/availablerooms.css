@@ -9,7 +9,11 @@
     justify-content: center;
     align-items: center;
     font-size: 35px;
-    height: 98px;
+    min-height: 98px;
+}
+
+.mapped-businesses {
+    overflow-y: scroll;
 }
 
 .available-rooms {
