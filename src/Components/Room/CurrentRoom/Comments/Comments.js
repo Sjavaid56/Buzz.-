@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import "./Comments.css"
 import up from "../up.png"
 import down from "../down.png"
-import axios from "axios"
+// import axios from "axios"
 
 export default class Comment extends Component {
     constructor(props) {
@@ -35,7 +35,7 @@ export default class Comment extends Component {
 
                     {/* Change all data to equal props from Posts */}
                     <div className="comment-parent__user-info">
-                        <img className="comment-parent__profile-picture" src={this.props.commenter_img} />
+                        <img className="comment-parent__profile-picture" src={this.props.commenter_img} alt='commenter profile img' />
 
                         <p className="comment-parent__user-name">@{this.props.commenter_user_name}</p>
                     </div>
@@ -52,10 +52,10 @@ export default class Comment extends Component {
                 </div>
 
                 <div className="comment-parent__footer">
-                    <button className="comment-parent__vote"><img src={up}></img></button>
+                    <button className="comment-parent__vote"><img src={up} alt='up arrow'></img></button>
                     <p>{this.props.comment_upvotes}</p>
 
-                    <button className="comment-parent__vote"><img src={down}></img></button>
+                    <button className="comment-parent__vote"><img src={down} alt='down arrow'></img></button>
                     <p>{this.props.comment_downvotes}</p>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './GoogleMaps.css'
 import axios from 'axios'
-import BeeIcon from '../../images/assets/logo/buzz-bee-charcoal.svg';
+import HiveIcon from '../../images/icons8-hive-96.png';
 
 const getGeoLocation = () => {
   const geolocation = navigator.geolocation;
@@ -130,7 +130,7 @@ class App extends Component {
 
 
     this.state.venues2.map(myVenue => {
-      console.log("latlong", myVenue.latitude)
+      // console.log("latlong", myVenue.latitude)
       var contentString2 = `${myVenue.business_name}`
       // Create A Marker
 
@@ -140,8 +140,8 @@ class App extends Component {
         map: map,
         title: myVenue.business_name,
         icon: {
-          url: BeeIcon,
-          scaledSize: new window.google.maps.Size(60, 60)
+          url: HiveIcon,
+          scaledSize: new window.google.maps.Size(50, 50)
         }
         // animation: google.maps.Animation.DROP,
 

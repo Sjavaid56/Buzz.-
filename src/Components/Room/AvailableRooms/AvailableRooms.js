@@ -1,24 +1,23 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
+import { updateCurrentRoom } from '../../../redux/reducer';
 import buzzBee from '../../../images/assets/logo/buzz-logo-charcoal-nobg.png';
 import axios from 'axios';
 import cafe from './icons/icons8-cafe-filled-30.png';
 //change this to svg or something we can use our custom color on
 import './availablerooms.css';
+// import CurrentRoom from '../CurrentRoom/CurrentRoom';
 
-export default class AvailableRooms extends Component {
+class AvailableRooms extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             rooms: [],
-            currentRoomData: []
+
         }
 
-        props.socket.on('SendRoomData', roomData => {
-            this.setState({
-                currentRoomData: roomData
-            })
-        })
+
     }
 
     //When screen loads, get all the rooms (change styling based on radius to user's geolocation) within a radius - maybe a mile - of the user's location
@@ -31,23 +30,22 @@ export default class AvailableRooms extends Component {
     }
 
     joinSingleRoom = (room_id) => {
+        this.props.updateCurrentRoom(room_id);
+
         let body = {
-            business_name: this.state.rooms.business_name,
-            business_type: this.state.rooms.business_type,
-            latitude: this.state.rooms.latitude,
-            longitude: this.state.rooms.longitude,
-            number_of_users: this.state.rooms.number_of_users
+            room_id: room_id
         }
 
         this.props.socket.emit('JoinedRoom', body)
 
+        this.props.toggleHiveView();
     }
 
     render() {
-        console.log(this.state.currentRoomData)
+        // console.log(this.state.currentRoomData)
 
         let mappedRooms = this.state.rooms.map((room) => {
-            return (<div className='available-rooms'>
+            return (<div key={room.room_id} className='available-rooms'>
                 <div className='rooms-header'>
                     <h1 className='rooms-header__title'>
                         {room.business_name}
@@ -69,7 +67,7 @@ export default class AvailableRooms extends Component {
 
                     <div className='rooms-footer__button'>
                         <button
-                            onClick={this.props.toggleHiveView}>
+                            onClick={() => this.joinSingleRoom(room.room_id)}>
                             join
                     </button>
                     </div>
@@ -94,3 +92,11 @@ export default class AvailableRooms extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        currentRoom: state.currentRoom
+    }
+}
+
+export default connect(mapStateToProps, { updateCurrentRoom })(AvailableRooms);

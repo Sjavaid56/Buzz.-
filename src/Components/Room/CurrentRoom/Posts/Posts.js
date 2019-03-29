@@ -57,14 +57,14 @@ export default class Post extends Component {
 
                     <button className="comment-parent__vote">
                         {/* will need to add onClick functionality to increment upvotes per the above */}
-                        <img src={up}></img>
+                        <img src={up} alt='up arrow'></img>
                     </button>
 
                     <p>{this.props.upvotes}</p>
 
                     <button className="comment-parent__vote">
                         {/* will need to add onClick functionality to increment downvotes per the above */}
-                        <img src={down}></img>
+                        <img src={down} alt='down arrow'></img>
                     </button>
                     <p>{this.props.downvotes}</p>
 
@@ -83,7 +83,7 @@ export default class Post extends Component {
                         send honey
                     </button>
                 </div>
-                
+
             </div>
         )
     }
