@@ -5,7 +5,7 @@ import AvailableRooms from "../Room/AvailableRooms/AvailableRooms"
 import CurrentRoom from '../Room/CurrentRoom/CurrentRoom';
 import './dashboard.css';
 import Axios from 'axios';
-import {connect} from "react-redux"
+import { connect } from "react-redux"
 import { updateCurrentUser } from "../../redux/reducer"
 
 const socket = socketIOClient("http://localhost:4000/");
@@ -15,22 +15,34 @@ class Dashboard extends Component {
         super(props);
 
         this.state = {
-
+            currentHive: false
         }
     }
     //Get user data on mount
-    componentDidMount = () =>{
-        Axios.get("/api/user-data").then(userData =>{
+    componentDidMount = () => {
+        Axios.get("/api/user-data").then(userData => {
             this.props.updateCurrentUser(userData.data)
         })
     }
 
+    toggleHiveView = () => {
+        this.setState({
+            currentHive: !this.state.currentHive
+        })
+    }
+
     render() {
+        console.log(this.state.currentHive)
         return (
             <div className='dashboard-container'>
 
                 <div className='hive-container'>
-                    <CurrentRoom socket = {socket}/>
+                    {
+                        this.state.currentHive ?
+                            <CurrentRoom socket={socket} toggleHiveView={this.toggleHiveView} />
+                            :
+                            <AvailableRooms toggleHiveView={this.toggleHiveView} />
+                    }
                 </div>
 
                 <div className='map-container'>
@@ -42,4 +54,4 @@ class Dashboard extends Component {
         )
     }
 }
-export default connect(null, {updateCurrentUser})(Dashboard)
+export default connect(null, { updateCurrentUser })(Dashboard)
