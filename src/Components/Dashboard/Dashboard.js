@@ -41,7 +41,7 @@ class Dashboard extends Component {
                         this.state.currentHive ?
                             <CurrentRoom socket={socket} toggleHiveView={this.toggleHiveView} />
                             :
-                            <AvailableRooms toggleHiveView={this.toggleHiveView} />
+                            <AvailableRooms toggleHiveView={this.toggleHiveView} socket = {socket}/>
                     }
                 </div>
 
