@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import './GoogleMaps.css'
 import axios from 'axios'
+import Diamond from '/Users/shawnjavaid/Documents/Buzz.-/src/images/assets/logo/buzz-logo-orange-nobg.png';
+
 const getGeoLocation = () => {
   const geolocation = navigator.geolocation;
 
@@ -29,9 +31,10 @@ class App extends Component {
     isMarkerShown: false
   }
   componentDidMount() {
-    this.getVenues()
+    // this.getVenues()
     this.getVenues2()
     this.initGeoLocation();
+    
   }
 
   componentWillUpdate() {
@@ -78,26 +81,19 @@ class App extends Component {
 
   }
   getVenues2 = () => {
-    const endPoint2 = "https://api.foursquare.com/v2/venues/explore?"
-    const parameters2 = {
-      client_id: "PMHC2WA1VCBHVYOPPSJ0QSBYTLRF4PNJ04OWVWV0PZJ0QFIR",
-      client_secret: "CULSZZ44YAEBOWBFGPB4BF5ISRXXSNYR0EE3JV3CNE2ZWHV0",
-      query: "books",
-      near: "Phoenix",
-      v: "20182507"
-    }
-    axios.get(endPoint2 + new URLSearchParams(parameters2))
-      .then(response => {
+    axios.get("/dbvenues")
+      .then(business => {
         this.setState({
-          venues2: response.data.response.groups[0].items
+          venues2: business.data
         }, this.renderMap())
       })
       .catch(error => {
         console.log("ERROR!! " + error)
       })
-
   }
 
+
+  
   initMap = () => {
     // Create A Map
     var map = new window.google.maps.Map(document.getElementById('map'), {
@@ -126,14 +122,21 @@ class App extends Component {
       })
     })
 
+
     this.state.venues2.map(myVenue => {
-      console.log("latlong", this.currentLatLng)
-      var contentString2 = `${myVenue.venue.name}`
+      console.log("latlong", myVenue.latitude)
+      var contentString2 = `${myVenue.business_name}`
       // Create A Marker
+      var image = 'https://www.flaticon.com/free-icon/beehive_424052#term=beehive&page=1&position=9';
+   
+
       var marker2 = new window.google.maps.Marker({
-        position: { lat: myVenue.venue.location.lat, lng: myVenue.venue.location.lng },
+        position: { lat: myVenue.latitude, lng: myVenue.longitude },
         map: map,
-        title: myVenue.venue.name
+        title: myVenue.business_name,
+        icon: image
+        // animation: google.maps.Animation.DROP,
+
       })
       // Click on A Marker!
       marker2.addListener('click', function () {
@@ -164,3 +167,102 @@ function loadScript(url) {
   index.parentNode.insertBefore(script, index)
 }
 export default App;
+
+
+// import React, { Component } from 'react';
+// import MapComponent from './map2';
+// import axios from "axios";
+
+// const getGeoLocation = () => {
+//   const geolocation = navigator.geolocation;
+  
+//   const location = new Promise((resolve, reject) => {
+//     if (!geolocation) {
+//       reject(new Error('Not Supported'));
+//     }
+    
+//     geolocation.getCurrentPosition((position) => {
+//       resolve(position);
+//     }, () => {
+//       reject (new Error('Permission denied'));
+//     });
+//   });
+  
+//   return location
+// };
+
+// class GoogleMaps extends Component {
+//   state = {
+//     loading: true,
+//     venues: [],
+//     name:[],
+//     lat: [],
+//     lng: [],
+//     currentLatLng: {
+//       lat: 0,
+//       lng: 0,
+//     },
+//     isMarkerShown: false
+//   }
+
+  // componentDidMount() {
+  //   this.initGeoLocation();
+  //   axios.get("/dbvenues").then(business => {
+  //     console.log("db bdata", business.data.latitude, business.data.business_name)
+  //     console.log(typeof business.data[0].latitude)
+  //     console.log("full db info",business.data)
+  //     this.setState({
+  //       venues: business.data
+  //     })
+  //   })
+  // }
+  
+
+  
+
+
+//   componentWillUpdate(){
+//     this.initGeoLocation()
+//   }
+
+//   initGeoLocation() {
+//     getGeoLocation().then(location=> {
+//       this.setState({
+//         loading: false,
+//         currentLatLng: {
+//           lat: location.coords.latitude,
+//           lng: location.coords.longitude,
+//         },
+//         isMarkerShown: true
+//       })
+//     });
+//   }
+
+//   handleMarkerClick = () => {
+//     this.setState({ isMarkerShown: false })
+//     this.initGeoLocation()
+//   }
+
+ 
+//   render() {
+
+    
+//     const { loading, isMarkerShown, currentLatLng } = this.state;
+
+//     if (loading) {
+//       return 'One second, Buzz is looking for some hives near you.';
+//     }
+    
+//     return (
+      
+//       <MapComponent
+//         isMarkerShown={isMarkerShown}
+//         onMarkerClick={this.handleMarkerClick}
+//         currentLocation={currentLatLng}
+//         venues = {this.state.venues}
+//       />
+//     );
+//   }
+// }
+
+// export default GoogleMaps;
