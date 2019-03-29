@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 import back from "./back.png"
 import Axios from 'axios';
 import Post from "./Posts/Posts"
@@ -18,9 +19,9 @@ export default class CurrentRoom extends Component {
             createPostHidden: true,
             commentsHidden: true
         }
-        props.socket.on("Newmessage", post =>{
+        props.socket.on("Newmessage", post => {
             this.setState({
-                posts:post
+                posts: post
             })
         })
     }
@@ -91,7 +92,8 @@ export default class CurrentRoom extends Component {
                 <header className="Current-room__header">
                     {/* Replace placeholder with props */}
                     <div className="Current-room__Info">
-                        <button className="Current-room__back">
+                        <button className="Current-room__back"
+                            onClick={this.props.toggleHiveView}>
                             <img src={back} />
                         </button>
 
@@ -104,7 +106,7 @@ export default class CurrentRoom extends Component {
                     </div>
                     <div>
                         {this.state.createPostHidden ? null :
-                            <CreatePost socket = {this.props.socket}/>}
+                            <CreatePost socket={this.props.socket} />}
                     </div>
                 </header>
                 <main>
