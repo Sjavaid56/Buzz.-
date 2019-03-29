@@ -11,3 +11,8 @@
     height: 100vh;
     width: 50%
 }
+
+.map-container__responsive{
+    height: 100vh;
+    width: 100%
+}
