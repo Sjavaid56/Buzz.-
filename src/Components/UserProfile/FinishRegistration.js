@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 
 export default class FinishRegistration extends Component {
     constructor(props) {
@@ -13,6 +14,12 @@ export default class FinishRegistration extends Component {
         return (
             <div>
                 After tutorial, finish profile here - REQUIRED add username, OPTIONAL add card
+
+                <button>
+                    <Link to='/profile'>
+                        Finish Registration!
+                    </Link>
+                </button>
             </div>
         )
     }

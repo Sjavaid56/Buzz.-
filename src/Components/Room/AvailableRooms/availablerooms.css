@@ -1,0 +1,71 @@
+.available-container {
+    display: flex;
+    flex-direction: column;
+    height:100vh;
+}
+
+.available-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 35px;
+    min-height: 98px;
+}
+
+.mapped-businesses {
+    overflow-y: scroll;
+}
+
+.available-rooms {
+    display: flex;
+    flex-direction: column;
+    border: solid #ffcb34 1px;
+    background: #fffce7;
+    padding: 15px;
+    border-left: none;
+    border-right: none;
+}
+
+.rooms-header {
+    margin-bottom: 18px;
+}
+
+.rooms-header, .rooms-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rooms-header__title {
+    font-size: 20px;
+}
+
+.rooms-header__distance {
+    font-size: 14px;
+}
+
+.room-type__icon {
+    margin:  0 15px 0 5px;
+}
+
+.room-user__bee {
+    margin-right: 6px;
+}
+
+.rooms-footer__icons {
+    display: flex;
+    align-items: center;
+}
+
+.rooms-footer__button > button {
+    background: #ffcb34;
+    border: none;
+    color: #1C1E1F;
+    padding: 7px 12px;
+    width: 85px;
+    border-radius: 14px;
+    margin-left: auto;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+}
