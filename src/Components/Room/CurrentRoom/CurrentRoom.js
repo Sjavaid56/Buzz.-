@@ -155,7 +155,6 @@ class CurrentRoom extends Component {
                     {/* If the screen is in mobile view, show the bottom navigation. If it isn't, it will be next to
                     map component. */}
                     <div>
-
                         {mappedPosts.length ? mappedPosts : null}
                     </div>
                 </main>

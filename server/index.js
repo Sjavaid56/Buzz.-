@@ -40,6 +40,7 @@ massive(
 app.get("/getPosts/:id", roomsController.getRoomData)
 app.get("/getComments/:id", roomsController.getComments)
 app.post("/newPost", roomsController.newPost)
+app.get("/getRooms", roomsController.getRooms)
 
 //Sockets
 io.sockets.on('connection', (socket) =>{

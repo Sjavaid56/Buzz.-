@@ -21,5 +21,11 @@ module.exports ={
         db.newPost([poster_username,poster_pic,post_content,post_img,upvotes,downvotes,drinks_given,room_id]).then(allPosts =>{
             res.status(200).json(allPosts)
         })
+    },
+    getRooms:(req,res) =>{
+        const db = req.app.get("db")
+        db.getRooms().then(businesses =>{
+            res.status(200).json(businesses)
+        })
     }
 }

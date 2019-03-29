@@ -9,7 +9,7 @@
     justify-content: center;
     align-items: center;
     font-size: 35px;
-    height: 98px;
+    min-height: 98px;
 }
 
 .available-rooms {
@@ -64,4 +64,7 @@
     margin-left: auto;
     font-family: 'Montserrat', sans-serif;
     font-size: 12px;
+}
+.available-container__mappedRooms{
+    overflow:auto;
 }
