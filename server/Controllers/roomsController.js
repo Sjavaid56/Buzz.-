@@ -12,5 +12,11 @@ module.exports ={
         db.getCommentsforRoom(id).then(comments =>{
             res.status(200).json(comments)
         })
-    }
-}
+    },
+    postBusiness:(req,res) => {
+            const db = req.app.get("db")
+            console.log( "postBusniess", req.body)
+            req.body.forEach(element => {
+               db.Create_business([element.Name, element.Type, element.Lat, element.Lng])        
+        })      
+    }}

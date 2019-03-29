@@ -22,6 +22,10 @@ class App extends Component {
   state = {
     venues: [],
     venues2: [],
+    venues3: [],
+    venues4: [],
+    venues5: [],
+    venues6: [],
     currentLatLng: {
       lat: 0,
       lng: 0,
@@ -31,6 +35,10 @@ class App extends Component {
   componentDidMount() {
     this.getVenues()
     this.getVenues2()
+    this.getVenues3()
+    this.getVenues4()
+    this.getVenues5()
+    this.getVenues6()
     this.initGeoLocation();
   }
 
@@ -76,11 +84,16 @@ class App extends Component {
           return {
             Name: business.venue.name,
             Type: business.venue.categories[0].pluralName,
-            lat: business.venue.location.lat,
+            Lat: business.venue.location.lat,
             Lng: business.venue.location.lng
          }
         })
-        console.log("the stuff",bdata)
+        axios.post('/venues', bdata)
+        .then(function (response){
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
       })
       .catch(error => {
         console.log("ERROR!! " + error)
@@ -112,12 +125,111 @@ class App extends Component {
       })
 
   }
+  getVenues3 = () => {
+    const endPoint3 = "https://api.foursquare.com/v2/venues/explore?"
+    const parameters3 = {
+      client_id: "PMHC2WA1VCBHVYOPPSJ0QSBYTLRF4PNJ04OWVWV0PZJ0QFIR",
+      client_secret: "CULSZZ44YAEBOWBFGPB4BF5ISRXXSNYR0EE3JV3CNE2ZWHV0",
+      query: "Hotel",
+      near: "Phoenix",
+      v: "20182507"
+    }
+    axios.get(endPoint3 + new URLSearchParams(parameters3))
+      .then(response => {
+        this.setState({
+          venues3: response.data.response.groups[0].items
+        }, this.renderMap())
+        let body =  response.data.response.groups[0].items
+        console.log("body: ", body)
+      }).then(()=>{
+
+      })
+
+      .catch(error => {
+        console.log("ERROR!! " + error)
+      })
+
+    }
+      getVenues4 = () => {
+        const endPoint4 = "https://api.foursquare.com/v2/venues/explore?"
+        const parameters4 = {
+          client_id: "PMHC2WA1VCBHVYOPPSJ0QSBYTLRF4PNJ04OWVWV0PZJ0QFIR",
+          client_secret: "CULSZZ44YAEBOWBFGPB4BF5ISRXXSNYR0EE3JV3CNE2ZWHV0",
+          query: "airport",
+          near: "Phoenix",
+          v: "20182507"
+        }
+        axios.get(endPoint4 + new URLSearchParams(parameters4))
+          .then(response => {
+            this.setState({
+              venues4: response.data.response.groups[0].items
+            }, this.renderMap())
+            let body =  response.data.response.groups[0].items
+            console.log("body: ", body)
+          }).then(()=>{
+    
+          })
+    
+          .catch(error => {
+            console.log("ERROR!! " + error)
+          })
+        }
+        getVenues5 = () => {
+          const endPoint5 = "https://api.foursquare.com/v2/venues/explore?"
+          const parameters5 = {
+            client_id: "PMHC2WA1VCBHVYOPPSJ0QSBYTLRF4PNJ04OWVWV0PZJ0QFIR",
+            client_secret: "CULSZZ44YAEBOWBFGPB4BF5ISRXXSNYR0EE3JV3CNE2ZWHV0",
+            query: "Arenas",
+            near: "Phoenix",
+            v: "20182507"
+          }
+          axios.get(endPoint5 + new URLSearchParams(parameters5))
+            .then(response => {
+              this.setState({
+                venues5: response.data.response.groups[0].items
+              }, this.renderMap())
+              let body =  response.data.response.groups[0].items
+              console.log("body: ", body)
+            }).then(()=>{
+      
+            })
+      
+            .catch(error => {
+              console.log("ERROR!! " + error)
+            })
+          }
+            getVenues6 = () => {
+              const endPoint6 = "https://api.foursquare.com/v2/venues/explore?"
+              const parameters6 = {
+                client_id: "PMHC2WA1VCBHVYOPPSJ0QSBYTLRF4PNJ04OWVWV0PZJ0QFIR",
+                client_secret: "CULSZZ44YAEBOWBFGPB4BF5ISRXXSNYR0EE3JV3CNE2ZWHV0",
+                query: "cocktail",
+                near: "Phoenix",
+                v: "20182507"
+              }
+              axios.get(endPoint6 + new URLSearchParams(parameters6))
+                .then(response => {
+                  this.setState({
+                    venues6: response.data.response.groups[0].items
+                  }, this.renderMap())
+                  let body =  response.data.response.groups[0].items
+                  console.log("body: ", body)
+                }).then(()=>{
+          
+                })
+          
+                .catch(error => {
+                  console.log("ERROR!! " + error)
+                })
+              
+
+  }
 
   initMap = () => {
     // Create A Map
     var map = new window.google.maps.Map(document.getElementById('map'), {
       center: { lat: 33.4486, lng: -112.0773 },
-      zoom: 12
+      zoom: 15
 
     })
 
@@ -156,6 +268,83 @@ class App extends Component {
         infowindow.setContent(contentString2)
         // Open An InfoWindow
         infowindow.open(map, marker2)
+      })
+
+
+    })
+    this.state.venues3.map(myVenue => {
+      console.log("latlong", this.currentLatLng)
+      var contentString3 = `${myVenue.venue.name}`
+      // Create A Marker
+      var marker3 = new window.google.maps.Marker({
+        position: { lat: myVenue.venue.location.lat, lng: myVenue.venue.location.lng },
+        map: map,
+        title: myVenue.venue.name
+      })
+      // Click on A Marker!
+      marker3.addListener('click', function () {
+        // Change the content
+        infowindow.setContent(contentString3)
+        // Open An InfoWindow
+        infowindow.open(map, marker3)
+      })
+
+
+    })
+    this.state.venues4.map(myVenue => {
+      console.log("latlong", this.currentLatLng)
+      var contentString4 = `${myVenue.venue.name}`
+      // Create A Marker
+      var marker4 = new window.google.maps.Marker({
+        position: { lat: myVenue.venue.location.lat, lng: myVenue.venue.location.lng },
+        map: map,
+        title: myVenue.venue.name
+      })
+      // Click on A Marker!
+      marker4.addListener('click', function () {
+        // Change the content
+        infowindow.setContent(contentString4)
+        // Open An InfoWindow
+        infowindow.open(map, marker4)
+      })
+
+
+    })
+    this.state.venues5.map(myVenue => {
+      console.log("latlong", this.currentLatLng)
+      var contentString5 = `${myVenue.venue.name}`
+      // Create A Marker
+      var marker5 = new window.google.maps.Marker({
+        position: { lat: myVenue.venue.location.lat, lng: myVenue.venue.location.lng },
+        map: map,
+        title: myVenue.venue.name
+      })
+      // Click on A Marker!
+      marker5.addListener('click', function () {
+        // Change the content
+        infowindow.setContent(contentString5)
+        // Open An InfoWindow
+        infowindow.open(map, marker5)
+      })
+
+
+    })
+
+    this.state.venues6.map(myVenue => {
+      console.log("latlong", this.currentLatLng)
+      var contentString6 = `${myVenue.venue.name}`
+      // Create A Marker
+      var marker6 = new window.google.maps.Marker({
+        position: { lat: myVenue.venue.location.lat, lng: myVenue.venue.location.lng },
+        map: map,
+        title: myVenue.venue.name
+      })
+      // Click on A Marker!
+      marker6.addListener('click', function () {
+        // Change the content
+        infowindow.setContent(contentString6)
+        // Open An InfoWindow
+        infowindow.open(map, marker6)
       })
 
 

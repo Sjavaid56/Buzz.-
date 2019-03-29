@@ -25,9 +25,7 @@ app.use(session({
 }))
 
 //testing location info for db 
-app.post("/getVenues",(req,res) =>{
-console.log("Reieved: ", req.body)
-})
+app.post("/venues",roomsController.postBusiness)
 
 
 //auth endpoint
