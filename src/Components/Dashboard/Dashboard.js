@@ -7,7 +7,7 @@ import './dashboard.css';
 import Axios from 'axios';
 import { connect } from "react-redux"
 import { updateCurrentUser } from "../../redux/reducer"
-import Profile from "../UserProfile/UserProfile"
+import NavBar from "../NavBar/Navbar"
 
 const socket = socketIOClient("http://localhost:4000/");
 
@@ -17,8 +17,7 @@ class Dashboard extends Component {
 
         this.state = {
             currentHive: false,
-            width: window.innerWidth,
-            showProfile:false
+            width: window.innerWidth
         }
     }
     //Get user data on mount
@@ -42,12 +41,6 @@ class Dashboard extends Component {
             currentHive: !this.state.currentHive
         })
     }
-    toggleProfile = () =>{
-        console.log(this.state.showProfile)
-        this.setState({
-            showProfile:!this.state.showProfile
-        })
-    }
 
     render() {
         console.log(this.state.width)
@@ -61,7 +54,7 @@ class Dashboard extends Component {
                             this.state.currentHive ?
                                 <CurrentRoom socket={socket} toggleHiveView={this.toggleHiveView} />
                                 :
-                                (this.state.showProfile? <Profile toggleProfileFn={this.toggleProfile}/>:<AvailableRooms socket={socket} toggleHiveView={this.toggleHiveView} toggleProfileFn = {this.toggleProfile} />)
+                                <AvailableRooms socket={socket} toggleHiveView={this.toggleHiveView} />
                         }
                     </div>
 
@@ -76,6 +69,7 @@ class Dashboard extends Component {
             dashView = (
                 <div className='map-container__responsive'>
                             <Map />
+                            <NavBar/>
                         </div>
             )
         }
