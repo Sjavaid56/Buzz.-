@@ -42,7 +42,7 @@ class AvailableRooms extends Component {
     }
 
     render() {
-        // console.log(this.state.currentRoomData)
+        console.log(this.props)
 
         let mappedRooms = this.state.rooms.map((room) => {
             return (<div key={room.room_id} className='available-rooms'>
@@ -81,6 +81,7 @@ class AvailableRooms extends Component {
         return (
             <div className='available-container'>
                 <div className='available-header'>
+                    <button className = "available-container__profileView" onClick = {this.props.toggleProfileFn}><img src = {this.props.currentUser.picture}></img></button>
                     <h1>buzz.</h1>
                 </div>
 
@@ -95,7 +96,8 @@ class AvailableRooms extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        currentRoom: state.currentRoom
+        currentRoom: state.currentRoom,
+        currentUser: state.currentUser
     }
 }
 

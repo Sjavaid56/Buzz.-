@@ -32,8 +32,8 @@ class App extends Component {
   }
   componentDidMount() {
     // this.getVenues()
-    this.getVenues2()
     this.initGeoLocation();
+    this.getVenues2()
 
   }
 
