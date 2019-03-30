@@ -81,8 +81,10 @@ class AvailableRooms extends Component {
         return (
             <div className='available-container'>
                 <div className='available-header'>
-                    <button className = "available-container__profileView" onClick = {this.props.toggleProfileFn}><img src = {this.props.currentUser.picture}></img></button>
-                    <h1>buzz.</h1>
+                    <button className="available-container__profileView" onClick={this.props.toggleProfileFn}>
+                        <img src={this.props.currentUser.picture}></img>
+                    </button>
+                    <h1 className='available-header__title'>buzz.</h1>
                 </div>
 
                 <main className='mapped-businesses'>

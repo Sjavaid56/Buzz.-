@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './GoogleMaps.css'
 import axios from 'axios'
 import HiveIcon from '../../images/icons8-hive-96.png';
+import BeeIcon from '../../images/assets/logo/buzz-logo-charcoal-nobg.png';
 
 const getGeoLocation = () => {
   const geolocation = navigator.geolocation;
@@ -101,7 +102,7 @@ class App extends Component {
     console.log(this.state.currentLatLng)
     var map = new window.google.maps.Map(document.getElementById('map'), {
       center: { lat: this.state.currentLatLng.lat, lng: this.state.currentLatLng.lng },
-      zoom: 12
+      zoom: 16
 
     })
 
@@ -163,7 +164,10 @@ class App extends Component {
       position: { lat: this.state.currentLatLng.lat, lng: this.state.currentLatLng.lng },
       map: map,
       title: "MY LOCATION",
-      // icon: image
+      icon: {
+        url: BeeIcon,
+        scaledSize: new window.google.maps.Size(35, 35)
+      }
       // animation: google.maps.Animation.DROP,
 
     })
@@ -171,7 +175,7 @@ class App extends Component {
 
   }
   render() {
-    console.log("current",this.state.currentLatLng)
+    console.log("current", this.state.currentLatLng)
     return (
       <main>
         <div id="map"></div>
