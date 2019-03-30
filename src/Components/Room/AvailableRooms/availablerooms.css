@@ -53,15 +53,17 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    /* align-items: center; */
 }
 
 .rooms-header__title {
     font-size: 20px;
+    max-width: 350px;
 }
 
 .rooms-header__distance {
     font-size: 14px;
+    
 }
 
 .room-type__icon {
