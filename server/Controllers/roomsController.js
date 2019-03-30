@@ -21,6 +21,7 @@ module.exports = {
     //            db.Crete_business([element.Name, element.Type, element.Lat, element.Lng])       
     //     })  
     // }
+
     newPost: (req, res) => {
         const db = req.app.get("db")
         const { poster_username, poster_pic, post_content, post_img, upvotes, downvotes, drinks_given, room_id } = req.body
@@ -36,4 +37,4 @@ module.exports = {
             res.status(200).json(rooms)
         })
     }
- }
+}
