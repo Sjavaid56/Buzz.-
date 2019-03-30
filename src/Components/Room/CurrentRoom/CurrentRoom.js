@@ -96,36 +96,20 @@ class CurrentRoom extends Component {
     }
 
     render() {
-        console.log(this.state.posts)
+        console.log(this.props.currentRoom)
         let mappedPosts = this.state.posts.map(post => {
             let mappedComments = this.state.comments.map(comment => {
                 if (comment.post_id == post.post_id) {
                     return (
                         <div>
-                            <Comment comment_content={comment.comment_content}
-                                comment_downvotes={comment.comment_downvotes}
-                                comment_id={comment.comment_id}
-                                comment_upvotes={comment.comment_upvotes}
-                                commenter_img={comment.commenter_img}
-                                commenter_user_name={comment.commenter_user_name}
-                                post_id={comment.post_id}
-                                room_id={comment.room_id} />
+                            <Comment {...comment} />
                         </div>
                     )
                 }
             })
             return (
                 <div>
-                    <Post post_id={post.post_id}
-                        poster_username={post.poster_username}
-                        poster_pic={post.poster_pic}
-                        time_posted={post.time_posted}
-                        post_content={post.post_content}
-                        post_img={post.post_img}
-                        upvotes={post.upvotes}
-                        downvotes={post.downvotes}
-                        drinks_given={post.drinks_given}
-                        room_id={post.room_id}
+                    <Post {...post}
                         toggleComments={this.toggleComments} />
 
                     {/* <div className={this.state.commentsHidden ? 'inactive' : 'active'}> */}

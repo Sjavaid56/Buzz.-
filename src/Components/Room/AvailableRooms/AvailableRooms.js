@@ -62,7 +62,7 @@ class AvailableRooms extends Component {
 
                         <img style={{ height: 22, width: 22 }}
                             src={buzzBee} className='room-user__bee' />
-                        <p>10</p>
+                        <p>{room.number_of_users}</p>
                     </div>
 
                     <div className='rooms-footer__button'>
