@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import profileplaceholder from '../../images/Portrait_Placeholder.png';
 import './userprofile.css';
+import back from "../Room/CurrentRoom/back.png"
 
 export default class UserProfile extends Component {
     constructor(props) {
@@ -15,6 +16,9 @@ export default class UserProfile extends Component {
         // console.log(this.props)
         return (
             <div className='profile-parent'>
+                <div className = "profile-parent__button-holder">
+                    <button onClick = {this.props.toggleProfileFn} className = "profile-parent__button"><img src = {back}></img></button>
+                </div>
                 <div className='profile-header'>
                     <img src={profileplaceholder} alt='profile placeholder'
                         className='profile-header__picture' />

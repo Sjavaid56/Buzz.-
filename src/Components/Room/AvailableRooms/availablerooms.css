@@ -72,3 +72,13 @@
 .available-container__mappedRooms{
     overflow:auto;
 }
+.available-container__profileView{
+    float:left;
+    border:none;
+    background:none;
+    border-radius: 50px;
+}
+.available-container__profileView > img{
+    border-radius: 50px;
+    float: left;
+}

@@ -5,6 +5,13 @@
     align-items: center;
     padding: 20px;
 }
+.profile-parent__button-holder{
+    width:100%;
+}
+.profile-parent__button{
+    background:none;
+    border:none;
+}
 
 .profile-header__picture {
     height: 100px;
