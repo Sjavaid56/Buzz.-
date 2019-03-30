@@ -14,12 +14,5 @@
 
 .map-container__responsive{
     height: 100vh;
-    width: 100%;
-    flex-direction: column;
-    /* overflow: auto; */
-}
-@media(max-width:500){
-    .map-container__responsive{
-        height:90px;
-    }
+    width: 100%
 }
