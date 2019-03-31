@@ -90,3 +90,16 @@
     font-family: 'Montserrat', sans-serif;
     font-size: 12px;
 }
+@media(max-width:500px){
+    .available-container{
+        height: 85vh;
+    }
+    .available-header_{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+    .available-header__title {
+        margin-left:5%;
+    }
+}
