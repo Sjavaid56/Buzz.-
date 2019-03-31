@@ -1,8 +1,8 @@
 .Current-room {
     /* width:100%; */
     height:100vh;
-    overflow: scroll;
-    overflow-x: hidden;
+    /* overflow: scroll; */
+    /* overflow-x: hidden; */
     /* border: solid #ffcb34 2px; */
 }
 
@@ -13,6 +13,11 @@
     display: flex;
     flex-direction: column;
     justify-content:center;
+}
+
+.Current-room__main {
+    overflow-y:scroll;
+    max-height: 89vh;
 }
 
 .Current-room__Info {
@@ -61,6 +66,7 @@ div.inactive {
     justify-content: center;
     align-items: center;
     border: 1px dashed #ffcb34;
+    border-top: none;
     border-radius: 0px 0px 0px 5px;
     padding:7px;
     display:flex;
@@ -70,14 +76,16 @@ div.inactive {
 .leaveComment-parent__input{
     border-radius:5px;
     border: 1px dashed #ffcc34;
+    outline: none;
     width:80%;
     padding:5px;
-    background-color:#fffce7;
+    background-color:#fffce7da;
 
 }
 .leaveComment-parent__button{
     border-radius:50px;
     background-color:black;
+    outline: none;
     border:none;
     padding:7px;
     color:#fffce7;

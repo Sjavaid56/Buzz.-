@@ -43,8 +43,8 @@ export default class Post extends Component {
                     </div>
 
                     <div className='comment-parent__timestamp'>
-                        <p className='comment-parent__timeInfo'>3.29.19</p>
-                        <p className='comment-parent__timeInfo'>3:05pm</p>
+                        <p className='comment-parent__timeInfo'>{this.props.date}</p>
+                        <p className='comment-parent__timeInfo'>{this.props.time}</p>
                     </div>
 
                 </div>
