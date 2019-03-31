@@ -4,6 +4,7 @@ import down from "../down.png"
 import comment from '../../../../images/icons8-topic-50.png';
 import '../Comments/Comments.css';
 import './posts.css';
+import swal from "sweetalert"
 
 export default class Post extends Component {
     constructor(props) {
@@ -28,6 +29,25 @@ export default class Post extends Component {
         // axios.put(`/postDownVote/${post}`).then(newCount =>{
         //     console.log("Upvoted post")
         // })
+    }
+    sendDrink = () =>{
+        swal({
+            title:"Send a Drink!",
+            text:"Are you sure you'd like to send this person a drink?",
+            icon:"https://images.ecosia.org/n-0DWmTDxt5TZ_8UuYB16oedadc=/0x390/smart/https%3A%2F%2Fcdn2.iconfinder.com%2Fdata%2Ficons%2Fbright-food-products%2F512%2Fhoney-512.png",
+            buttons:true,
+            dangerMode:true
+        }).then(response =>{
+            let body = {
+                drinkCode:"X5YAAD903"
+            }
+            if(response){
+                this.props.socket.emit("SendDrink", body )
+            }
+            else{
+                console.log("Send drink cancelled.")
+            }
+        })
     }
 
     render() {
@@ -78,8 +98,8 @@ export default class Post extends Component {
                             onClick={this.props.toggleComments} />
                     </button>
 
-                    <button className='post-parent__sendDrink'>
-                        {/* add onClick functionality to send user a drink */}
+                    <button onClick = {this.sendDrink} className='post-parent__sendDrink'>
+                        
                         send honey
                     </button>
                 </div>

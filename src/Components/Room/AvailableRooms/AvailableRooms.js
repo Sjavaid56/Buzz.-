@@ -57,37 +57,41 @@ class AvailableRooms extends Component {
     render() {
         console.log(this.props.currentRoom)
 
+
         let mappedRooms = this.state.rooms.map((room) => {
-            return (<div key={room.room_id} className='available-rooms'>
-                <div className='rooms-header'>
-                    <h1 className='rooms-header__title'>
-                        {room.business_name}
-                    </h1>
-                    <h3 className='rooms-header__distance'>
-                        800 ft
-                    </h3>
-                </div>
-
-                <div className='rooms-footer'>
-
-                    <div className='rooms-footer__icons'>
-                        <img src={cafe} className='room-type__icon' />
-
-                        <img style={{ height: 22, width: 22 }}
-                            src={buzzBee} className='room-user__bee' />
-                        <p>{room.number_of_users}</p>
+            
+            return (
+                <div key={room.room_id} className='available-rooms'>
+                    <div className='rooms-header'>
+                        <h1 className='rooms-header__title'>
+                            {room.business_name}
+                        </h1>
+                        <h3 className='rooms-header__distance'>
+                            800 ft
+                        </h3>
                     </div>
-
-                    <div className='rooms-footer__button'>
-                        <button
-                            onClick={() => this.joinSingleRoom(room.room_id, room.business_name)}>
-                            join
-                    </button>
+    
+                    <div className='rooms-footer'>
+    
+                        <div className='rooms-footer__icons'>
+                            <img src={cafe} className='room-type__icon' />
+    
+                            <img style={{ height: 22, width: 22 }}
+                                src={buzzBee} className='room-user__bee' />
+                            <p>{room.number_of_users}</p>
+                        </div>
+    
+                        <div className='rooms-footer__button'>
+                            <button
+                                onClick={() => this.joinSingleRoom(room.room_id, room.business_name)}>
+                                join
+                        </button>
+                        </div>
+    
                     </div>
-
                 </div>
-            </div>
-            )
+                )
+            
         })
 
         console.log(this.state.rooms);

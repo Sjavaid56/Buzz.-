@@ -88,7 +88,7 @@ class CurrentRoom extends Component {
             comment_upvotes: 0,
             comment_downvotes: 0,
             //CHANGE TO BE RIGHT ROOM
-            room_id: this.props.currentRoom
+            room_id: this.props.currentRoom.room_id
         }
         this.props.socket.emit("NewComment", body)
         this.setState({
@@ -111,7 +111,7 @@ class CurrentRoom extends Component {
             return (
                 <div>
                     <Post {...post}
-                        toggleComments={this.toggleComments} />
+                        toggleComments={this.toggleComments} socket = {this.props.socket} />
 
                     {/* <div className={this.state.commentsHidden ? 'inactive' : 'active'}> */}
                     {mappedComments}
