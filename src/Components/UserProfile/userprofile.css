@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     padding: 20px;
+    
 }
 .profile-parent__button-holder{
     width:100%;
@@ -22,10 +23,11 @@
 .profile-tabs button {
     font-family: 'Montserrat', sans-serif;
     background: #fffce7;
-    margin: 10px 0;
+    margin-top: 10px;
     width: 110px;
     height: 30px;
     border: .5px solid rgba(28, 30, 31, 0.76);
+    border-bottom: none;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
 }
@@ -33,4 +35,8 @@
 .profile-tabs button:hover {
     background-color: #ffcb34;
     outline: 0;
+}
+
+.profile-tabs__info {
+    border: 1px solid black;
 }

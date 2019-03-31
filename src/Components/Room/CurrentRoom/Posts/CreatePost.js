@@ -29,7 +29,7 @@ class CreatePost extends Component {
             upvotes: 0,
             downvotes: 0,
             drinks_given: 0,
-            room_id: this.props.currentRoom
+            room_id: this.props.currentRoom.room_id
         }
         console.log("SENDING THIS POST.", body)
         this.props.socket.emit("NewPost", body)

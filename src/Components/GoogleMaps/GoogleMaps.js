@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import './GoogleMaps.css'
 import axios from 'axios'
 import HiveIcon from '../../images/icons8-hive-96.png';
+import GrayHiveIcon from '../../images/icons8-hive-96 -gray.png'
 import BeeIcon from '../../images/assets/logo/buzz-logo-charcoal-nobg.png';
+
 
 const getGeoLocation = () => {
   const geolocation = navigator.geolocation;
