@@ -29,11 +29,12 @@ class AvailableRooms extends Component {
         })
     }
 
-    joinSingleRoom = (room_id) => {
-        this.props.updateCurrentRoom(room_id);
+    joinSingleRoom = (room_id, business_name) => {
+        console.log(room_id + business_name)
+        this.props.updateCurrentRoom({ room_id, business_name });
 
         let body = {
-            room_id: room_id
+            room_id: room_id,
         }
 
         this.props.socket.emit('JoinedRoom', body)
@@ -42,7 +43,7 @@ class AvailableRooms extends Component {
     }
 
     render() {
-        console.log(this.props)
+        console.log(this.props.currentRoom)
 
         let mappedRooms = this.state.rooms.map((room) => {
             return (<div key={room.room_id} className='available-rooms'>
@@ -67,7 +68,7 @@ class AvailableRooms extends Component {
 
                     <div className='rooms-footer__button'>
                         <button
-                            onClick={() => this.joinSingleRoom(room.room_id)}>
+                            onClick={() => this.joinSingleRoom(room.room_id, room.business_name)}>
                             join
                     </button>
                     </div>
@@ -78,6 +79,7 @@ class AvailableRooms extends Component {
         })
 
         console.log(this.state.rooms);
+        // console.log('THIS IS THE AVAILABLE ROOM PROPS', this.props)
         return (
             <div className='available-container'>
                 <div className='available-header'>

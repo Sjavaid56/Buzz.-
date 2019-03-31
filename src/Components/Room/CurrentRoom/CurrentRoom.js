@@ -7,6 +7,7 @@ import Comment from "./Comments/Comments"
 import CreatePost from './Posts/CreatePost';
 import pencilIcon from '../../../images/icons8-edit.svg';
 import cancelIcon from '../../../images/icons8-delete-24.png';
+import beeIcon from '../../../images/assets/logo/buzz-logo-yellow-nobg.png';
 import "./CurrentRoom.css"
 import { connect } from "react-redux"
 import { updateCurrentRoom } from '../../../redux/reducer';
@@ -134,7 +135,7 @@ class CurrentRoom extends Component {
                             <img src={back} />
                         </button>
 
-                        <p className="Current-room__title">Berdena's</p>
+                        <p className="Current-room__title">{this.props.currentRoom.business_name}</p>
 
                         <button className='Current-room__createPost'
                             onClick={this.toggleCreatePost}>
@@ -154,7 +155,17 @@ class CurrentRoom extends Component {
                     {/* If the screen is in mobile view, show the bottom navigation. If it isn't, it will be next to
                     map component. */}
                     <div>
-                        {mappedPosts.length ? mappedPosts : null}
+                        {
+                            mappedPosts.length ?
+                                mappedPosts
+                                :
+                                <div style={{ textAlign: 'center', margin: 60, fontSize: 22, lineHeight: 1.2 }}>
+                                    <h4 style={{ marginBottom: 30, textShadow: '1px 1px 3px #000000' }}>
+                                        No posts in this hive yet... be the first to buzz about something!
+                                    </h4>
+                                    <img height='100' width='100' src={beeIcon} alt='buzz bee logo in yellow' />
+                                </div>
+                        }
                     </div>
                 </main>
             </div>

@@ -1,6 +1,6 @@
 .post-parent{
     height:auto;
-    border: solid #ffcb34 1px;
+    border-bottom: solid #ffcb34 1px;
     background: #fffce7;
     padding:10px;
     border-left: none;
@@ -21,4 +21,5 @@
     border-radius: 10px;
     margin-left: auto;
     margin-right: 10px;
+    outline: none;
 }
