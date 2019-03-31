@@ -16,3 +16,11 @@
     height: 100vh;
     width: 100%
 }
+@media(max-width:500px){
+    #map{
+        height:85vh;
+    }
+    .hive-container{
+        width:100vw;
+    }
+}

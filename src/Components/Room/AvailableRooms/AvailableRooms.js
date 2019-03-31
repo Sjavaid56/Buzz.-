@@ -7,6 +7,7 @@ import cafe from './icons/icons8-cafe-filled-30.png';
 //change this to svg or something we can use our custom color on
 import './availablerooms.css';
 // import CurrentRoom from '../CurrentRoom/CurrentRoom';
+import NavBar from "../../NavBar/NavBar"
 
 class AvailableRooms extends Component {
     constructor(props) {
@@ -14,7 +15,7 @@ class AvailableRooms extends Component {
 
         this.state = {
             rooms: [],
-
+            width:window.innerWidth
         }
 
 
@@ -28,6 +29,17 @@ class AvailableRooms extends Component {
             })
         })
     }
+    componentWillMount() {
+        window.addEventListener('resize', this.handleWindowSizeChange);
+    }
+    handleWindowSizeChange = () => {
+        this.setState({ width: window.innerWidth });
+    };
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleWindowSizeChange);
+    }
+
+
 
     joinSingleRoom = (room_id, business_name) => {
         console.log(room_id + business_name)
@@ -83,14 +95,20 @@ class AvailableRooms extends Component {
         return (
             <div className='available-container'>
                 <div className='available-header'>
-                    <button className="available-container__profileView" onClick={this.props.toggleProfileFn}>
-                        <img src={this.props.currentUser.picture}></img>
-                    </button>
+                    {
+                        this.state.width >= 500? 
+                        <button className="available-container__profileView" onClick={this.props.toggleProfileFn}>
+                            <img src={this.props.currentUser.picture}></img>
+                        </button>
+                        :
+                        null
+                    }
                     <h1 className='available-header__title'>buzz.</h1>
                 </div>
 
                 <main className='mapped-businesses'>
                     {mappedRooms}
+
                 </main>
 
             </div>
