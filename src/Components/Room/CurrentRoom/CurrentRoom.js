@@ -96,7 +96,7 @@ class CurrentRoom extends Component {
     }
 
     render() {
-        console.log(this.props.currentRoom)
+        console.log("PROPS IN CURRENT ROOM: ",this.props)
         let mappedPosts = this.state.posts.map(post => {
             let mappedComments = this.state.comments.map(comment => {
                 if (comment.post_id == post.post_id) {

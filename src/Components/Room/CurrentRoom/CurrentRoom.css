@@ -95,3 +95,11 @@ div.inactive {
   transition: height 0.5s ease-in-out;
   height:100px;
 }
+
+
+@media(max-width:500px){
+    .Current-room{
+        height:85vh;
+        width:100vw;
+    }
+}
