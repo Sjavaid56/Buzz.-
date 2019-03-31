@@ -13,11 +13,11 @@ export default class UserProfile extends Component {
     }
 
     render() {
-        // console.log(this.props)
+        console.log(this.props)
         return (
             <div className='profile-parent'>
-                <div className = "profile-parent__button-holder">
-                    <button onClick = {this.props.toggleProfileFn} className = "profile-parent__button"><img src = {back}></img></button>
+                <div className="profile-parent__button-holder">
+                    <button onClick={this.props.toggleProfileFn} className="profile-parent__button"><img src={back}></img></button>
                 </div>
                 <div className='profile-header'>
                     <img src={profileplaceholder} alt='profile placeholder'
@@ -32,7 +32,7 @@ export default class UserProfile extends Component {
                 <div className='profile-tabs__info'>
 
                     <div className='profile-tabs__infoProfile'>
-                        <h2>Profile</h2>
+                        {/* <h2>Profile</h2> */}
 
                         <p>Username:</p>
                         <p>@whatever</p>

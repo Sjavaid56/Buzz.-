@@ -45,16 +45,16 @@ class CurrentRoom extends Component {
     }
     //When screen loads, get all the room data for current room
     componentDidMount = () => {
-        const { currentRoom } = this.props;
+        const { room_id } = this.props.currentRoom;
 
-        Axios.get(`/getPosts/${currentRoom}`).then(posts => {
+        Axios.get(`/getPosts/${room_id}`).then(posts => {
             this.setState({
                 posts: posts.data
             })
             console.log(posts.data)
         })
         //get comments that are associated with correct room and posts
-        Axios.get(`/getComments/${currentRoom}`).then(comments => {
+        Axios.get(`/getComments/${room_id}`).then(comments => {
             this.setState({
                 comments: comments.data
             })

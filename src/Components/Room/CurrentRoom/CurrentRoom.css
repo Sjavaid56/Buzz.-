@@ -16,7 +16,7 @@
 }
 
 .Current-room__main {
-    overflow-y:scroll;
+    overflow-y:auto;
     max-height: 89vh;
 }
 
