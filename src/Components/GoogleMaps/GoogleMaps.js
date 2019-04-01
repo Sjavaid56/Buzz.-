@@ -41,6 +41,15 @@ class App extends Component {
     this.getVenues2()
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    // Typical usage (don't forget to compare props):
+    if (this.state.currentLatLng.lat !==  prevState.currentLatLng.lat) {
+      console.log("current lat:", this.state.currentLatLng.lat)
+      console.log("prev lat:", prevState.currentLatLng.lat)
+      this.renderMap()
+    }
+  }
+
   componentWillUpdate() {
     this.initGeoLocation()
   }
@@ -78,7 +87,8 @@ class App extends Component {
       .then(response => {
         this.setState({
           venues: response.data.response.groups[0].items
-        }, this.renderMap())
+        }, 
+        this.renderMap())
       })
       .catch(error => {
         console.log("ERROR!! " + error)
@@ -90,7 +100,7 @@ class App extends Component {
       .then(business => {
         this.setState({
           venues2: business.data
-        }, this.renderMap())
+        }, )
       })
       .catch(error => {
         console.log("ERROR!! " + error)
@@ -98,7 +108,6 @@ class App extends Component {
 
 
   }
-
 
 
   initMap = () => {
