@@ -120,10 +120,6 @@ class App extends Component {
         position: {
           lat: myVenue.venue.location.lat, lng: myVenue.venue.location.lng
         },
-        // icon: {
-        //   url: '../../images/assets/logo/buzz-bee-charcoal.svg',
-        //   scaledSize: new window.google.maps.Size(64, 64)
-        // },
         map: map,
         title: myVenue.venue.name
       })
@@ -151,7 +147,6 @@ class App extends Component {
           url: HiveIcon,
           scaledSize: new window.google.maps.Size(50, 50)
         }
-        // animation: google.maps.Animation.DROP,
 
       })
       // Click on A Marker!
@@ -164,7 +159,7 @@ class App extends Component {
 
     })
 
-    var UserLoc = new window.google.maps.Marker({
+    var UserLocation = new window.google.maps.Marker({
       position: { lat: this.state.currentLatLng.lat, lng: this.state.currentLatLng.lng },
       map: map,
       title: "MY LOCATION",
@@ -175,6 +170,17 @@ class App extends Component {
       // animation: google.maps.Animation.DROP,
 
     })
+    var circle = new window.google.maps.Circle({
+      map: map,
+      radius: 500,    // 10 miles in metres
+      fillColor: '#ffcb34',
+      strokeColor: '#ffcb34',
+            strokeOpacity: 0.8,
+            strokeWeight: 1,
+            fillColor: '#ffcb34',
+            fillOpacity: 0.29,
+    });
+    circle.bindTo('center', UserLocation, 'position');
 
 
   }
@@ -196,102 +202,3 @@ function loadScript(url) {
   index.parentNode.insertBefore(script, index)
 }
 export default connect(null, {updateLocation})(App);
-
-
-// import React, { Component } from 'react';
-// import MapComponent from './map2';
-// import axios from "axios";
-
-// const getGeoLocation = () => {
-//   const geolocation = navigator.geolocation;
-
-//   const location = new Promise((resolve, reject) => {
-//     if (!geolocation) {
-//       reject(new Error('Not Supported'));
-//     }
-
-//     geolocation.getCurrentPosition((position) => {
-//       resolve(position);
-//     }, () => {
-//       reject (new Error('Permission denied'));
-//     });
-//   });
-
-//   return location
-// };
-
-// class GoogleMaps extends Component {
-//   state = {
-//     loading: true,
-//     venues: [],
-//     name:[],
-//     lat: [],
-//     lng: [],
-//     currentLatLng: {
-//       lat: 0,
-//       lng: 0,
-//     },
-//     isMarkerShown: false
-//   }
-
-  // componentDidMount() {
-  //   this.initGeoLocation();
-  //   axios.get("/dbvenues").then(business => {
-  //     console.log("db bdata", business.data.latitude, business.data.business_name)
-  //     console.log(typeof business.data[0].latitude)
-  //     console.log("full db info",business.data)
-  //     this.setState({
-  //       venues: business.data
-  //     })
-  //   })
-  // }
-
-
-
-
-
-//   componentWillUpdate(){
-//     this.initGeoLocation()
-//   }
-
-//   initGeoLocation() {
-//     getGeoLocation().then(location=> {
-//       this.setState({
-//         loading: false,
-//         currentLatLng: {
-//           lat: location.coords.latitude,
-//           lng: location.coords.longitude,
-//         },
-//         isMarkerShown: true
-//       })
-//     });
-//   }
-
-//   handleMarkerClick = () => {
-//     this.setState({ isMarkerShown: false })
-//     this.initGeoLocation()
-//   }
-
-
-//   render() {
-
-
-//     const { loading, isMarkerShown, currentLatLng } = this.state;
-
-//     if (loading) {
-//       return 'One second, Buzz is looking for some hives near you.';
-//     }
-
-//     return (
-
-//       <MapComponent
-//         isMarkerShown={isMarkerShown}
-//         onMarkerClick={this.handleMarkerClick}
-//         currentLocation={currentLatLng}
-//         venues = {this.state.venues}
-//       />
-//     );
-//   }
-// }
-
-// export default GoogleMaps;
