@@ -47,6 +47,7 @@ app.get("/getPosts/:id", roomsController.getRoomData)
 app.get("/getComments/:id", roomsController.getComments)
 app.post("/newPost", roomsController.newPost)
 app.get('/getRooms', roomsController.getRooms)
+app.get("/getDrinkDeals/:id", roomsController.getDrinkDeals)
 
 //Sockets
 io.sockets.on('connection', (socket) => {
@@ -85,6 +86,7 @@ io.sockets.on('connection', (socket) => {
         })
         socket.on("SendDrink", body =>{
             console.log("Recieved Drink request", body)
+            io.sockets.emit("NewDrinkSent", body)
         })
     })
 })

@@ -36,3 +36,9 @@ room_id serial primary key
 ,latitude integer
 ,longitude integer
 ,number_of_users integer);
+
+create table drink_deals(
+    deal_id serial primary key
+    ,coupon_code varchar(64)
+    ,room_id integer references rooms(room_id)
+);

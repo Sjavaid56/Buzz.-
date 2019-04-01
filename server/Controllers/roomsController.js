@@ -36,5 +36,12 @@ module.exports = {
         db.get_rooms().then(rooms => {
             res.status(200).json(rooms)
         })
+    },
+    getDrinkDeals: (req,res) =>{
+        const db = req.app.get("db")
+        const {id} = req.params
+        db.getDrinkDeals(id).then(response =>{
+            res.status(200).json(response)
+        })
     }
 }

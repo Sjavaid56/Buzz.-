@@ -8,6 +8,7 @@ import cafe from './icons/icons8-cafe-filled-30.png';
 import './availablerooms.css';
 // import CurrentRoom from '../CurrentRoom/CurrentRoom';
 import NavBar from "../../NavBar/NavBar"
+import swal from '@sweetalert/with-react'
 
 class AvailableRooms extends Component {
     constructor(props) {
@@ -17,7 +18,11 @@ class AvailableRooms extends Component {
             rooms: [],
             width:window.innerWidth
         }
-
+        this.props.socket.on("NewDrinkSent", body =>{
+            if(body.recipient_id === this.props.currentUser.user_id){
+                this.newDrinkAlert(body.user_name)
+            }
+        })
 
     }
 
@@ -43,17 +48,14 @@ class AvailableRooms extends Component {
             // this.setState({
             //     rooms: rooms.data
             // })
-            console.log("ROOMS",rooms)
             setTimeout(() =>{
                 let availableRooms = rooms.data.filter((value) =>{
-                    console.log("PROPS IN FILTER FUNCTION",this.props)
                     return distance(this.props.currentLocation.latitude,this.props.currentLocation.longitude,value.latitude,value.longitude, "K") <= 0.5
                 })
                 this.setState({
                     rooms:availableRooms
                 })
-                console.log('PROPS IN FILTER METHOD', this.props)
-            },2000)
+            },500)
         })
     }
     componentWillMount() {
@@ -66,10 +68,16 @@ class AvailableRooms extends Component {
         window.removeEventListener('resize', this.handleWindowSizeChange);
     }
 
+    newDrinkAlert = (name) =>{
+        swal(
+            <div>
+            <h1>someone sent {name} a drink!</h1>
+            </div>
+        )
+    }
 
 
     joinSingleRoom = (room_id, business_name) => {
-        console.log(room_id + business_name)
         this.props.updateCurrentRoom({ room_id, business_name });
 
         let body = {
@@ -83,7 +91,6 @@ class AvailableRooms extends Component {
      
 
     render() {
-        console.log(this.state.rooms)
 
 
         let mappedRooms = this.state.rooms.map((room) => {
@@ -122,8 +129,6 @@ class AvailableRooms extends Component {
             
         })
 
-        console.log("PROPS IN AVAILBLE ROOMS RENDER",this.props);
-        // console.log('THIS IS THE AVAILABLE ROOM PROPS', this.props)
         return (
             <div className='available-container'>
                 <div className='available-header'>
@@ -149,7 +154,6 @@ class AvailableRooms extends Component {
 }
 
 let mapStateToProps = (state) => {
-    console.log("REDUCER STATE IN AVAILABLE ROOMS",state)
     return {
         currentRoom: state.currentRoom,
         currentUser: state.currentUser,
