@@ -1,5 +1,5 @@
 
-
+const userController = require('./Controllers/userController');
 const authController = require("./Controllers/authController")
 
 //Require Packages
@@ -49,6 +49,9 @@ app.post("/newPost", roomsController.newPost)
 app.get('/getRooms', roomsController.getRooms)
 app.get("/getDrinkDeals/:id", roomsController.getDrinkDeals)
 
+//User endpoint
+app.post('/logout', userController.logoutUser);
+
 //Sockets
 io.sockets.on('connection', (socket) => {
     const db = app.get("db")
@@ -84,7 +87,7 @@ io.sockets.on('connection', (socket) => {
                 io.in(room_id).emit('SendRoomData', roomData)
             })
         })
-        socket.on("SendDrink", body =>{
+        socket.on("SendDrink", body => {
             console.log("Recieved Drink request", body)
             io.sockets.emit("NewDrinkSent", body)
         })

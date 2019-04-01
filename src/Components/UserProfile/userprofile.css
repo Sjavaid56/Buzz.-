@@ -11,6 +11,8 @@
 }
 
 .profile-header {
+    width: 100%;
+    max-height: 500px;
     display: flex;
     flex-direction: column;
     /* justify-content: center; */
@@ -34,14 +36,14 @@
     /* width: 250px; */
     margin-top: 20px;
     margin-bottom: 10px;
-    width: 60%;
+    width: 50%;
     border-radius: 50%;
     box-shadow:  0px 0px 10px 0px #888888;
 }
 
 .profile-tabs button {
     font-family: 'Montserrat', sans-serif;
-    font-size: 15px;
+    font-size: 16px;
     background: #fdfdfc;
     margin-top: 10px;
     width: 110px;
@@ -52,7 +54,7 @@
     border-top-right-radius: 15px;
     box-shadow:  0px 2px 6px 0px #888888;
     outline: none;
-
+    -webkit-tap-highlight-color: transparent;
 }
 
 .profile-tabs button:hover {
@@ -64,20 +66,22 @@
     border: .5px solid #ffcb34;
     background: #fdfdfc;
     border-radius: 15px;
-    padding: 100px 40px;
+    height: 50vh;
+    max-width: 310px;
+    padding: 40px;
     box-shadow:  0px 1px 5px 0px #888888;
     
 }
 
 
 .profile-tabs__infoProfile h6 {
-    font-size: 18px;
+    font-size: 17px;
     margin-bottom: 5px;
 }
 
 .profile-tabs__infoProfile p {
-    font-size: 15px;
-    margin-bottom: 10px;
+    font-size: 14px;
+    margin-bottom: 16px;
 }
 
 .profile-tabs__infoProfile > button {
@@ -90,15 +94,24 @@
     margin-left: auto;
     font-family: 'Montserrat', sans-serif;
     font-size: 12px;
+    outline: none;
 }
 
 @media(max-width:500px){
-    .profile-parent__back{
-        
-        visibility: hidden;
-    }
-
     .profile-parent{
         height: 85vh;
+    }
+    .profile-parent__back{
+        visibility: hidden;
+    }
+    .profile-tabs__info {
+        height: 42vh;
+        padding: 10px;
+    }
+}
+
+@media(min-width:1200px){
+    .profile-header__picture {
+        max-width: 280px;
     }
 }
