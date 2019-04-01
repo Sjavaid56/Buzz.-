@@ -9,6 +9,7 @@ import './availablerooms.css';
 // import CurrentRoom from '../CurrentRoom/CurrentRoom';
 import NavBar from "../../NavBar/NavBar"
 import swal from '@sweetalert/with-react'
+import drink from "../../../images/drink.png"
 
 class AvailableRooms extends Component {
     constructor(props) {
@@ -20,7 +21,8 @@ class AvailableRooms extends Component {
         }
         this.props.socket.on("NewDrinkSent", body =>{
             if(body.recipient_id === this.props.currentUser.user_id){
-                this.newDrinkAlert(body.user_name)
+                console.log("body on new drink", body)
+                this.newDrinkAlert(body.sender_name, body.drink_description)
             }
         })
 
@@ -68,12 +70,16 @@ class AvailableRooms extends Component {
         window.removeEventListener('resize', this.handleWindowSizeChange);
     }
 
-    newDrinkAlert = (name) =>{
-        swal(
-            <div>
-            <h1>someone sent {name} a drink!</h1>
-            </div>
-        )
+    newDrinkAlert = (name, drink_description) =>{
+        if(name == null){
+            name = "Someone"
+        }
+        swal({
+            buttons:true,
+            icon:drink,
+            className:"SendDrink",
+            title:`${name} sent you a ${drink_description}!`
+        })
     }
 
 

@@ -42,3 +42,13 @@ create table drink_deals(
     ,coupon_code varchar(64)
     ,room_id integer references rooms(room_id)
 );
+
+create table drinks(
+    drink_id serial primary key,
+    recipient_id integer,
+    recipient_name varchar(64),
+    drink_description varchar(64),
+    coupon_code varchar(64),
+    sender_name varchar(64),
+    sender_id integer
+    );

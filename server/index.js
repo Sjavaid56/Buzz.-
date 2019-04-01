@@ -89,7 +89,11 @@ io.sockets.on('connection', (socket) => {
         })
         socket.on("SendDrink", body => {
             console.log("Recieved Drink request", body)
-            io.sockets.emit("NewDrinkSent", body)
+            const {recipient_id,recipient,deal_description,coupon_code,sender_name,sender_id} = body
+            db.send_drink(recipient_id,recipient,deal_description,coupon_code,sender_name,sender_id).then(drinks =>{
+                console.log(drinks)
+                io.sockets.emit("NewDrinkSent", drinks[0])
+            })
         })
     })
 })

@@ -6,8 +6,9 @@ import '../Comments/Comments.css';
 import './posts.css';
 import swal from '@sweetalert/with-react'
 import drink from "../../../../images/drink.png"
+import { connect } from "react-redux"
 
-export default class Post extends Component {
+class Post extends Component {
     constructor(props) {
         super(props);
 
@@ -31,42 +32,69 @@ export default class Post extends Component {
         //     console.log("Upvoted post")
         // })
     }
-    chooseDrink = (user_name, user_id) =>{
+    chooseDrink = (sender_name,sender_id,user_name, user_id) =>{
         console.log(this.props.deals)
         let mappedDeals = this.props.deals.map(deal =>{
             return(
                 <div className = "dealParent-container">
-                    <button onClick = {() => this.sendDrink(deal,user_name, user_id)} className = "dealParent-container__item"><img src = {drink}></img>{deal.description}</button>
+                    <button onClick = {() => this.sendDrink(sender_name,sender_id,deal,user_name, user_id)} className = "dealParent-container__item"><img src = {drink}></img>{deal.description}</button>
                 </div>
             )
         })
-        swal(
-            <div>
+        
+        swal({
+            className:"SendDrink",
+            buttons:{
+                cancel:"Cancel"
+            },
+            content:(<div>
                 {mappedDeals.length? mappedDeals:<h1>No deals yet!</h1>}
-            </div>
-          )
+            </div>)
+        })
     }
-    sendDrink = (deal, user_name,user_id) =>{
+    sendDrink = (sender_name,sender_id,deal, user_name,user_id) =>{
         swal(
             {
+            icon:drink,
+            className: "SendDrink",
             title:`Are you sure you want to send ${user_name} a ${deal.description}?`,
             text:'Your card will be charged $5.00',
             buttons:true,
-            dangerMode:true
+            dangerMode:false
         }
         )
             .then(response =>{
+                console.log("Deal: ", deal)
                 let body = {
                     coupon_code:deal.coupon_code,
+                    deal_description:deal.description,
                     recipient:user_name,
-                    recipient_id:user_id
+                    recipient_id:user_id,
+                    sender_name:sender_name,
+                    sender_id:sender_id
                 }
+                console.log("SENDING: ", body)
                 if(response){
                     this.props.socket.emit("SendDrink", body )
+                    swal({
+                        icon:'success',
+                        className: "SendDrink",
+                        title:`Sent drink!`,
+                        text:`${body.recipient} will recieve your gift shortly.`,
+                        button:"Okay",
+                        timer: 3000
+
+                    })
                 }
                 else{
                     swal(
-                        {title:"Canceled purchase"}
+                        {
+                        title:"Canceled purchase",
+                        className: "SendDrink",
+                        icon: "error",
+                        timer: 3000
+                        
+                        }
                     )
                 }
             })
@@ -74,6 +102,7 @@ export default class Post extends Component {
     }
 
     render() {
+        console.log(this.props.currentUser)
         return (
             <div className="post-parent">
                 <div className="comment-parent__header">
@@ -121,7 +150,7 @@ export default class Post extends Component {
                             onClick={this.props.toggleComments} />
                     </button>
 
-                    <button onClick = { () =>{this.chooseDrink(this.props.poster_username, this.props.poster_id)}} className='post-parent__sendDrink'>
+                    <button onClick = { () =>{this.chooseDrink(this.props.currentUser.user_name, this.props.currentUser.user_id, this.props.poster_username, this.props.poster_id)}} className='post-parent__sendDrink'>
                         
                         send honey
                     </button>
@@ -131,3 +160,9 @@ export default class Post extends Component {
         )
     }
 }
+let mapStateToProps = (state) =>{
+    return{
+        currentUser:state.currentUser
+    }
+}
+export default connect(mapStateToProps,null)(Post)
