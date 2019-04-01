@@ -12,26 +12,34 @@
     min-height: 98px;
 }
 
-.available-container__profileView {
-    /* float:left; */
+/* .available-container__profileView {
     outline: none;
     border:none;
     background:none;
     border-radius: 50%;
     flex: 1;
-}
-.available-container__profileView > img {
-    
+} */
+.available-header > img {
+    outline: none;
+    border:none;
+    background:none;
     border-radius: 50%;
+    flex: 1;
+    /* border-radius: 50%; */
     width: 65px;
     height: 65px;
     float: left;
+    margin-left: 10px;
+}
+
+.available-header > img:hover {
+    cursor: pointer;
 }
 .available-header__title {
     margin: 0 auto;
     flex: 100%;
-    margin-left: -15%;
     text-align: center;
+    margin-left: -10px;
 }
 
 .mapped-businesses {
