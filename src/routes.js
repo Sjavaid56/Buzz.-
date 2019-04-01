@@ -2,7 +2,7 @@ import React from "react"
 import { Switch, Route } from "react-router-dom"
 import Landing from "./Components/Landing/Landing"
 import Dashboard from "./Components/Dashboard/Dashboard"
-import userProfile from "./Components/UserProfile/UserProfile"
+// import userProfile from "./Components/UserProfile/UserProfile"
 import FinishRegistration from './Components/UserProfile/FinishRegistration';
 import Tutorial from "./Components/Tutorial/Tutorial"
 import Comment from "./Components/Room/CurrentRoom/Comments/Comments";
