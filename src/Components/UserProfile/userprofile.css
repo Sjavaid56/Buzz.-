@@ -67,7 +67,7 @@ body {
     border: .5px solid #ffcb34;
     background: #fdfdfc;
     border-radius: 15px;
-    padding: 20px 14px;
+    padding: 24px 20px;
     box-shadow:  0px 3px 6px 0px #888888;
 
 }
@@ -81,6 +81,18 @@ body {
 .profile-tabs__infoProfile p {
     font-size: 15px;
     margin-bottom: 10px;
+}
+
+.profile-tabs__infoProfile > button {
+    background: #ffcb34;
+    border: none;
+    color: #1C1E1F;
+    padding: 7px 12px;
+    width: 85px;
+    border-radius: 14px;
+    margin-left: auto;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
 }
 
 @media(max-width:500px){

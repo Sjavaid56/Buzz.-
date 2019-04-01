@@ -52,7 +52,7 @@ class UserProfile extends Component {
                         <button>Add Card</button>
                     </div>
 
-                    <div className='profile-tabs__infoDrinks'
+                    <div className='profile-tabs__drinks'
                     >
                         <h2>Drinks</h2>
                         <p>map through user's drinks here</p>
