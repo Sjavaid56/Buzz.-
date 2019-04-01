@@ -4,6 +4,8 @@ import axios from 'axios'
 import HiveIcon from '../../images/icons8-hive-96.png';
 import GrayHiveIcon from '../../images/icons8-hive-96 -gray.png'
 import BeeIcon from '../../images/assets/logo/buzz-logo-charcoal-nobg.png';
+import { updateLocation } from "../../redux/reducer"
+import {connect} from "react-redux"
 
 
 const getGeoLocation = () => {
@@ -44,6 +46,7 @@ class App extends Component {
   }
   initGeoLocation() {
     getGeoLocation().then(location => {
+      this.props.updateLocation(location.coords)
       this.setState({
         currentLatLng: {
           lat: location.coords.latitude,
@@ -192,7 +195,7 @@ function loadScript(url) {
   script.defer = true
   index.parentNode.insertBefore(script, index)
 }
-export default App;
+export default connect(null, {updateLocation})(App);
 
 
 // import React, { Component } from 'react';

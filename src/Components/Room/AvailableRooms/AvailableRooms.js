@@ -23,10 +23,37 @@ class AvailableRooms extends Component {
 
     //When screen loads, get all the rooms (change styling based on radius to user's geolocation) within a radius - maybe a mile - of the user's location
     componentDidMount = () => {
+        let distance = (lat1, lon1, lat2, lon2, unit)  => {
+            var radlat1 = Math.PI * lat1/180
+            var radlat2 = Math.PI * lat2/180
+            var radlon1 = Math.PI * lon1/180
+            var radlon2 = Math.PI * lon2/180
+            var theta = lon1-lon2
+            var radtheta = Math.PI * theta/180
+            var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+            dist = Math.acos(dist)
+            dist = dist * 180/Math.PI
+            dist = dist * 60 * 1.1515
+            if (unit=='K') { dist = dist * 1.609344 }
+            if (unit=='N') { dist = dist * 0.8684 }
+            return dist
+        }
+        
         axios.get('/getRooms').then(rooms => {
-            this.setState({
-                rooms: rooms.data
-            })
+            // this.setState({
+            //     rooms: rooms.data
+            // })
+            console.log("ROOMS",rooms)
+            setTimeout(() =>{
+                let availableRooms = rooms.data.filter((value) =>{
+                    console.log("PROPS IN FILTER FUNCTION",this.props)
+                    return distance(this.props.currentLocation.latitude,this.props.currentLocation.longitude,value.latitude,value.longitude, "K") <= 0.5
+                })
+                this.setState({
+                    rooms:availableRooms
+                })
+                console.log('PROPS IN FILTER METHOD', this.props)
+            },2000)
         })
     }
     componentWillMount() {
@@ -53,9 +80,10 @@ class AvailableRooms extends Component {
 
         this.props.toggleHiveView();
     }
+     
 
     render() {
-        console.log(this.props.currentRoom)
+        console.log(this.state.rooms)
 
 
         let mappedRooms = this.state.rooms.map((room) => {
@@ -94,7 +122,7 @@ class AvailableRooms extends Component {
             
         })
 
-        console.log(this.state.rooms);
+        console.log("PROPS IN AVAILBLE ROOMS RENDER",this.props);
         // console.log('THIS IS THE AVAILABLE ROOM PROPS', this.props)
         return (
             <div className='available-container'>
@@ -120,10 +148,12 @@ class AvailableRooms extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+let mapStateToProps = (state) => {
+    console.log("REDUCER STATE IN AVAILABLE ROOMS",state)
     return {
         currentRoom: state.currentRoom,
-        currentUser: state.currentUser
+        currentUser: state.currentUser,
+        currentLocation: state.currentLocation
     }
 }
 
