@@ -5,7 +5,7 @@ import HiveIcon from '../../images/icons8-hive-96.png';
 import GrayHiveIcon from '../../images/icons8-hive-96 -gray.png'
 import BeeIcon from '../../images/assets/logo/buzz-logo-charcoal-nobg.png';
 import { updateLocation } from "../../redux/reducer"
-import {connect} from "react-redux"
+import { connect } from "react-redux"
 
 
 const getGeoLocation = () => {
@@ -43,18 +43,19 @@ class App extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     // Typical usage (don't forget to compare props):
-    console.log("current venues:",this.state.venues2.length)
+    console.log("current venues:", this.state.venues2.length)
     console.log("prevs venues:", prevState.venues2.length)
     console.log("current lat:", this.state.currentLatLng.lat)
     console.log("prev lat:", prevState.currentLatLng.lat)
 
-    if (this.state.currentLatLng.lat > 0 && this.state.venues2.length > 0){
+    if (this.state.venues2.length !== prevState.venues2.length) {
       this.renderMap()
+      console.log('THE COMPONENT JUST UPDATED!')
     }
   }
 
   componentWillUpdate() {
-    this.initGeoLocation()
+    // this.initGeoLocation()
   }
   initGeoLocation() {
     getGeoLocation().then(location => {
@@ -90,7 +91,7 @@ class App extends Component {
       .then(response => {
         this.setState({
           venues: response.data.response.groups[0].items
-        }, 
+        },
         )
       })
       .catch(error => {
@@ -103,10 +104,10 @@ class App extends Component {
     axios.get("/getRooms")
       .then(business => {
         console.log(business);
-        
+
         this.setState({
           venues2: business.data
-        }, )
+        })
       })
       .catch(error => {
         console.log("ERROR!! " + error)
@@ -190,10 +191,10 @@ class App extends Component {
       radius: 500,    // 10 miles in metres
       fillColor: '#ffcb34',
       strokeColor: '#ffcb34',
-            strokeOpacity: 0.8,
-            strokeWeight: 1,
-            fillColor: '#ffcb34',
-            fillOpacity: 0.29,
+      strokeOpacity: 0.8,
+      strokeWeight: 1,
+      fillColor: '#ffcb34',
+      fillOpacity: 0.29,
     });
     circle.bindTo('center', UserLocation, 'position');
 
@@ -216,4 +217,4 @@ function loadScript(url) {
   script.defer = true
   index.parentNode.insertBefore(script, index)
 }
-export default connect(null, {updateLocation})(App);
+export default connect(null, { updateLocation })(App);

@@ -19,14 +19,14 @@ class Dashboard extends Component {
         this.state = {
             currentHive: false,
             width: window.innerWidth,
-            showProfile:false,
-            showCurrent:false,
-            isResponsive:true,
-            ProfileResp:false,
-            currentHiveResp:false,
-            AllRoomsResp:false
+            showProfile: false,
+            showCurrent: false,
+            isResponsive: true,
+            ProfileResp: false,
+            currentHiveResp: false,
+            AllRoomsResp: false
         }
-        
+
     }
     //Get user data on mount
     componentDidMount = () => {
@@ -50,111 +50,111 @@ class Dashboard extends Component {
             currentHive: !this.state.currentHive
         })
     }
-    toggleProfile = () =>{
+    toggleProfile = () => {
         console.log(this.state.showProfile)
         this.setState({
-            showProfile:!this.state.showProfile
+            showProfile: !this.state.showProfile
         })
     }
 
     //Responsive Toggles
-    toggleProfileResp = () =>{
+    toggleProfileResp = () => {
         // this.toggleMap()
         this.setState({
-            ProfileResp:!this.state.ProfileResp
+            ProfileResp: !this.state.ProfileResp
         })
-        console.log("PROFILE",this.state)
+        console.log("PROFILE", this.state)
     }
 
-    togglecurrentHiveResp = () =>{
+    togglecurrentHiveResp = () => {
         this.setState({
-            currentHiveResp:!this.state.currentHiveResp
+            currentHiveResp: !this.state.currentHiveResp
         })
-        console.log("CURRENT ROOM",this.state)
+        console.log("CURRENT ROOM", this.state)
     }
-    toggleAllRoomsResp = () =>{
+    toggleAllRoomsResp = () => {
         this.setState({
-            AllRoomsResp:!this.state.AllRoomsResp
+            AllRoomsResp: !this.state.AllRoomsResp
         })
-        console.log("ALL ROOMS",this.state)
+        console.log("ALL ROOMS", this.state)
     }
-    toggleMap = () =>{
+    toggleMap = () => {
         this.setState({
-            isResponsive:true,
-            ProfileResp:false,
-            currentHiveResp:false,
-            AllRoomsResp:false
+            isResponsive: true,
+            ProfileResp: false,
+            currentHiveResp: false,
+            AllRoomsResp: false
         })
-        console.log('MAP',this.state)
+        console.log('MAP', this.state)
     }
 
     render() {
         console.log(this.state.width)
         let dashView
-        if(this.state.width >= 500){
+        if (this.state.width >= 500) {
             dashView = (
                 <div>
                     <div className='dashboard-container'>
-                    <div className='hive-container'>
-                        {
-                            this.state.currentHive ?
-                                <CurrentRoom socket={socket} toggleHiveView={this.toggleHiveView} />
-                                :
-                                (this.state.showProfile? <Profile toggleProfileFn={this.toggleProfile}/>:<AvailableRooms socket={socket} toggleHiveView={this.toggleHiveView} toggleProfileFn = {this.toggleProfile} />)
-                        }
-                    </div>
+                        <div className='hive-container'>
+                            {
+                                this.state.currentHive ?
+                                    <CurrentRoom socket={socket} toggleHiveView={this.toggleHiveView} />
+                                    :
+                                    (this.state.showProfile ? <Profile toggleProfileFn={this.toggleProfile} /> : <AvailableRooms socket={socket} toggleHiveView={this.toggleHiveView} toggleProfileFn={this.toggleProfile} />)
+                            }
+                        </div>
 
                         <div className='map-container'>
                             <Map />
                         </div>
                     </div>
                 </div>
-            ) 
+            )
         }
-        else{
-            if(this.state.isResponsive){
-                if(this.state.ProfileResp){
-                    dashView = (
-                        <div className = 'map-container__responsive'>
-                            <Profile/>
-                            <NavBar toggleMap = {this.toggleMap} toggleProfileRespFn = {this.toggleProfileResp} togglecurrentHiveRespFn = {this.togglecurrentHiveResp} toggleAllRoomsRespFn = {this.toggleAllRoomsResp}/>
-                        </div>
-                    )
-                }
-                else if(this.state.currentHiveResp){
+        else {
+            if (this.state.isResponsive) {
+                if (this.state.ProfileResp) {
                     dashView = (
                         <div className='map-container__responsive'>
-                            <CurrentRoom socket={socket}/>
-                            <NavBar toggleMap = {this.toggleMap} toggleProfileRespFn = {this.toggleProfileResp} togglecurrentHiveRespFn = {this.togglecurrentHiveResp} toggleAllRoomsRespFn = {this.toggleAllRoomsResp}/>
+                            <Profile />
+                            <NavBar toggleMap={this.toggleMap} toggleProfileRespFn={this.toggleProfileResp} togglecurrentHiveRespFn={this.togglecurrentHiveResp} toggleAllRoomsRespFn={this.toggleAllRoomsResp} />
                         </div>
                     )
                 }
-                else if(this.state.AllRoomsResp){
+                else if (this.state.currentHiveResp) {
+                    dashView = (
+                        <div className='map-container__responsive'>
+                            <CurrentRoom socket={socket} />
+                            <NavBar toggleMap={this.toggleMap} toggleProfileRespFn={this.toggleProfileResp} togglecurrentHiveRespFn={this.togglecurrentHiveResp} toggleAllRoomsRespFn={this.toggleAllRoomsResp} />
+                        </div>
+                    )
+                }
+                else if (this.state.AllRoomsResp) {
                     // if(this.state.currentHive){
-                        dashView = (
-                            <div className='map-container__responsive'>
-                                
-                                    {
-                                        this.state.currentHive ?
-                                            (
-                                                <div className='hive-container'>
-                                                <CurrentRoom socket={socket} toggleHiveView={this.toggleHiveView} />
-                                                <NavBar toggleMap = {this.toggleMap} toggleProfileRespFn = {this.toggleProfileResp} togglecurrentHiveRespFn = {this.togglecurrentHiveResp} toggleAllRoomsRespFn = {this.toggleAllRoomsResp}/>
-                                                </div>
-                                            )
-                                            :
-                                            (
-                                                <div>
-                                                    <AvailableRooms socket={socket} toggleHiveView={this.toggleHiveView} toggleProfileFn = {this.toggleProfile} />
-                                                    <NavBar toggleMap = {this.toggleMap} toggleProfileRespFn = {this.toggleProfileResp} togglecurrentHiveRespFn = {this.togglecurrentHiveResp} toggleAllRoomsRespFn = {this.toggleAllRoomsResp}/>
-                                                </div>
-                                            )
-                                    }
-                                
-                            </div>
-                            )
-                            
-                        // )
+                    dashView = (
+                        <div className='map-container__responsive'>
+
+                            {
+                                this.state.currentHive ?
+                                    (
+                                        <div className='hive-container'>
+                                            <CurrentRoom socket={socket} toggleHiveView={this.toggleHiveView} />
+                                            <NavBar toggleMap={this.toggleMap} toggleProfileRespFn={this.toggleProfileResp} togglecurrentHiveRespFn={this.togglecurrentHiveResp} toggleAllRoomsRespFn={this.toggleAllRoomsResp} />
+                                        </div>
+                                    )
+                                    :
+                                    (
+                                        <div>
+                                            <AvailableRooms socket={socket} toggleHiveView={this.toggleHiveView} toggleProfileFn={this.toggleProfile} />
+                                            <NavBar toggleMap={this.toggleMap} toggleProfileRespFn={this.toggleProfileResp} togglecurrentHiveRespFn={this.togglecurrentHiveResp} toggleAllRoomsRespFn={this.toggleAllRoomsResp} />
+                                        </div>
+                                    )
+                            }
+
+                        </div>
+                    )
+
+                    // )
                     // }
                     // else{
                     //     dashView = (<div className='map-container__responsive'>
@@ -163,16 +163,16 @@ class Dashboard extends Component {
                     //     </div>)
                     // }
                 }
-                else{
+                else {
                     dashView = (
-                        <div className = 'map-container__responsive'>
-                            {/* <Map/> */}
-                            <NavBar toggleMap = {this.toggleMap} toggleProfileRespFn = {this.toggleProfileResp} togglecurrentHiveRespFn = {this.togglecurrentHiveResp} toggleAllRoomsRespFn = {this.toggleAllRoomsResp}/>
+                        <div className='map-container__responsive'>
+                            <Map />
+                            <NavBar toggleMap={this.toggleMap} toggleProfileRespFn={this.toggleProfileResp} togglecurrentHiveRespFn={this.togglecurrentHiveResp} toggleAllRoomsRespFn={this.toggleAllRoomsResp} />
                         </div>
                     )
                 }
             }
-            
+
         }
         return (
             <div>
