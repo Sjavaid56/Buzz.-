@@ -166,7 +166,7 @@ class Dashboard extends Component {
                 else{
                     dashView = (
                         <div className = 'map-container__responsive'>
-                            <Map/>
+                            {/* <Map/> */}
                             <NavBar toggleMap = {this.toggleMap} toggleProfileRespFn = {this.toggleProfileResp} togglecurrentHiveRespFn = {this.togglecurrentHiveResp} toggleAllRoomsRespFn = {this.toggleAllRoomsResp}/>
                         </div>
                     )

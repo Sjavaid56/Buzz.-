@@ -43,9 +43,12 @@ class App extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     // Typical usage (don't forget to compare props):
-    if (this.state.currentLatLng.lat !==  prevState.currentLatLng.lat) {
-      console.log("current lat:", this.state.currentLatLng.lat)
-      console.log("prev lat:", prevState.currentLatLng.lat)
+    console.log("current venues:",this.state.venues2.length)
+    console.log("prevs venues:", prevState.venues2.length)
+    console.log("current lat:", this.state.currentLatLng.lat)
+    console.log("prev lat:", prevState.currentLatLng.lat)
+
+    if (this.state.currentLatLng.lat > 0 && this.state.venues2.length > 0){
       this.renderMap()
     }
   }
@@ -88,7 +91,7 @@ class App extends Component {
         this.setState({
           venues: response.data.response.groups[0].items
         }, 
-        this.renderMap())
+        )
       })
       .catch(error => {
         console.log("ERROR!! " + error)
@@ -96,8 +99,11 @@ class App extends Component {
 
   }
   getVenues2 = () => {
+    console.log("getting venues")
     axios.get("/getRooms")
       .then(business => {
+        console.log(business);
+        
         this.setState({
           venues2: business.data
         }, )
@@ -194,7 +200,7 @@ class App extends Component {
 
   }
   render() {
-    console.log("current", this.state.currentLatLng)
+    console.log("current", this.state.currentLatLng, this.state.venues2)
     return (
       <main>
         <div id="map"></div>
