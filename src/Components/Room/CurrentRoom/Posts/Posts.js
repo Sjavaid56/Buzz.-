@@ -4,7 +4,8 @@ import down from "../down.png"
 import comment from '../../../../images/icons8-topic-50.png';
 import '../Comments/Comments.css';
 import './posts.css';
-import swal from "sweetalert"
+import swal from '@sweetalert/with-react'
+import drink from "../../../../images/drink.png"
 
 export default class Post extends Component {
     constructor(props) {
@@ -30,24 +31,46 @@ export default class Post extends Component {
         //     console.log("Upvoted post")
         // })
     }
-    sendDrink = () =>{
-        swal({
-            title:"Send a Drink!",
-            text:"Are you sure you'd like to send this person a drink?",
-            icon:"https://images.ecosia.org/n-0DWmTDxt5TZ_8UuYB16oedadc=/0x390/smart/https%3A%2F%2Fcdn2.iconfinder.com%2Fdata%2Ficons%2Fbright-food-products%2F512%2Fhoney-512.png",
+    chooseDrink = (user_name, user_id) =>{
+        console.log(this.props.deals)
+        let mappedDeals = this.props.deals.map(deal =>{
+            return(
+                <div className = "dealParent-container">
+                    <button onClick = {() => this.sendDrink(deal,user_name, user_id)} className = "dealParent-container__item"><img src = {drink}></img>{deal.description}</button>
+                </div>
+            )
+        })
+        swal(
+            <div>
+                {mappedDeals.length? mappedDeals:<h1>No deals yet!</h1>}
+            </div>
+          )
+    }
+    sendDrink = (deal, user_name,user_id) =>{
+        swal(
+            {
+            title:`Are you sure you want to send ${user_name} a ${deal.description}?`,
+            text:'Your card will be charged $5.00',
             buttons:true,
             dangerMode:true
-        }).then(response =>{
-            let body = {
-                drinkCode:"X5YAAD903"
-            }
-            if(response){
-                this.props.socket.emit("SendDrink", body )
-            }
-            else{
-                console.log("Send drink cancelled.")
-            }
-        })
+        }
+        )
+            .then(response =>{
+                let body = {
+                    coupon_code:deal.coupon_code,
+                    recipient:user_name,
+                    recipient_id:user_id
+                }
+                if(response){
+                    this.props.socket.emit("SendDrink", body )
+                }
+                else{
+                    swal(
+                        {title:"Canceled purchase"}
+                    )
+                }
+            })
+        
     }
 
     render() {
@@ -98,7 +121,7 @@ export default class Post extends Component {
                             onClick={this.props.toggleComments} />
                     </button>
 
-                    <button onClick = {this.sendDrink} className='post-parent__sendDrink'>
+                    <button onClick = { () =>{this.chooseDrink(this.props.poster_username, this.props.poster_id)}} className='post-parent__sendDrink'>
                         
                         send honey
                     </button>

@@ -26,6 +26,7 @@ class Dashboard extends Component {
             currentHiveResp:false,
             AllRoomsResp:false
         }
+        
     }
     //Get user data on mount
     componentDidMount = () => {

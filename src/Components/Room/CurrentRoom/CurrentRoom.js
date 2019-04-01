@@ -23,7 +23,8 @@ class CurrentRoom extends Component {
             createPostHidden: true,
             commentsHidden: true,
             commentMessage: "",
-            currentRoomData: []
+            currentRoomData: [],
+            deals:""
         }
         props.socket.on("Newmessage", post => {
             this.setState({
@@ -59,6 +60,12 @@ class CurrentRoom extends Component {
                 comments: comments.data
             })
             console.log(comments.data)
+        })
+        Axios.get(`/getDrinkDeals/${room_id}`).then(deals =>{
+            this.setState({
+                deals:deals.data
+            })
+            console.log("Deals: ", deals.data)
         })
     }
 
@@ -111,7 +118,7 @@ class CurrentRoom extends Component {
             return (
                 <div>
                     <Post {...post}
-                        toggleComments={this.toggleComments} socket = {this.props.socket} />
+                        toggleComments={this.toggleComments} socket = {this.props.socket} deals = {this.state.deals} />
 
                     {/* <div className={this.state.commentsHidden ? 'inactive' : 'active'}> */}
                     {mappedComments}
