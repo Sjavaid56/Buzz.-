@@ -6,6 +6,7 @@ import profileplaceholder from '../../images/Portrait_Placeholder.png';
 import honeycomb from '../../images/15656.jpg';
 import './userprofile.css';
 import back from "../Room/CurrentRoom/back.png"
+import drinkImg from "../../images/drink.png"
 
 class UserProfile extends Component {
     constructor(props) {
@@ -13,8 +14,18 @@ class UserProfile extends Component {
 
         this.state = {
             showProfile: true,
-            user: this.props.currentUser
+            user: this.props.currentUser,
+            userDrinks:[],
+            code:false
         }
+    }
+    componentDidMount = () =>{
+        axios.get(`getUserDrinks/${this.props.currentUser.user_id}`).then(drinks =>{
+            this.setState({
+                userDrinks:drinks.data
+            })
+            console.log("Got drinks for user: ", drinks.data)
+        })
     }
 
     toggleProfile = () => {
@@ -36,9 +47,30 @@ class UserProfile extends Component {
             window.location = `/`;
         }).catch(err => console.log(err));
     };
+    toggleCode = () =>{
+        this.setState({
+            code:!this.state.code
+        })
+    }   
 
     render() {
         let { email, profile_name, picture, user_name } = this.props.currentUser
+        let mappedDrinks = this.state.userDrinks.map((drink, index) =>{
+            return(
+                <button className = "dealParent-container__item" onClick = {this.toggleCode}>
+                    <img src = {drinkImg}></img>
+                    {/* <h2>{drink.drink_description}</h2> */}
+                    <h2>{drink.drink_description}</h2>
+                </button>
+            )
+        })
+        let mappedCodes = this.state.userDrinks.map(drinkElement =>{
+            return(
+                <div>
+                    <h1>{drinkElement.coupon_code}</h1>
+                </div>
+            )
+        })
         console.log(this.props.currentUser)
         return (
             <div className='profile-parent'>
@@ -78,10 +110,8 @@ class UserProfile extends Component {
                             <button onClick={this.logout}>Logout</button>
                         </div>
                         :
-                        <div className='profile-tabs__drinks'
-                        >
-                            <h2>Drinks</h2>
-                            <p>map through user's drinks here</p>
+                        <div className='profile-tabs__drinks'>
+                            {this.state.code? <h2>{mappedCodes}</h2> : <h2>{mappedDrinks}</h2>}
                         </div>
                     }
 
