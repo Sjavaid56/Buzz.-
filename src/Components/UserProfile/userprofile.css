@@ -39,6 +39,7 @@
 
 .profile-tabs__info {
     border: 1px solid black;
+}
 
 @media(max-width:500px){
     .profile-parent{
