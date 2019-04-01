@@ -40,11 +40,13 @@ export default class Post extends Component {
                 </div>
             )
         })
-        swal(
-            <div>
+        swal({
+            showCancelButton: false,
+            showConfirmButton: false,
+            content:(<div>
                 {mappedDeals.length? mappedDeals:<h1>No deals yet!</h1>}
-            </div>
-          )
+            </div>)
+        })
     }
     sendDrink = (deal, user_name,user_id) =>{
         swal(
