@@ -20,10 +20,12 @@ class UserProfile extends Component {
         console.log(this.props.currentUser)
         return (
             <div className='profile-parent'>
-                <div className="profile-parent__button-holder">
-                    <button onClick={this.props.toggleProfileFn} className="profile-parent__back"><img src={back}></img></button>
-                </div>
+
                 <div className='profile-header'>
+
+                    <div className="profile-parent__button-holder">
+                        <button onClick={this.props.toggleProfileFn} className="profile-parent__back"><img src={back} /></button>
+                    </div>
                     <img src={picture || profileplaceholder} alt='profile img'
                         className='profile-header__picture' />
                     <div className='profile-tabs'>
