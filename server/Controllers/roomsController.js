@@ -24,9 +24,9 @@ module.exports = {
 
     newPost: (req, res) => {
         const db = req.app.get("db")
-        const { poster_username, poster_pic, post_content, post_img, upvotes, downvotes, drinks_given, room_id } = req.body
+        const { poster_username, poster_pic, post_content, post_img, upvotes, downvotes, drinks_given, room_id, poster_id } = req.body
         console.log(req.body)
-        db.newPost([poster_username, poster_pic, post_content, post_img, upvotes, downvotes, drinks_given, room_id]).then(allPosts => {
+        db.newPost([poster_username, poster_pic, post_content, post_img, upvotes, downvotes, drinks_given, room_id, poster_id]).then(allPosts => {
             res.status(200).json(allPosts)
         })
     },
@@ -35,6 +35,13 @@ module.exports = {
 
         db.get_rooms().then(rooms => {
             res.status(200).json(rooms)
+        })
+    },
+    getDrinkDeals: (req,res) =>{
+        const db = req.app.get("db")
+        const {id} = req.params
+        db.getDrinkDeals(id).then(response =>{
+            res.status(200).json(response)
         })
     }
 }

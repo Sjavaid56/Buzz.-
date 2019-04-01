@@ -4,6 +4,8 @@ import down from "../down.png"
 import comment from '../../../../images/icons8-topic-50.png';
 import '../Comments/Comments.css';
 import './posts.css';
+import swal from '@sweetalert/with-react'
+import drink from "../../../../images/drink.png"
 
 export default class Post extends Component {
     constructor(props) {
@@ -28,6 +30,47 @@ export default class Post extends Component {
         // axios.put(`/postDownVote/${post}`).then(newCount =>{
         //     console.log("Upvoted post")
         // })
+    }
+    chooseDrink = (user_name, user_id) =>{
+        console.log(this.props.deals)
+        let mappedDeals = this.props.deals.map(deal =>{
+            return(
+                <div className = "dealParent-container">
+                    <button onClick = {() => this.sendDrink(deal,user_name, user_id)} className = "dealParent-container__item"><img src = {drink}></img>{deal.description}</button>
+                </div>
+            )
+        })
+        swal(
+            <div>
+                {mappedDeals.length? mappedDeals:<h1>No deals yet!</h1>}
+            </div>
+          )
+    }
+    sendDrink = (deal, user_name,user_id) =>{
+        swal(
+            {
+            title:`Are you sure you want to send ${user_name} a ${deal.description}?`,
+            text:'Your card will be charged $5.00',
+            buttons:true,
+            dangerMode:true
+        }
+        )
+            .then(response =>{
+                let body = {
+                    coupon_code:deal.coupon_code,
+                    recipient:user_name,
+                    recipient_id:user_id
+                }
+                if(response){
+                    this.props.socket.emit("SendDrink", body )
+                }
+                else{
+                    swal(
+                        {title:"Canceled purchase"}
+                    )
+                }
+            })
+        
     }
 
     render() {
@@ -78,8 +121,8 @@ export default class Post extends Component {
                             onClick={this.props.toggleComments} />
                     </button>
 
-                    <button className='post-parent__sendDrink'>
-                        {/* add onClick functionality to send user a drink */}
+                    <button onClick = { () =>{this.chooseDrink(this.props.poster_username, this.props.poster_id)}} className='post-parent__sendDrink'>
+                        
                         send honey
                     </button>
                 </div>

@@ -23,3 +23,13 @@
     margin-right: 10px;
     outline: none;
 }
+.dealParent-container__item{
+    width:100%;
+    height:50px;
+    display:flex;
+    justify-content:flex-start;
+    align-items:center;
+    font-family: 'Montserrat', sans-serif;
+    font-size:24px;
+    margin-bottom:5px;
+}
