@@ -10,6 +10,7 @@
     align-items: center;
     font-size: 35px;
     min-height: 98px;
+    border-bottom: solid #ffcb34 1px;
 }
 
 /* .available-container__profileView {
@@ -27,7 +28,7 @@
     flex: 1;
     /* border-radius: 50%; */
     width: 65px;
-    height: 65px;
+    max-height: 65px;
     float: left;
     margin-left: 10px;
 }
@@ -49,7 +50,7 @@
 .available-rooms {
     display: flex;
     flex-direction: column;
-    border-top: solid #ffcb34 1px;
+    border-bottom: solid #ffcb34 1px;
     background: #fffce7;
     padding: 15px;
     border-left: none;
