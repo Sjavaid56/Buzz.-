@@ -8,6 +8,7 @@ const bodyParser = require("body-parser")
 const massive = require("massive")
 const session = require("express-session")
 const roomsController = require("./Controllers/roomsController")
+const userController = require('./Controllers/userController')
 require("dotenv").config()
 
 //Build server
@@ -28,6 +29,10 @@ app.use(session({
 // app.post("/venues",roomsController.postBusiness)
 // plotting from db 
 // app.get("/dbvenues", roomsController.getBusiness) 
+
+//sending user location to db
+app.post("/userLocation", userController.UserLocation)
+
 
 
 //auth endpoint

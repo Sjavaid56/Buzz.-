@@ -16,8 +16,6 @@ class AvailableRooms extends Component {
             rooms: [],
 
         }
-
-
     }
 
     //When screen loads, get all the rooms (change styling based on radius to user's geolocation) within a radius - maybe a mile - of the user's location
@@ -40,15 +38,43 @@ class AvailableRooms extends Component {
 
         this.props.toggleHiveView();
     }
+    
+//      distance = (lat1, lon1, lat2, lon2, K = "K") => {
+//         var radlat1 = Math.PI * lat1/180
+//         var radlat2 = Math.PI * lat2/180
+//         var radlon1 = Math.PI * lon1/180
+//         var radlon2 = Math.PI * lon2/180
+//         var theta = lon1-lon2
+//         var radtheta = Math.PI * theta/180
+//         var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+//         dist = Math.acos(dist)
+//         dist = dist * 180/Math.PI
+//         dist = dist * 60 * 1.1515
+//         if (unit=="K") { dist = dist * 1.609344 }
+//         if (unit=="N") { dist = dist * 0.8684 }
+//         return dist
+// }
+
 
     render() {
+
+        console.log("rooms:", this.state.rooms.latitude)
         console.log(this.props)
 
         let mappedRooms = this.state.rooms.map((room) => {
             return (<div key={room.room_id} className='available-rooms'>
                 <div className='rooms-header'>
                     <h1 className='rooms-header__title'>
+
+
                         {room.business_name}
+                        
+
+
+
+
+
+
                     </h1>
                     <h3 className='rooms-header__distance'>
                         800 ft

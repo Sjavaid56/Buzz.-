@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import './GoogleMaps.css'
 import axios from 'axios'
 import HiveIcon from '../../images/icons8-hive-96.png';
+import {connect} from 'react-redux'
+import {updateCurrentLocation} from "../../redux/reducer"
 
 const getGeoLocation = () => {
   const geolocation = navigator.geolocation;
@@ -20,6 +22,7 @@ const getGeoLocation = () => {
 
   return location
 };
+
 class App extends Component {
   state = {
     venues: [],
@@ -37,11 +40,10 @@ class App extends Component {
 
   }
 
-  componentWillUpdate() {
-    this.initGeoLocation()
-  }
+  
   initGeoLocation() {
     getGeoLocation().then(location => {
+      this.props.updateCurrentLocation(location)
       this.setState({
         currentLatLng: {
           lat: location.coords.latitude,
@@ -49,6 +51,19 @@ class App extends Component {
         },
         isMarkerShown: true
       })
+      
+      // console.log("Sending body ", body)
+      setTimeout(() =>{
+        let body = {
+          currentLocation:this.state.currentLatLng,
+          user_id:this.props.currentuser.user_id
+        }
+        axios.post("/userLocation", body).then(response =>{
+          console.log("Got response after adding location", response)
+        })
+      },2000)
+    
+    //  axios.post("current user:", this.props.currentuser.user_id)
     });
   }
   handleMarkerClick = () => {
@@ -69,6 +84,8 @@ class App extends Component {
       near: "Phoenix",
       v: "20182507"
     }
+
+    
     axios.get(endPoint + new URLSearchParams(parameters))
       .then(response => {
         this.setState({
@@ -78,7 +95,6 @@ class App extends Component {
       .catch(error => {
         console.log("ERROR!! " + error)
       })
-
   }
   getVenues2 = () => {
     axios.get("/getRooms")
@@ -90,12 +106,7 @@ class App extends Component {
       .catch(error => {
         console.log("ERROR!! " + error)
       })
-
-
   }
-
-
-
   initMap = () => {
     // Create A Map
     console.log(this.state.currentLatLng)
@@ -172,6 +183,7 @@ class App extends Component {
   }
   render() {
     console.log("current",this.state.currentLatLng)
+    console.log("PROPS IN MAPS", this.props.currentuser)
     return (
       <main>
         <div id="map"></div>
@@ -187,7 +199,18 @@ function loadScript(url) {
   script.defer = true
   index.parentNode.insertBefore(script, index)
 }
-export default App;
+
+const mapStateToProps = (state) => {
+  return {
+    currentuser:state.currentUser
+    
+
+  }
+  }
+
+
+  export default connect(mapStateToProps,{updateCurrentLocation})(App)
+  
 
 
 // import React, { Component } from 'react';
