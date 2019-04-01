@@ -14,12 +14,14 @@
 
 .available-container__profileView {
     /* float:left; */
+    outline: none;
     border:none;
     background:none;
     border-radius: 50%;
     flex: 1;
 }
 .available-container__profileView > img {
+    
     border-radius: 50%;
     width: 65px;
     height: 65px;

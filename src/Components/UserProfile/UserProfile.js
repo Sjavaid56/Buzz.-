@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
+import { updateCurrentUser } from "../../redux/reducer";
 import profileplaceholder from '../../images/Portrait_Placeholder.png';
+import honeycomb from '../../images/15656.jpg';
 import './userprofile.css';
 import back from "../Room/CurrentRoom/back.png"
 
-export default class UserProfile extends Component {
+class UserProfile extends Component {
     constructor(props) {
         super(props);
 
@@ -13,55 +16,61 @@ export default class UserProfile extends Component {
     }
 
     render() {
-        console.log(this.props)
+        let { email, profile_name, picture, user_name } = this.props.currentUser
+        console.log(this.props.currentUser)
         return (
             <div className='profile-parent'>
                 <div className="profile-parent__button-holder">
-                    <button onClick={this.props.toggleProfileFn} className="profile-parent__button"><img src={back}></img></button>
+                    <button onClick={this.props.toggleProfileFn} className="profile-parent__back"><img src={back}></img></button>
                 </div>
                 <div className='profile-header'>
-                    <img src={profileplaceholder} alt='profile placeholder'
+                    <img src={picture || profileplaceholder} alt='profile img'
                         className='profile-header__picture' />
+                    <div className='profile-tabs'>
+                        <button>Profile</button>
+                        <button>Honey</button>
+                    </div>
                 </div>
 
-                <div className='profile-tabs'>
-                    <button>Profile</button>
-                    <button>Drinks</button>
-                </div>
 
                 <div className='profile-tabs__info'>
 
                     <div className='profile-tabs__infoProfile'>
                         {/* <h2>Profile</h2> */}
 
-                        <p>Username:</p>
-                        <p>@whatever</p>
+                        <h6>Username:</h6>
+                        <p>@{user_name || 'No username on file!'}</p>
 
-                        <p>Full Name:</p>
-                        <p>Bobby Berk</p>
+                        <h6>Full Name:</h6>
+                        <p>{profile_name}</p>
 
-                        <p>Email</p>
-                        <p>useremail@email.com</p>
+                        <h6>Email</h6>
+                        <p>{email}</p>
 
                         <h2>Payment</h2>
-                        <p>Payment method on file</p>
+                        <h6>Payment method on file</h6>
                         <button>Add Card</button>
                     </div>
 
-                    <div id="Drinks" className='profile-tabs__infoDrinks'
+                    <div className='profile-tabs__drinks'
                     >
                         <h2>Drinks</h2>
                         <p>map through user's drinks here</p>
                     </div>
 
-
                 </div>
 
-                <div>
-                    Render user's profile - information, payment information - customize Stripe's input fields then conditionally render button based on if user has added card before or not - and possibly display the user's drinks
-                    {/* if(card on file) {<button> add card</button>} else {<button>replace card</button>} */}
-                </div>
+                {/* Customize Stripe's input fields then conditionally render button based on if user has added card before or not - and possibly display the user's drinks */}
+                {/* if(card on file) {<button> add card</button>} else {<button>replace card</button>} */}
             </div>
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        currentUser: state.currentUser
+    }
+}
+
+export default connect(mapStateToProps, { updateCurrentUser })(UserProfile);
