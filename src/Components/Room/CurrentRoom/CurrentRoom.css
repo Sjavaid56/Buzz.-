@@ -67,7 +67,7 @@
     border: none;
     background: #FFCB34;
     margin-right: 15px;
-    box-shadow: 0px 4px 12px 0px #888888
+    box-shadow:  0px 0px 8px 0px #888888;
 }
 
 .comments-inactive {

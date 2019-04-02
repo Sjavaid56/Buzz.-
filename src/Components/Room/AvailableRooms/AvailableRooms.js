@@ -53,7 +53,8 @@ class AvailableRooms extends Component {
             // })
             setTimeout(() => {
                 let availableRooms = rooms.data.filter((value) => {
-                    return distance(this.props.currentLocation.latitude, this.props.currentLocation.longitude, value.latitude, value.longitude, "K") <= 10
+
+                    return distance(this.props.currentLocation.latitude, this.props.currentLocation.longitude, value.latitude, value.longitude, "K") <= 3
                 })
                 this.setState({
                     rooms: availableRooms

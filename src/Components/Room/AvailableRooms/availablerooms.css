@@ -28,7 +28,7 @@
     flex: 1;
     /* border-radius: 50%; */
     width: 65px;
-    height: 65px;
+    max-height: 65px;
     float: left;
     margin-left: 10px;
 }

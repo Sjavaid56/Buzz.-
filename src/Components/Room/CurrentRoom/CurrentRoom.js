@@ -117,6 +117,7 @@ class CurrentRoom extends Component {
     render() {
         console.log("PROPS IN CURRENT ROOM: ", this.props)
         let mappedPosts = this.state.posts.map((post, i) => {
+        console.log('Post data! Look at me!', this.state.posts)
             let mappedComments = this.state.comments.map(comment => {
                 if (comment.post_id == post.post_id) {
                     return (
@@ -127,7 +128,7 @@ class CurrentRoom extends Component {
                 }
             })
             return (
-                <div>
+                <div >
                     <Post {...post}
                         toggleComments={() => this.handleClick(i)} socket={this.props.socket} deals={this.state.deals} />
                     <div className={this.state.isClicked[i] ? 'comments-active' : 'comments-inactive'}>
