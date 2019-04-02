@@ -10,5 +10,12 @@ module.exports = {
         db.get_drinks_for_user(id).then(response =>{
             res.status(200).json(response)
         })
+    },
+    deleteUserDrinks:(req,res) =>{
+        const db = req.app.get("db")
+        const {id ,userId } = req.params
+        db.delete_drink([id,userId]).then(response =>{
+            res.status(200).json(response)
+        })
     }
 }
