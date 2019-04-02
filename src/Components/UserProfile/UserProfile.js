@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import axios from 'axios'
+import axios from 'axios';
 import { updateCurrentUser } from "../../redux/reducer";
 import profileplaceholder from '../../images/Portrait_Placeholder.png';
-import honeycomb from '../../images/15656.jpg';
+import cancel from '../../images/icons8-delete-24.png';
 import './userprofile.css';
-import back from "../Room/CurrentRoom/back.png"
-import drinkImg from "../../images/drink.png"
+import back from "../Room/CurrentRoom/back.png";
+import drinkImg from "../../images/drink.png";
+import warning from "../../images/warning.png"
+
 
 class UserProfile extends Component {
     constructor(props) {
@@ -16,7 +18,8 @@ class UserProfile extends Component {
             showProfile: true,
             user: this.props.currentUser,
             userDrinks:[],
-            code:false
+            code:false,
+            redeemCode:[]
         }
     }
     componentDidMount = () =>{
@@ -47,27 +50,65 @@ class UserProfile extends Component {
             window.location = `/`;
         }).catch(err => console.log(err));
     };
-    toggleCode = () =>{
+    toggleCode = (code) =>{
         this.setState({
             code:!this.state.code
         })
+        this.showCode(code)
     }   
+    showCode = (code) =>{
+        this.setState({
+            redeemCode:[code]
+        })
+    }
+    deleteCode = () =>{
+        this.setState({
+            redeemCode:[]
+        })
+        //make axios call to delete code from drinks table
+    }
 
     render() {
         let { email, profile_name, picture, user_name } = this.props.currentUser
         let mappedDrinks = this.state.userDrinks.map((drink, index) =>{
             return(
-                <button className = "dealParent-container__item" onClick = {this.toggleCode}>
+                <button className = "dealParent-container__item" onClick = {() => this.toggleCode(drink.coupon_code)}>
                     <img src = {drinkImg}></img>
-                    {/* <h2>{drink.drink_description}</h2> */}
-                    <h2>{drink.drink_description}</h2>
+                    <p>{drink.drink_description}</p>
                 </button>
             )
         })
-        let mappedCodes = this.state.userDrinks.map(drinkElement =>{
+        
+        let currentCodeToShow = this.state.redeemCode.map(code =>{
             return(
-                <div>
-                    <h1>{drinkElement.coupon_code}</h1>
+                <div className = "code-parent">
+
+                    <div className = "code-parent__button-container">
+                        <button className ="cancel-button" onClick = {this.deleteCode}><img src = {cancel}></img></button>
+                    </div>          
+                
+                        <div className = "code-parent__content">
+                            <div className = "code-parent__content--img">
+                                <img src = {drinkImg}></img>
+                            </div>
+                            
+                            <p>
+                                Show this coupon to your bartender to collect your drink. 
+                            </p>
+
+                            <div className = "warning">
+                                <img src = {warning}></img>
+                                <p>Careful, after you exit you can't get this code back!</p>
+                            </div>
+
+                            <div className = "code-parent__container">
+                                <h1>
+                                    {code}
+                                </h1>
+                            </div>
+
+                        </div>
+                    
                 </div>
             )
         })
@@ -111,7 +152,7 @@ class UserProfile extends Component {
                         </div>
                         :
                         <div className='profile-tabs__drinks'>
-                            {this.state.code? <h2>{mappedCodes}</h2> : <h2>{mappedDrinks}</h2>}
+                            {this.state.redeemCode.length? <div className = "current-code-parent"><h2>{currentCodeToShow}</h2></div> : <h2>{mappedDrinks}</h2>}
                         </div>
                     }
 
