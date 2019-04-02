@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom"
+// import { Link } from "react-router-dom"
+import BuzzBeeCharcoal from '../../images/assets/logo/buzz-logo-charcoal-nobg.png';
+import './landing.css';
 import axios from 'axios';
 
 export default class Landing extends Component {
@@ -29,8 +31,12 @@ export default class Landing extends Component {
 
     render() {
         return (
-            <div>
-                <button onClick={this.login}>LOGIN</button>
+            <div className='landing-container'>
+                {/* <div className='landing-content'> */}
+                <img src={BuzzBeeCharcoal} alt='bee logo in charcoal' />
+                <h1>buzz.</h1>
+                <button onClick={this.login}>Login/Register</button>
+                {/* </div> */}
             </div>
         )
     }
