@@ -10,6 +10,7 @@
     align-items: center;
     font-size: 35px;
     min-height: 98px;
+    border-bottom: solid #ffcb34 1px;
 }
 
 /* .available-container__profileView {
@@ -46,10 +47,27 @@
     overflow-y: auto;
 }
 
+    .mapped-businesses::-webkit-scrollbar {
+        width: 7.75px; 
+        background-color: transparent;
+    }
+
+    .mapped-businesses::-webkit-scrollbar-thumb {
+        border-radius: 12px;
+        background-color: rgba(28, 30, 31, 0.877);
+    }
+
+    .mapped-businesses::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        background-color: #F5F5F5;
+        border-radius: 12px;
+        background-clip: content-box;
+    }
+
 .available-rooms {
     display: flex;
     flex-direction: column;
-    border-top: solid #ffcb34 1px;
+    border-bottom: solid #ffcb34 1px;
     background: #fffce7;
     padding: 15px;
     border-left: none;

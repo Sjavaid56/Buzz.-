@@ -21,10 +21,10 @@ class CurrentRoom extends Component {
             posts: [],
             comments: [],
             createPostHidden: true,
-            commentsHidden: true,
+            isClicked: [],
             commentMessage: "",
             currentRoomData: [],
-            deals:""
+            deals: ""
         }
         props.socket.on("Newmessage", post => {
             this.setState({
@@ -61,9 +61,9 @@ class CurrentRoom extends Component {
             })
             console.log(comments.data)
         })
-        Axios.get(`/getDrinkDeals/${room_id}`).then(deals =>{
+        Axios.get(`/getDrinkDeals/${room_id}`).then(deals => {
             this.setState({
-                deals:deals.data
+                deals: deals.data
             })
             console.log("Deals: ", deals.data)
         })
@@ -75,17 +75,21 @@ class CurrentRoom extends Component {
         })
     }
 
-    toggleComments = () => {
+    handleClick = (i) => {
+        let isClicked = this.state.isClicked.concat();
+        isClicked[i] = !isClicked[i]
+        console.log(isClicked[i])
         this.setState({
-            commentsHidden: !this.state.commentsHidden
+            isClicked
         })
-        console.log(this.state.commentsHidden)
     }
+
     handleCommentChange = (value) => {
         this.setState({
             commentMessage: value
         })
     }
+
     newComment = (post_id) => {
         let body = {
             comment_message: this.state.commentMessage,
@@ -103,13 +107,20 @@ class CurrentRoom extends Component {
         })
     }
 
+    leaveARoom = (room_id) => {
+        let body = { room_id: room_id }
+        this.props.socket.emit('ExitedRoom', body)
+
+        this.props.toggleHiveView();
+    }
+
     render() {
-        console.log("PROPS IN CURRENT ROOM: ",this.props)
-        let mappedPosts = this.state.posts.map(post => {
+        console.log("PROPS IN CURRENT ROOM: ", this.props)
+        let mappedPosts = this.state.posts.map((post, i) => {
             let mappedComments = this.state.comments.map(comment => {
                 if (comment.post_id == post.post_id) {
                     return (
-                        <div>
+                        <div >
                             <Comment {...comment} />
                         </div>
                     )
@@ -118,15 +129,16 @@ class CurrentRoom extends Component {
             return (
                 <div>
                     <Post {...post}
-                        toggleComments={this.toggleComments} socket = {this.props.socket} deals = {this.state.deals} />
-
-                    {/* <div className={this.state.commentsHidden ? 'inactive' : 'active'}> */}
-                    {mappedComments}
-                    {/* </div> */}
-                    <div className="leaveComment-parent" >
-                        <input onChange={(e) => { this.handleCommentChange(e.target.value) }} className="leaveComment-parent__input" placeholder="Enter Comment here!">
-                        </input>
-                        <button onClick={() => { this.newComment(post.post_id) }} className="leaveComment-parent__button">buzz</button>
+                        toggleComments={() => this.handleClick(i)} socket={this.props.socket} deals={this.state.deals} />
+                    <div className={this.state.isClicked[i] ? 'comments-active' : 'comments-inactive'}>
+                        <div >
+                            {mappedComments}
+                        </div>
+                        <div className="leaveComment-parent" >
+                            <input onChange={(e) => { this.handleCommentChange(e.target.value) }} className="leaveComment-parent__input" placeholder="Enter Comment here!">
+                            </input>
+                            <button onClick={() => { this.newComment(post.post_id) }} className="leaveComment-parent__button">buzz</button>
+                        </div>
                     </div>
                 </div>
             )
@@ -138,7 +150,9 @@ class CurrentRoom extends Component {
                     {/* Replace placeholder with props */}
                     <div className="Current-room__Info">
                         <button className="Current-room__back"
-                            onClick={this.props.toggleHiveView}>
+                            onClick={() =>
+                                this.leaveARoom(this.props.currentRoom.room_id)
+                            }>
                             <img src={back} />
                         </button>
 
@@ -167,7 +181,7 @@ class CurrentRoom extends Component {
                                 mappedPosts
                                 :
                                 <div style={{ textAlign: 'center', margin: 60, fontSize: 22, lineHeight: 1.2 }}>
-                                    <h4 style={{ marginBottom: 30, textShadow: '1px 1px 3px #000000' }}>
+                                    <h4 style={{ marginBottom: 30, textShadow: '1px 1px 3.5px #000000' }}>
                                         No posts in this hive yet... be the first to buzz about something!
                                     </h4>
                                     <img height='100' width='100' src={beeIcon} alt='buzz bee logo in yellow' />
@@ -175,7 +189,7 @@ class CurrentRoom extends Component {
                         }
                     </div>
                 </main>
-            </div>
+            </div >
         )
     }
 }

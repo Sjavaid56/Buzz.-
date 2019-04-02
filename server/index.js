@@ -90,11 +90,22 @@ io.sockets.on('connection', (socket) => {
         })
         socket.on("SendDrink", body => {
             console.log("Recieved Drink request", body)
-            const {recipient_id,recipient,deal_description,coupon_code,sender_name,sender_id} = body
-            db.send_drink(recipient_id,recipient,deal_description,coupon_code,sender_name,sender_id).then(drinks =>{
+            const { recipient_id, recipient, deal_description, coupon_code, sender_name, sender_id } = body
+            db.send_drink(recipient_id, recipient, deal_description, coupon_code, sender_name, sender_id).then(drinks => {
                 console.log(drinks)
                 io.sockets.emit("NewDrinkSent", drinks[0])
             })
+        })
+    })
+
+    //use .leave in the same way as .join? 
+    socket.on('ExitedRoom', body => {
+        const { room_id } = body;
+        socket.leave(room_id)
+
+        db.remove_user_from_room(room_id).then(room_id => {
+            console.log('left room #', room_id)
+            // io.sockets.emit()
         })
     })
 })
