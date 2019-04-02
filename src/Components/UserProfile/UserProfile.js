@@ -50,29 +50,33 @@ class UserProfile extends Component {
             window.location = `/`;
         }).catch(err => console.log(err));
     };
-    toggleCode = (code) =>{
+    toggleCode = (drink) =>{
         this.setState({
             code:!this.state.code
         })
-        this.showCode(code)
+        this.showCode(drink)
     }   
-    showCode = (code) =>{
+    showCode = (drink) =>{
         this.setState({
-            redeemCode:[code]
+            redeemCode:[drink]
         })
     }
-    deleteCode = () =>{
+    deleteCode = (id) =>{
         this.setState({
             redeemCode:[]
         })
-        //make axios call to delete code from drinks table
+        axios.delete(`/deleteDrink/${id}/${this.props.currentUser.user_id}`).then(response =>{
+            this.setState({
+                userDrinks:response.data
+            })
+        })
     }
 
     render() {
         let { email, profile_name, picture, user_name } = this.props.currentUser
         let mappedDrinks = this.state.userDrinks.map((drink, index) =>{
             return(
-                <button className = "dealParent-container__item" onClick = {() => this.toggleCode(drink.coupon_code)}>
+                <button className = "dealParent-container__item" onClick = {() => this.toggleCode(drink)}>
                     <img src = {drinkImg}></img>
                     <p>{drink.drink_description}</p>
                 </button>
@@ -80,11 +84,12 @@ class UserProfile extends Component {
         })
         
         let currentCodeToShow = this.state.redeemCode.map(code =>{
+            console.log("CODE IN MAP",code)
             return(
                 <div className = "code-parent">
 
                     <div className = "code-parent__button-container">
-                        <button className ="cancel-button" onClick = {this.deleteCode}><img src = {cancel}></img></button>
+                        <button className ="cancel-button" onClick = {() => this.deleteCode(code.drink_id)}><img src = {cancel}></img></button>
                     </div>          
                 
                         <div className = "code-parent__content">
@@ -103,7 +108,7 @@ class UserProfile extends Component {
 
                             <div className = "code-parent__container">
                                 <h1>
-                                    {code}
+                                    {code.coupon_code}
                                 </h1>
                             </div>
 

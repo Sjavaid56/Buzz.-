@@ -52,6 +52,7 @@ app.get("/getDrinkDeals/:id", roomsController.getDrinkDeals)
 //User endpoint
 app.post('/logout', userController.logoutUser);
 app.get('/getUserDrinks/:id', userController.getDrinksForUser)
+app.delete('/deleteDrink/:id/:userId', userController.deleteUserDrinks)
 
 //Sockets
 io.sockets.on('connection', (socket) => {
