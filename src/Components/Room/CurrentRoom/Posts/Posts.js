@@ -20,17 +20,19 @@ class Post extends Component {
     //For upvote and downvote functionality, Get post_id to change and make a db request
     //to add or subtract one. Also, emit that action to all users.
     //Have not instantiated socket yet so can't emit yet.
-    upvote = (post_id) => {
-        // Endpoints not made yet
-        // axios.put(`/postUpVote/${post_id}`).then(newCount =>{
-        //     console.log("Upvoted post")
-        // })
+    upvote = (post_id,room_id) => {
+        let body = {
+            post_id:post_id,
+            room_id:room_id
+        }
+        this.props.socket.emit("UpvotePost", body)
     }
     downvote = (post_id) => {
-        // Endpoints not made yet
-        // axios.put(`/postDownVote/${post}`).then(newCount =>{
-        //     console.log("Upvoted post")
-        // })
+        let body = {
+            post_id:post_id,
+            room_id:this.props.room_id
+        }
+        this.props.socket.emit("DownvotePost", body)
     }
     chooseDrink = (sender_name, sender_id, user_name, user_id) => {
         console.log(this.props.deals)
@@ -127,14 +129,14 @@ class Post extends Component {
 
                 <div className="comment-parent__footer">
 
-                    <button className="comment-parent__vote">
-                        {/* will need to add onClick functionality to increment upvotes per the above */}
+                    <button className="comment-parent__vote" onClick = {() => {this.upvote(this.props.post_id,this.props.room_id)}}>
+                        
                         <img src={up} alt='up arrow'></img>
                     </button>
 
                     <p>{this.props.upvotes}</p>
 
-                    <button className="comment-parent__vote">
+                    <button className="comment-parent__vote" onClick = {() =>this.downvote(this.props.post_id)}>
                         {/* will need to add onClick functionality to increment downvotes per the above */}
                         <img src={down} alt='down arrow'></img>
                     </button>

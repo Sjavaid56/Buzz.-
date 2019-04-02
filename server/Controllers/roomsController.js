@@ -43,5 +43,6 @@ module.exports = {
         db.getDrinkDeals(id).then(response =>{
             res.status(200).json(response)
         })
-    }
+    },
+    
 }
