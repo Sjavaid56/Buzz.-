@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { updateCurrentRoom } from '../../../redux/reducer';
 import buzzBee from '../../../images/assets/logo/buzz-logo-charcoal-nobg.png';
+import beeIcon from '../../../images/assets/logo/buzz-logo-yellow-nobg.png';
 import axios from 'axios';
 import cafe from './icons/icons8-cafe-filled-30.png';
 //change this to svg or something we can use our custom color on
@@ -52,6 +53,7 @@ class AvailableRooms extends Component {
             // })
             setTimeout(() => {
                 let availableRooms = rooms.data.filter((value) => {
+
                     return distance(this.props.currentLocation.latitude, this.props.currentLocation.longitude, value.latitude, value.longitude, "K") <= 3
                 })
                 this.setState({
@@ -150,7 +152,17 @@ class AvailableRooms extends Component {
                 </div>
 
                 <main className='mapped-businesses'>
-                    {mappedRooms}
+                    {this.state.rooms.length > 0
+                        ?
+                        mappedRooms
+                        :
+                        <div style={{ textAlign: 'center', margin: 60, fontSize: 22, lineHeight: 1.2 }}>
+                            <h4 style={{ marginBottom: 30, textShadow: '1px 1px 3.5px #000000' }}>
+                                There aren't any hives in your immediate area... check the map to see the closest hives near you!
+                            </h4>
+                            <img height='100' width='100' src={beeIcon} alt='buzz bee logo in yellow' />
+                        </div>
+                    }
 
                 </main>
 

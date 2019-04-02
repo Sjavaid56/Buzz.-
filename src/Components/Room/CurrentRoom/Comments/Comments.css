@@ -62,6 +62,10 @@
     align-items: center;
 }
 
+.comment-parent__footer button{
+outline: none;
+}
+
 .comment-parent__vote {
     background:none;
     border:none;

@@ -102,7 +102,7 @@ class Post extends Component {
     }
 
     render() {
-        // console.log(this.props.currentUser)
+        console.log(this.props)
         return (
             <div className="post-parent">
                 <div className="comment-parent__header">
@@ -141,13 +141,13 @@ class Post extends Component {
                     <p>{this.props.downvotes}</p>
 
                     <button className='post-parent__commentToggle'
-                    // onClick={this will inherit toggle functionality from CurrentRoom}
+                        onClick={this.props.toggleComments}
                     >
                         <img src={comment} style={{
                             height: 24,
                             width: 24
                         }}
-                            onClick={this.props.toggleComments} />
+                        />
                     </button>
 
                     <button onClick={() => { this.chooseDrink(this.props.currentUser.user_name, this.props.currentUser.user_id, this.props.poster_username, this.props.poster_id) }} className='post-parent__sendDrink'>
