@@ -109,6 +109,29 @@ io.sockets.on('connection', (socket) => {
             // io.sockets.emit()
         })
     })
+    socket.on('UpvotePost', body =>{
+            const db = app.get("db")
+            db.upvote_post([body.post_id,body.room_id]).then(allPosts =>{
+                io.sockets.emit("NewUpvote", allPosts)
+            })
+    })
+    socket.on("DownvotePost", body =>{
+        db.downvote_post([body.post_id,body.room_id]).then(allPosts =>{
+            io.sockets.emit("NewDownvote", allPosts)
+        })
+    })
+    socket.on("CommentUpvote", body =>{
+        db.upvote_comments([body.comment_id,body.room_id]).then(allComments =>{
+            io.sockets.emit("NewCommentUpvote", allComments)
+        })
+    })
+    socket.on("CommentDownvote", body =>{
+        console.log("BODY RECIEVED: ", body)
+        db.downvote_comments([body.comment_id,body.room_id]).then(allComments =>{
+            console.log("ALL COMMENTS: ", allComments)
+            io.sockets.emit("NewCommentDownvote", allComments)
+        })
+    })
 })
 
 

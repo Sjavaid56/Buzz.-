@@ -43,6 +43,29 @@ class CurrentRoom extends Component {
             })
             console.log('this is the room data!', roomData)
         })
+        props.socket.on('NewUpvote', allPosts =>{
+            this.setState({
+                posts:allPosts
+            })
+            console.log("New upvote!", allPosts)
+        })
+        props.socket.on("NewDownvote", allPosts =>{
+            this.setState({
+                posts:allPosts
+            })
+        })
+        props.socket.on("NewCommentUpvote", allComments =>{
+            this.setState({
+                comments:allComments
+            })
+            console.log("New comment upvote!")
+        })
+        props.socket.on("NewCommentDownvote", allComments =>{
+            this.setState({
+                comments:allComments
+            })
+            console.log("New comment downvote!!")
+        })
     }
     //When screen loads, get all the room data for current room
     componentDidMount = () => {
@@ -122,7 +145,7 @@ class CurrentRoom extends Component {
                 if (comment.post_id == post.post_id) {
                     return (
                         <div >
-                            <Comment {...comment} />
+                            <Comment {...comment} socket = {this.props.socket} room_id = {this.props.currentRoom.room_id}/>
                         </div>
                     )
                 }
@@ -130,7 +153,7 @@ class CurrentRoom extends Component {
             return (
                 <div >
                     <Post {...post}
-                        toggleComments={() => this.handleClick(i)} socket={this.props.socket} deals={this.state.deals} />
+                        toggleComments={() => this.handleClick(i)} socket={this.props.socket} deals={this.state.deals} room_id = {this.props.currentRoom.room_id}/>
                     <div className={this.state.isClicked[i] ? 'comments-active' : 'comments-inactive'}>
                         <div >
                             {mappedComments}
