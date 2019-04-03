@@ -34,6 +34,7 @@ app.use(session({
 app.get("/auth", authController.login)
 app.get("/api/user-data", authController.getUserData)
 app.get('/getUserSession', authController.getUserData)
+app.get('/getAdminPosts', authController.getAdminData)
 
 //Connect to Database
 massive(
