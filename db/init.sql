@@ -21,6 +21,7 @@ create table users(
 create table comments(
 comment_id serial primary key
 ,post_id integer references posts(post_id)
+, c_time_posted timestamp default current_timestamp
 ,commenter_user_name varchar(64)
 ,comment_content varchar(64)
 ,comment_upvotes integer
@@ -40,6 +41,7 @@ room_id serial primary key
 create table drink_deals(
     deal_id serial primary key
     ,coupon_code varchar(64)
+    ,description varchar(64);
     ,room_id integer references rooms(room_id)
 );
 
@@ -52,3 +54,21 @@ create table drinks(
     sender_name varchar(64),
     sender_id integer
     );
+
+
+-- ADMIN QUERIES
+-- GET POSTS AND USERS THAT HAVE POSTED IN YOUR ROOMS INFORMATION
+
+-- select * from posts 
+-- left join users on(posts.poster_id = users.user_id) 
+-- where room_id = 714;
+
+-- GET NUMBER OF DRINKS SENT IN YOUR ROOM, WHO HAS SPENT THE MOST MONEY IN YOUR ROOM
+-- select * from drinks
+-- join users on(drinks.sender_id = users.user_id)
+-- where sent_in_room = $1;
+
+-- WHO HAS GOTTEN THE MOST DRINKS BOUGHT FOR THEM IN YOUR ROOM?
+-- WILL HAVE TO FURTHER NARROW THIS DOWN
+-- select * from drinks
+-- join users on(drinks.recipient_id = users.user_id);

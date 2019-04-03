@@ -21,6 +21,7 @@ class Dashboard extends Component {
             width: window.innerWidth,
             showProfile: false,
             showCurrent: false,
+            //Responsive toggles
             isResponsive: true,
             ProfileResp: false,
             currentHiveResp: false,
@@ -31,6 +32,7 @@ class Dashboard extends Component {
     //Get user data on mount
     componentDidMount = () => {
         Axios.get("/api/user-data").then(userData => {
+            console.log("USER DATA: ", userData)
             this.props.updateCurrentUser(userData.data)
         })
     }
@@ -61,20 +63,30 @@ class Dashboard extends Component {
     toggleProfileResp = () => {
         // this.toggleMap()
         this.setState({
-            ProfileResp: !this.state.ProfileResp
+            ProfileResp: !this.state.ProfileResp,
+            isResponsive: true,
+            currentHiveResp: false,
+            AllRoomsResp: false
         })
         console.log("PROFILE", this.state)
     }
 
     togglecurrentHiveResp = () => {
         this.setState({
-            currentHiveResp: !this.state.currentHiveResp
+            currentHiveResp: !this.state.currentHiveResp,
+            isResponsive: true,
+            ProfileResp: false,
+            AllRoomsResp: false
         })
         console.log("CURRENT ROOM", this.state)
     }
     toggleAllRoomsResp = () => {
         this.setState({
-            AllRoomsResp: !this.state.AllRoomsResp
+            AllRoomsResp: !this.state.AllRoomsResp,
+            isResponsive: true,
+            ProfileResp: false,
+            currentHiveResp: false
+
         })
         console.log("ALL ROOMS", this.state)
     }
@@ -89,8 +101,8 @@ class Dashboard extends Component {
     }
 
     render() {
-        console.log(this.state.width)
-        let dashView
+        console.log(this.props.currentUser)
+         let dashView
         if (this.state.width >= 500) {
             dashView = (
                 <div>

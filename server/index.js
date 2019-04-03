@@ -33,6 +33,8 @@ app.use(session({
 //auth endpoint
 app.get("/auth", authController.login)
 app.get("/api/user-data", authController.getUserData)
+app.get('/getUserSession', authController.getUserData)
+app.get('/getAdminPosts', authController.getAdminData)
 
 //Connect to Database
 massive(
@@ -53,6 +55,7 @@ app.get("/getDrinkDeals/:id", roomsController.getDrinkDeals)
 app.post('/logout', userController.logoutUser);
 app.get('/getUserDrinks/:id', userController.getDrinksForUser)
 app.delete('/deleteDrink/:id/:userId', userController.deleteUserDrinks)
+app.put(`/getusername/:user/:username`,userController.getUsername )
 
 //Sockets
 io.sockets.on('connection', (socket) => {
@@ -107,6 +110,29 @@ io.sockets.on('connection', (socket) => {
         db.remove_user_from_room(room_id).then(room_id => {
             console.log('left room #', room_id)
             // io.sockets.emit()
+        })
+    })
+    socket.on('UpvotePost', body =>{
+            const db = app.get("db")
+            db.upvote_post([body.post_id,body.room_id]).then(allPosts =>{
+                io.sockets.emit("NewUpvote", allPosts)
+            })
+    })
+    socket.on("DownvotePost", body =>{
+        db.downvote_post([body.post_id,body.room_id]).then(allPosts =>{
+            io.sockets.emit("NewDownvote", allPosts)
+        })
+    })
+    socket.on("CommentUpvote", body =>{
+        db.upvote_comments([body.comment_id,body.room_id]).then(allComments =>{
+            io.sockets.emit("NewCommentUpvote", allComments)
+        })
+    })
+    socket.on("CommentDownvote", body =>{
+        console.log("BODY RECIEVED: ", body)
+        db.downvote_comments([body.comment_id,body.room_id]).then(allComments =>{
+            console.log("ALL COMMENTS: ", allComments)
+            io.sockets.emit("NewCommentDownvote", allComments)
         })
     })
 })
