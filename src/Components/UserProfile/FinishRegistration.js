@@ -4,6 +4,7 @@ import { CurrentUser } from "../../redux/reducer";
 import './finishRegistration.css'
 import StripeCheckout from 'react-stripe-checkout';
 import Axios from "axios"
+import { Link } from "react-router-dom"
  class FinishRegistration extends Component {
     constructor(props){
         super(props)
@@ -53,7 +54,8 @@ import Axios from "axios"
           <h3 className="h3">You're almost there....</h3>
          <p1 className="username-text">Give yourself a username</p1>
          <input type="text" id="text" placeholder="Username" name="text_name" class="mytext" onChange={e => this.handleChange(e)} />
-         <button onClick = {() => this.handleUsername()}>submit</button>
+         
+         <Link to = "/dashboard"><button onClick = {() => this.handleUsername()}>submit</button></Link>
          <h2> Optional: Add a payment method (Just know, without a card on file you wont be able to recieve free drinks)</h2>
          <h3> <StripeCheckout
           token={this.onToken}
