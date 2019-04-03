@@ -21,6 +21,7 @@ create table users(
 create table comments(
 comment_id serial primary key
 ,post_id integer references posts(post_id)
+, c_time_posted timestamp default current_timestamp
 ,commenter_user_name varchar(64)
 ,comment_content varchar(64)
 ,comment_upvotes integer
