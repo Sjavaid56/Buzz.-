@@ -36,6 +36,9 @@ app.get("/api/user-data", authController.getUserData)
 app.get('/getUserSession', authController.getUserData)
 app.get('/getAdminPosts', authController.getAdminData)
 
+//Username endpoint 
+app.post("/Username", userController.getUsername)
+
 //Connect to Database
 massive(
     process.env.CONNECTION_STRING
@@ -54,6 +57,7 @@ app.get("/getDrinkDeals/:id", roomsController.getDrinkDeals)
 //User endpoint
 app.post('/logout', userController.logoutUser);
 app.get('/getUserDrinks/:id', userController.getDrinksForUser)
+app.get('/getUserSession', authController.getUserData)
 app.delete('/deleteDrink/:id/:userId', userController.deleteUserDrinks)
 app.put(`/getusername/:user/:username`,userController.getUsername )
 
