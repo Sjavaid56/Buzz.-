@@ -6,8 +6,7 @@ import {Link} from "react-router-dom"
 import Dashboard from "../../routes"
 import StripeCheckout from 'react-stripe-checkout';
 import Axios from "axios"
-
-
+import StripeCheckout from 'react-stripe-checkout';
  class FinishRegistration extends Component {
     constructor(props){
         super(props)

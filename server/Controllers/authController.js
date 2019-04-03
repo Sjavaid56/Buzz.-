@@ -28,12 +28,28 @@ module.exports = {
 
 
       return req.app.get('db').find_user_by_auth0_id(userData.sub).then(users => {
-        console.log("HOLA")
         if (users.length) {
+          console.log("FOUND USER TO LOG IN:", users)
           const user = users[0];
-          req.session.user = user;
-          res.redirect('/dashboard');
-        } else {
+          if(user.admin === true){
+            req.app.get("db").getAdminPostData(user.admin_of).then(allAdminPostData =>{
+              console.log("ADMIN DATA: ", allAdminPostData)
+              req.session.adminPostData = allAdminPostData
+              console.log("ADMIN SESSION VARIABLE: ", req.session.adminData)
+              req.session.user = user;
+            }).then(() =>{
+              res.status(200).redirect('/adminDashboard')
+            })
+            
+            
+          }
+          else if(user.admin === false){
+            req.session.user = user;
+            res.redirect('/dashboard');
+          }
+          
+        } 
+        else {
           const createData = [userData.sub, userData.email, userData.name, userData.picture];
           return req.app.get('db').create_user(createData).then(newUsers => {
             const user = newUsers[0];
@@ -51,6 +67,11 @@ module.exports = {
   getUserData(req, res) {
     console.log("Sending", req.session.user);
     res.status(200).json(req.session.user);
+  },
+  getAdminData(req,res){
+    console.log('SESSION:' , req.session)
+    console.log("Sending admin data:", req.session.adminPostData)
+    res.status(200).json(req.session.adminPostData)
   }
 }
 

@@ -2,14 +2,25 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { updateCurrentRoom } from '../../../redux/reducer';
 import buzzBee from '../../../images/assets/logo/buzz-logo-charcoal-nobg.png';
+import beeIcon from '../../../images/assets/logo/buzz-logo-yellow-nobg.png';
 import axios from 'axios';
-import cafe from './icons/icons8-cafe-filled-30.png';
-//change this to svg or something we can use our custom color on
+import defaultIcon from './icons/icons8-small-business-filled-50.png';
 import './availablerooms.css';
 // import CurrentRoom from '../CurrentRoom/CurrentRoom';
 import NavBar from "../../NavBar/NavBar"
 import swal from '@sweetalert/with-react'
 import drink from "../../../images/drink.png"
+
+// import cafeIcon from './icons/icons8-coffee-50.png';
+// import churchIcon from './icons/icons8-church-filled-50.png';
+// import restaurantIcon from './icons/icons8-restaurant-filled-50.png';
+// import stadiumIcon from './icons/icons8-stadium-filled-50.png';
+// import hotelIcon from './icons/icons8-bed-filled-50.png';
+// import devmIcon from './icons/devmountain-logo-filled.png';
+// import airportIcon from './icons/icons8-airport-filled-50.png';
+// import barIcon from './icons/icons8-vodka-shot-filled-50.png';
+// import libraryIcon from './icons/icons8-open-book-filled-50.png';
+
 
 class AvailableRooms extends Component {
     constructor(props) {
@@ -52,7 +63,8 @@ class AvailableRooms extends Component {
             // })
             setTimeout(() => {
                 let availableRooms = rooms.data.filter((value) => {
-                    return distance(this.props.currentLocation.latitude, this.props.currentLocation.longitude, value.latitude, value.longitude, "K") <= 0.5
+
+                    return distance(this.props.currentLocation.latitude, this.props.currentLocation.longitude, value.latitude, value.longitude, "K") <= .5
                 })
                 this.setState({
                     rooms: availableRooms
@@ -98,8 +110,10 @@ class AvailableRooms extends Component {
 
     render() {
 
+        console.log(this.state.rooms)
 
         let mappedRooms = this.state.rooms.map((room) => {
+            console.log(room.business_type)
 
             return (
                 <div key={room.room_id} className='available-rooms'>
@@ -115,7 +129,7 @@ class AvailableRooms extends Component {
                     <div className='rooms-footer'>
 
                         <div className='rooms-footer__icons'>
-                            <img src={cafe} className='room-type__icon' />
+                            <img src={room.business_icon != null ? room.business_icon : defaultIcon || defaultIcon} className='room-type__icon' alt='business type icon' />
 
                             <img style={{ height: 22, width: 22 }}
                                 src={buzzBee} className='room-user__bee' />
@@ -150,7 +164,17 @@ class AvailableRooms extends Component {
                 </div>
 
                 <main className='mapped-businesses'>
-                    {mappedRooms}
+                    {this.state.rooms.length > 0
+                        ?
+                        mappedRooms
+                        :
+                        <div style={{ textAlign: 'center', margin: 60, fontSize: 22, lineHeight: 1.2 }}>
+                            <h4 style={{ marginBottom: 30, textShadow: '1px 1px 3.5px #000000' }}>
+                                There aren't any hives in your immediate area... check the map to see the closest hives near you!
+                            </h4>
+                            <img height='100' width='100' src={beeIcon} alt='buzz bee logo in yellow' />
+                        </div>
+                    }
 
                 </main>
 

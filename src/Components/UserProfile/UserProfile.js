@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import axios from 'axios'
+import axios from 'axios';
 import { updateCurrentUser } from "../../redux/reducer";
 import profileplaceholder from '../../images/Portrait_Placeholder.png';
-import honeycomb from '../../images/15656.jpg';
+import cancel from '../../images/icons8-delete-24.png';
 import './userprofile.css';
-import back from "../Room/CurrentRoom/back.png"
-import drinkImg from "../../images/drink.png"
+import back from "../Room/CurrentRoom/back.png";
+import drinkImg from "../../images/drink.png";
+import warning from "../../images/warning.png";
+import edit from '../../images/icons8-edit-24.png';
+import anon from "../../images/Portrait_Placeholder.png"
+
+
 
 class UserProfile extends Component {
     constructor(props) {
@@ -15,14 +20,15 @@ class UserProfile extends Component {
         this.state = {
             showProfile: true,
             user: this.props.currentUser,
-            userDrinks:[],
-            code:false
+            userDrinks: [],
+            code: false,
+            redeemCode: []
         }
     }
-    componentDidMount = () =>{
-        axios.get(`getUserDrinks/${this.props.currentUser.user_id}`).then(drinks =>{
+    componentDidMount = () => {
+        axios.get(`getUserDrinks/${this.props.currentUser.user_id}`).then(drinks => {
             this.setState({
-                userDrinks:drinks.data
+                userDrinks: drinks.data
             })
             console.log("Got drinks for user: ", drinks.data)
         })
@@ -39,6 +45,10 @@ class UserProfile extends Component {
             showProfile: false
         })
     }
+    toggleAnonymous = () =>{
+        console.log(this.props.currentUser)
+        
+    }
 
     //logout
     logout = () => {
@@ -47,27 +57,75 @@ class UserProfile extends Component {
             window.location = `/`;
         }).catch(err => console.log(err));
     };
-    toggleCode = () =>{
+    toggleCode = (drink) => {
         this.setState({
-            code:!this.state.code
+            code: !this.state.code
         })
-    }   
+        this.showCode(drink)
+    }
+    showCode = (drink) => {
+        this.setState({
+            redeemCode: [drink]
+        })
+    }
+    deleteCode = (id) => {
+        this.setState({
+            redeemCode: []
+        })
+        axios.delete(`/deleteDrink/${id}/${this.props.currentUser.user_id}`).then(response => {
+            this.setState({
+                userDrinks: response.data
+            })
+        })
+    }
+
+    //edit username functionality
+    editUsername = () => {
+        console.log('edit username clicked')
+    }
 
     render() {
         let { email, profile_name, picture, user_name } = this.props.currentUser
-        let mappedDrinks = this.state.userDrinks.map((drink, index) =>{
-            return(
-                <button className = "dealParent-container__item" onClick = {this.toggleCode}>
-                    <img src = {drinkImg}></img>
-                    {/* <h2>{drink.drink_description}</h2> */}
-                    <h2>{drink.drink_description}</h2>
+        let mappedDrinks = this.state.userDrinks.map((drink, index) => {
+            return (
+                <button className="dealParent-container__item" onClick={() => this.toggleCode(drink)}>
+                    <img src={drinkImg}></img>
+                    <p>{drink.drink_description}</p>
                 </button>
             )
         })
-        let mappedCodes = this.state.userDrinks.map(drinkElement =>{
-            return(
-                <div>
-                    <h1>{drinkElement.coupon_code}</h1>
+
+        let currentCodeToShow = this.state.redeemCode.map(code => {
+            console.log("CODE IN MAP", code)
+            return (
+                <div className="code-parent">
+
+                    <div className="code-parent__button-container">
+                        <button className="cancel-button" onClick={() => this.deleteCode(code.drink_id)}><img src={cancel}></img></button>
+                    </div>
+
+                    <div className="code-parent__content">
+                        <div className="code-parent__content--img">
+                            <img src={drinkImg}></img>
+                        </div>
+
+                        <p>
+                            Show this coupon to your bartender to collect your drink.
+                            </p>
+
+                        <div className="warning">
+                            <img src={warning}></img>
+                            <p>Careful, after you exit you can't get this code back!</p>
+                        </div>
+
+                        <div className="code-parent__container">
+                            <h1>
+                                {code.coupon_code}
+                            </h1>
+                        </div>
+
+                    </div>
+
                 </div>
             )
         })
@@ -80,9 +138,19 @@ class UserProfile extends Component {
                     <div className="profile-parent__button-holder">
                         <button onClick={this.props.toggleProfileFn} className="profile-parent__back"><img src={back} /></button>
                     </div>
-
+                    
                     <img src={picture || profileplaceholder} alt='profile img'
                         className='profile-header__picture' />
+                        
+                        {/* <div className = "goAnonToggle">
+                        <p>Go incognito</p>
+                        <label className="switch">
+                            <input type="checkbox"
+                            onClick = {(e) =>{this.toggleAnonymous()}}/>
+                            <span className="slider round"></span>
+                        </label>
+                        </div> */}
+                        
 
                     <div className='profile-tabs'>
                         <button onClick={this.toggleProfile}>Profile</button>
@@ -95,7 +163,7 @@ class UserProfile extends Component {
                         <div className='profile-tabs__infoProfile'>
                             {/* <h2>Profile</h2> */}
 
-                            <h6>Username:</h6>
+                            <h6>Username: <img src={edit} height={18} onClick={this.editUsername} /></h6>
                             <p>@{user_name || 'No username on file!'}</p>
 
                             <h6>Full Name:</h6>
@@ -111,7 +179,19 @@ class UserProfile extends Component {
                         </div>
                         :
                         <div className='profile-tabs__drinks'>
-                            {this.state.code? <h2>{mappedCodes}</h2> : <h2>{mappedDrinks}</h2>}
+
+                            {this.state.redeemCode.length ? <div className="current-code-parent"><h2>{currentCodeToShow}</h2></div> : <h2>{mappedDrinks}</h2>}
+                            {
+                                this.state.redeemCode.length? 
+                                    <div className = "current-code-parent"><h2>{currentCodeToShow}</h2></div> 
+                                    :
+                                    (mappedDrinks.length? <h2>{mappedDrinks}</h2> 
+                                    : 
+                                    <div className = "No_drinks-parent">
+                                        You don't have any honey yet, when someone sends you some it will show up here!
+                                    </div>
+                                    )
+                            }
                         </div>
                     }
 
