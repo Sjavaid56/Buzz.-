@@ -4,13 +4,23 @@ import { updateCurrentRoom } from '../../../redux/reducer';
 import buzzBee from '../../../images/assets/logo/buzz-logo-charcoal-nobg.png';
 import beeIcon from '../../../images/assets/logo/buzz-logo-yellow-nobg.png';
 import axios from 'axios';
-import cafe from './icons/icons8-cafe-filled-30.png';
-//change this to svg or something we can use our custom color on
+import defaultIcon from './icons/icons8-small-business-filled-50.png';
 import './availablerooms.css';
 // import CurrentRoom from '../CurrentRoom/CurrentRoom';
 import NavBar from "../../NavBar/NavBar"
 import swal from '@sweetalert/with-react'
 import drink from "../../../images/drink.png"
+
+// import cafeIcon from './icons/icons8-coffee-50.png';
+// import churchIcon from './icons/icons8-church-filled-50.png';
+// import restaurantIcon from './icons/icons8-restaurant-filled-50.png';
+// import stadiumIcon from './icons/icons8-stadium-filled-50.png';
+// import hotelIcon from './icons/icons8-bed-filled-50.png';
+// import devmIcon from './icons/devmountain-logo-filled.png';
+// import airportIcon from './icons/icons8-airport-filled-50.png';
+// import barIcon from './icons/icons8-vodka-shot-filled-50.png';
+// import libraryIcon from './icons/icons8-open-book-filled-50.png';
+
 
 class AvailableRooms extends Component {
     constructor(props) {
@@ -100,8 +110,10 @@ class AvailableRooms extends Component {
 
     render() {
 
+        console.log(this.state.rooms)
 
         let mappedRooms = this.state.rooms.map((room) => {
+            console.log(room.business_type)
 
             return (
                 <div key={room.room_id} className='available-rooms'>
@@ -117,7 +129,7 @@ class AvailableRooms extends Component {
                     <div className='rooms-footer'>
 
                         <div className='rooms-footer__icons'>
-                            <img src={cafe} className='room-type__icon' />
+                            <img src={room.business_icon != null ? room.business_icon : defaultIcon || defaultIcon} className='room-type__icon' alt='business type icon' />
 
                             <img style={{ height: 22, width: 22 }}
                                 src={buzzBee} className='room-user__bee' />

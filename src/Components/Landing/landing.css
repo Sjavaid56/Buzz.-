@@ -40,5 +40,7 @@
 
 .landing-container button:hover {
     background-color: #ffcb34;
+    border: 1px solid #1C1E1F;
+    color: #1C1E1F;
     outline: none;
 }
