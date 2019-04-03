@@ -32,6 +32,7 @@ class Dashboard extends Component {
     //Get user data on mount
     componentDidMount = () => {
         Axios.get("/api/user-data").then(userData => {
+            console.log("USER DATA: ", userData)
             this.props.updateCurrentUser(userData.data)
         })
     }
@@ -100,7 +101,7 @@ class Dashboard extends Component {
     }
 
     render() {
-        console.log(this.state.width)
+        console.log(this.props.currentUser)
         let dashView
         if (this.state.width >= 500) {
             dashView = (
