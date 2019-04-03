@@ -12,12 +12,22 @@
     height:100%;
     width:33.3333333%;
 }
-.NavBar-parent__Hives--button1{
+
+.NavBar-parent__Hives--button1, .NavBar-parent__Hives--button2, .NavBar-parent__Hives--button3 {
     background:none;
-    border:dashed #f7a41a 1px;
+    border: none;
     height:100%;
     width:100%;
-    
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+}
+.NavBar-parent__Hives--button2{
+    border-left:dashed #1c1e1f 1px;
+    border-right:dashed #1c1e1f 1px;
+}
+
+.NavBar-parent__Profile {
+    border-top-right-radius: 15px;
 
 }
 .NavBar-parent__Hives--logo{

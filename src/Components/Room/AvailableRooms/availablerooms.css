@@ -95,6 +95,7 @@
 }
 
 .room-type__icon {
+    height: 35px;
     margin:  0 15px 0 5px;
 }
 
