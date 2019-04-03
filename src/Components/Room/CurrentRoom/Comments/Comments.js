@@ -18,14 +18,14 @@ export default class Comment extends Component {
     upvote = (comment_id) => {
         let body = {
             comment_id,
-            room_id:this.props.room_id
+            room_id: this.props.room_id
         }
         this.props.socket.emit("CommentUpvote", body)
     }
     downvote = (comment_id) => {
         let body = {
             comment_id,
-            room_id:this.props.room_id
+            room_id: this.props.room_id
         }
         this.props.socket.emit("CommentDownvote", body)
     }
@@ -43,8 +43,8 @@ export default class Comment extends Component {
                     </div>
 
                     <div className='comment-parent__timestamp'>
-                        <p className='comment-parent__timeInfo'>3.29.19</p>
-                        <p className='comment-parent__timeInfo'>3:05pm</p>
+                        <p className='comment-parent__timeInfo'>{this.props.c_date}</p>
+                        <p className='comment-parent__timeInfo'>{this.props.c_time}</p>
                     </div>
 
                 </div>
@@ -54,10 +54,10 @@ export default class Comment extends Component {
                 </div>
 
                 <div className="comment-parent__footer">
-                    <button onClick = {() =>{this.upvote(this.props.comment_id)}} className="comment-parent__vote"><img src={up} alt='up arrow'></img></button>
+                    <button onClick={() => { this.upvote(this.props.comment_id) }} className="comment-parent__vote"><img src={up} alt='up arrow'></img></button>
                     <p>{this.props.comment_upvotes}</p>
 
-                    <button onClick = { () =>{this.downvote(this.props.comment_id)}} className="comment-parent__vote"><img src={down} alt='down arrow'></img></button>
+                    <button onClick={() => { this.downvote(this.props.comment_id) }} className="comment-parent__vote"><img src={down} alt='down arrow'></img></button>
                     <p>{this.props.comment_downvotes}</p>
                 </div>
             </div>
