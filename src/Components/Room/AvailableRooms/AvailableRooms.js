@@ -4,24 +4,23 @@ import { updateCurrentRoom } from '../../../redux/reducer';
 import buzzBee from '../../../images/assets/logo/buzz-logo-charcoal-nobg.png';
 import beeIcon from '../../../images/assets/logo/buzz-logo-yellow-nobg.png';
 import axios from 'axios';
-
-import airportIcon from './icons/icons8-airport-filled-50.png';
-import barIcon from './icons/icons8-vodka-shot-filled-50.png';
-import cafeIcon from './icons/icons8-coffee-50.png';
-import churchIcon from './icons/icons8-church-filled-50.png';
-import libraryIcon from './icons/icons8-open-book-filled-50.png';
-import stadiumIcon from './icons/icons8-stadium-filled-50.png';
-import devmIcon from './icons/devmountain-logo-filled.png';
-import hotelIcon from './icons/icons8-bed-filled-50.png';
-import restaurantIcon from './icons/icons8-restaurant-filled-50.png';
 import defaultIcon from './icons/icons8-small-business-filled-50.png';
-
-
 import './availablerooms.css';
 // import CurrentRoom from '../CurrentRoom/CurrentRoom';
 import NavBar from "../../NavBar/NavBar"
 import swal from '@sweetalert/with-react'
 import drink from "../../../images/drink.png"
+
+// import cafeIcon from './icons/icons8-coffee-50.png';
+// import churchIcon from './icons/icons8-church-filled-50.png';
+// import restaurantIcon from './icons/icons8-restaurant-filled-50.png';
+// import stadiumIcon from './icons/icons8-stadium-filled-50.png';
+// import hotelIcon from './icons/icons8-bed-filled-50.png';
+// import devmIcon from './icons/devmountain-logo-filled.png';
+// import airportIcon from './icons/icons8-airport-filled-50.png';
+// import barIcon from './icons/icons8-vodka-shot-filled-50.png';
+// import libraryIcon from './icons/icons8-open-book-filled-50.png';
+
 
 class AvailableRooms extends Component {
     constructor(props) {
@@ -65,7 +64,7 @@ class AvailableRooms extends Component {
             setTimeout(() => {
                 let availableRooms = rooms.data.filter((value) => {
 
-                    return distance(this.props.currentLocation.latitude, this.props.currentLocation.longitude, value.latitude, value.longitude, "K") <= 5
+                    return distance(this.props.currentLocation.latitude, this.props.currentLocation.longitude, value.latitude, value.longitude, "K") <= 10
                 })
                 this.setState({
                     rooms: availableRooms
@@ -115,15 +114,6 @@ class AvailableRooms extends Component {
 
         let mappedRooms = this.state.rooms.map((room) => {
             console.log(room.business_type)
-            // let icon;
-
-            // if (room.business_type == 'Airport Gates' || 'Airport Terminals' || 'Airports') {
-            //     icon = <img src={airportIcon} className='room-type__icon' />
-            // } else if (room.business_type == 'Baseball Fields' || 'Baseball Stadiums' || 'Basketball Stadiums' || 'Hockey Arenas' || 'Music Venues') {
-            //     icon = <img src={stadiumIcon} className='room-type__icon' />
-            // } else {
-            //     icon = <img src={defaultIcon} className='room-type__icon' />
-            // }
 
             return (
                 <div key={room.room_id} className='available-rooms'>
@@ -139,37 +129,7 @@ class AvailableRooms extends Component {
                     <div className='rooms-footer'>
 
                         <div className='rooms-footer__icons'>
-                            {
-                                // icon
-                                (room.business_type == 'Airport Gates' || 'Airport Terminals' || 'Airports')
-                                    ? <img src={airportIcon} className='room-type__icon' />
-
-                                    : (room.business_type == 'Baseball Fields' || 'Baseball Stadiums' || 'Basketball Stadiums' || 'Hockey Arenas' || 'Music Venues')
-                                        ? <img src={stadiumIcon} className='room-type__icon' />
-
-                                        : (room.business_type == 'Bars' || 'Cocktail Bars' || 'Lounges' || 'Sports Bars' || 'Wine Bars')
-                                            ? <img src={barIcon} className='room-type__icon' />
-
-                                            : (room.business_type == 'Antique Shops' || 'Bookstores' || 'Libraries')
-                                                ? <img src={libraryIcon} className='room-type__icon' />
-
-                                                : (room.business_type == 'Churches')
-                                                    ? <img src={churchIcon} className='room-type__icon' />
-
-                                                    : (room.business_type == 'Bakeries' || 'Cafés' || 'Coffee Shops' || 'Donut Shops')
-                                                        ? <img src={cafeIcon} className='room-type__icon' />
-
-                                                        : (room.business_type == 'DevMountain')
-                                                            ? <img src={devmIcon} className='room-type__icon' />
-
-                                                            : (room.business_type == 'Hotels' || 'Resorts')
-                                                                ? <img src={hotelIcon} className='room-type__icon' />
-
-                                                                : (room.business_type == 'American Restaurants' || 'Breakfast Spots' || 'Burger Joints' || 'Food' || 'Gastropubs' || 'New American Restaurants' || 'Pizza Places' || 'Vegetarian/Vegan Restaurants')
-                                                                    ? <img src={restaurantIcon} className='room-type__icon' />
-
-                                                                    : <img src={defaultIcon} className='room-type__icon' />
-                            }
+                            <img src={room.business_icon != null ? room.business_icon : defaultIcon || defaultIcon} className='room-type__icon' alt='business type icon' />
 
                             <img style={{ height: 22, width: 22 }}
                                 src={buzzBee} className='room-user__bee' />
