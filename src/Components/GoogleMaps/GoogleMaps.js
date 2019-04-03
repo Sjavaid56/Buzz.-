@@ -69,7 +69,7 @@ class App extends Component {
       })
     });
   }
-  handleMarkerClick = () => {
+  handleMarkerClick = () => { 
     this.setState({ isMarkerShown: false })
     this.initGeoLocation()
   }

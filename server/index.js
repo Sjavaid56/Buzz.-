@@ -34,6 +34,9 @@ app.use(session({
 app.get("/auth", authController.login)
 app.get("/api/user-data", authController.getUserData)
 
+//Username endpoint 
+app.post("/Username", userController.getUsername)
+
 //Connect to Database
 massive(
     process.env.CONNECTION_STRING
@@ -52,6 +55,8 @@ app.get("/getDrinkDeals/:id", roomsController.getDrinkDeals)
 //User endpoint
 app.post('/logout', userController.logoutUser);
 app.get('/getUserDrinks/:id', userController.getDrinksForUser)
+app.get('/getUserSession', authController.getUserData)
+app.put(`/getusername/:user/:username`,userController.getUsername )
 
 //Sockets
 io.sockets.on('connection', (socket) => {
