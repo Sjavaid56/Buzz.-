@@ -135,14 +135,14 @@ class UserProfile extends Component {
                     <img src={picture || profileplaceholder} alt='profile img'
                         className='profile-header__picture' />
                         
-                        <div className = "goAnonToggle">
+                        {/* <div className = "goAnonToggle">
                         <p>Go incognito</p>
                         <label className="switch">
                             <input type="checkbox"
                             onClick = {(e) =>{this.toggleAnonymous()}}/>
                             <span className="slider round"></span>
                         </label>
-                        </div>
+                        </div> */}
                         
 
                     <div className='profile-tabs'>
