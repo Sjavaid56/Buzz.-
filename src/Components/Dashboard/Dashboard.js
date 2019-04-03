@@ -102,7 +102,7 @@ class Dashboard extends Component {
 
     render() {
         console.log(this.props.currentUser)
-        let dashView
+         let dashView
         if (this.state.width >= 500) {
             dashView = (
                 <div>

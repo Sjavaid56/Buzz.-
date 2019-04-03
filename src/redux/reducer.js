@@ -22,7 +22,7 @@ export function reducer(state = initialState, action) {
 }
 
 export function updateCurrentUser(userInformation) {
-    // console.log(userInformation)
+    console.log(userInformation)
     return {
         type: updateUser,
         payload: userInformation
