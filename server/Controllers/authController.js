@@ -54,7 +54,7 @@ module.exports = {
           return req.app.get('db').create_user(createData).then(newUsers => {
             const user = newUsers[0];
             req.session.user = user
-            res.redirect('/tutorial');
+            res.redirect('/finishregistration');
           })
         }
       })
