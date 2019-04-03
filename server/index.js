@@ -33,6 +33,7 @@ app.use(session({
 //auth endpoint
 app.get("/auth", authController.login)
 app.get("/api/user-data", authController.getUserData)
+app.get('/getUserSession', authController.getUserData)
 
 //Connect to Database
 massive(
@@ -53,6 +54,7 @@ app.get("/getDrinkDeals/:id", roomsController.getDrinkDeals)
 app.post('/logout', userController.logoutUser);
 app.get('/getUserDrinks/:id', userController.getDrinksForUser)
 app.delete('/deleteDrink/:id/:userId', userController.deleteUserDrinks)
+app.put(`/getusername/:user/:username`,userController.getUsername )
 
 //Sockets
 io.sockets.on('connection', (socket) => {

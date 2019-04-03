@@ -108,6 +108,7 @@
 }
 .current-code-parent{
     border: dashed 2px #f7a41a;
+    background-color: #1c1e1fd3;
     height:100%;
     width:100%;
 }
