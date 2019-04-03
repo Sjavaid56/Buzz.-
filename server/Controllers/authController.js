@@ -25,15 +25,17 @@ module.exports = {
     function storeUserInfoInDataBase(userInfoResponse) {
       const userData = userInfoResponse.data;
       console.log('userData', userData)
+      console.log("USER INFO RESPONSE",userInfoResponse)
 
 
       return req.app.get('db').find_user_by_auth0_id(userData.sub).then(users => {
-        console.log("HOLA")
+        console.log("Got user Information: ", users)
         if (users.length) {
           const user = users[0];
           req.session.user = user;
           res.redirect('/dashboard');
         } else {
+
           const createData = [userData.sub, userData.email, userData.name, userData.picture];
           return req.app.get('db').create_user(createData).then(newUsers => {
             const user = newUsers[0];
