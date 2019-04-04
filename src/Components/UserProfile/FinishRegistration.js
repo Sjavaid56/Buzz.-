@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import { connect } from "react-redux";
 import { CurrentUser } from "../../redux/reducer";
 import './finishRegistration.css'
-import { Link } from "react-router-dom"
+import {Link} from "react-router-dom"
 import Dashboard from "../../routes"
 import StripeCheckout from 'react-stripe-checkout';
 import Axios from "axios"
-class FinishRegistration extends Component {
-    constructor(props) {
+ class FinishRegistration extends Component {
+    constructor(props){
         super(props)
-        this.state = {
+        this.state= {
             user: [],
             username: "",
             picture: "",
@@ -18,7 +18,7 @@ class FinishRegistration extends Component {
         }
     }
 
-    componentDidMount() {
+    componentDidMount(){
         Axios.get('/getUserSession').then(res => {
             this.setState({
                 user: res.data.user_id,
@@ -45,23 +45,21 @@ class FinishRegistration extends Component {
       }
 
 
-    handleUsername() {
-        const { username, user } = this.state
+    handleUsername(){
+        const {username, user} = this.state
         console.log("user:", user)
         Axios.put(`/getusername/${user}/${username}`).then(res => {
         })
     }
-    handleChange(e) {
-        this.setState({ username: e.target.value })
-    }
+    handleChange(e){
+        this.setState({username: e.target.value})
+        }
+    
+  render() {
+   const  {picture} = this.state
 
-
-    render() {
-        const { picture } = this.state
-
-        console.log(this.state.picture)
-
-        return (
+    console.log(this.state.picture)
+    return (
             <div className='FinishReg-parent'>
                 <div className='profile-header'> </div>
 
@@ -82,13 +80,13 @@ class FinishRegistration extends Component {
                   />
             </div>
         )
-    }
+
 }
 
 const mapStateToProps = (state) => {
     return {
         currentUser: state.currentUser
     }
-}
+} 
 
-export default connect(mapStateToProps, null)(FinishRegistration)
+export default connect(mapStateToProps,null)(FinishRegistration)
