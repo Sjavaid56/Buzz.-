@@ -100,10 +100,9 @@
 }
 
 .Stripe{
- 
     font-size: 15px !important;
     border-radius: 10px !important;
     margin: 60px;
-    background-color: #ffcb34 !important;
+    color: #ffcb34 !important;
     
 }
