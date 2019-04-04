@@ -36,6 +36,37 @@ app.get("/api/user-data", authController.getUserData)
 app.get('/getUserSession', authController.getUserData)
 app.get('/getAdminPosts', authController.getAdminData)
 
+//Stripe
+app.post("/stripe", (req, res) => {
+    console.log("Stripe has hit index.js")
+    const stripeToken = req.body;
+    const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
+    
+      stripe.charges.create({
+        amount: 1000,
+        currency: 'usd',
+        description: 'Example Charge',
+        source: stripeToken.body
+        // source: stripeToken.id
+      }, function(err, charge) {
+          console.log('charge', charge)
+          if(err){
+            res.send({
+                success: false,
+                message: 'Error'
+            })
+          } else {
+            res.send({
+            success: true,
+            message: 'Success'
+         })
+          }
+      });
+  
+  });
+
+   
+
 //Username endpoint 
 app.post("/Username", userController.getUsername)
 

@@ -12,7 +12,8 @@ import Axios from "axios"
         this.state= {
             user: [],
             username: "",
-            picture: ""
+            picture: "",
+            card: false 
 
         }
     }
@@ -27,21 +28,21 @@ import Axios from "axios"
         })
 
     }
-
-    // onToken = (token) => {
-    //     // console.log('onToken', token)
-    //     Axios.post('/api/stripe', {
-    //       method: 'POST',
-    //       headers: {
-    //         Accept: 'application/json',
-    //         'Content-Type': 'application/json',
-    //       },
-    //       body: token.id
-    //     }).then(json => {
-    //          alert(json.data.message)
-    //         console.log('json', json)
-    //       }).catch
-    //     }
+    onToken = (token) => {
+        console.log('onToken', token); 
+        Axios.post('/stripe', {
+          method: "POST",
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: token.id
+        }).then( ()=> {
+          this.setState({
+            Card: true
+          })
+        })
+      }
 
 
     handleUsername(){
@@ -54,40 +55,32 @@ import Axios from "axios"
         this.setState({username: e.target.value})
         }
     
-
   render() {
    const  {picture} = this.state
 
     console.log(this.state.picture)
-
     return (
+            <div className='FinishReg-parent'>
+                <div className='profile-header'> </div>
 
-        
-        <div className='FinishReg-parent'>
-         <div className='profile-header'> </div> 
-    
+                <h3 className="h3">You're almost there....</h3>
+                <img src={this.state.picture} className="profile-photo" />
 
+                <p1 className="username-text"> Let's give you a username first!</p1>
+                <input placeholder="Username" className="mytext" onChange={e => this.handleChange(e)} />
+                <Link to="/dashboard">
+                    <button class="button-submit" onClick={() => this.handleUsername()}>submit</button>
+                </Link>
 
-          <h3 className="h3">You're almost there....</h3>
-          <img src='https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=2364333683593240&height=50&width=50&ext=1556863656&hash=AeTOzd1VGZJca_ec' className="profile-photo" /> 
+                <h2 className="card-text"> Add a payment, dont worry you can always do it later.</h2>
+                
+                 <StripeCheckout className="Stripe"
+                  token={this.onToken}
+                  stripeKey="pk_test_WaVHnhGJpp0M8KlijP56wMeL"
+                  />
+            </div>
+        )
 
-         <p1 className="username-text"> Let's give you a username first!</p1>
-         <input type="text" id="text" placeholder="Username" name="text_name" class="mytext" onChange={e => this.handleChange(e)} />
-        <Link to="/dashboard">
-        <button class="button-submit" onClick ={() => this.handleUsername()}>submit</button>
-        </Link> 
-
-         <h2 className="card-text"> Optional: Add a payment method!</h2>
-         <h3> <StripeCheckout
-          token={this.onToken}
-           // PUBLISHABLE KEY
-          stripeKey="pk_test_4S8gCnMZqqRJyrGjvtfMBgoS"
-           />
-         </h3>
-         
-        </div>
-    )
-  }
 }
 
 const mapStateToProps = (state) => {
