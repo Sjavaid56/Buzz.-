@@ -43,7 +43,7 @@
 }
 
 .mytext {
-    width: 40%;
+    box-sizing: content-box;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
@@ -70,14 +70,20 @@
     padding: 9px 20px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
+    /* display: inline-block; */
     font-size: 15px;
-    border-radius: 30%;
+    border-radius: 10px;
+    margin: 30px;
     /* opacity: .5; */
 }
 .h3{
     font-size: 180%;
     font-family:"Montserrat";
+}
+.card-text{
+    font-size: 180%;
+    font-family:"Montserrat";
+
 }
 .mytext {
     width: 100%;
@@ -89,6 +95,15 @@
  
 }
 .username-text{
-    flex: display;
+    border: 20px;
     text-align: left;
+}
+
+.Stripe{
+ 
+    font-size: 15px !important;
+    border-radius: 10px !important;
+    margin: 60px;
+    background-color: #ffcb34 !important;
+    
 }
