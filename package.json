@@ -12,6 +12,7 @@
     "google-maps-react": "^2.0.2",
     "http": "0.0.0",
     "http-proxy-middleware": "^0.19.1",
+    "jest": "^24.7.1",
     "massive": "^5.7.7",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
@@ -24,6 +25,7 @@
     "react-webcam": "^1.1.1",
     "redux": "^4.0.1",
     "semantic-ui-react": "^0.86.0",
+    "sinon": "^7.3.1",
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0",
     "stripe": "^6.28.0",
@@ -32,7 +34,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

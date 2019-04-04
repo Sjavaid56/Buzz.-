@@ -40,6 +40,7 @@ app.get('/getAdminPosts', authController.getAdminData)
 app.post("/stripe", (req, res) => {
     console.log("Stripe has hit index.js")
     const stripeToken = req.body;
+    console.log(stripeToken)
     const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
     
       stripe.charges.create({

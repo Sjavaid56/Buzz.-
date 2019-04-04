@@ -6,6 +6,7 @@ import {Link} from "react-router-dom"
 import Dashboard from "../../routes"
 import StripeCheckout from 'react-stripe-checkout';
 import Axios from "axios"
+import logo from "../../images/assets/logo/buzz-bee-charcoal.svg"
  class FinishRegistration extends Component {
     constructor(props){
         super(props)
@@ -75,11 +76,16 @@ import Axios from "axios"
                 <h2 className="card-text"> Add a payment, dont worry you can always do it later.</h2>
                 
                  <StripeCheckout className="Stripe"
+                  description="buzz."
+                  image = {logo}
                   token={this.onToken}
                   stripeKey="pk_test_WaVHnhGJpp0M8KlijP56wMeL"
+                  label="Set up payment information"
+                  style ={{"background-color":"red"}}
                   />
             </div>
         )
+  }
 
 }
 
