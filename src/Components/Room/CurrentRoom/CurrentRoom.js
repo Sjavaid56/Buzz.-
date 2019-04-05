@@ -191,7 +191,7 @@ class CurrentRoom extends Component {
                     <div className={this.state.createPostHidden ? "Current-room__createPost--hidden" : "Current-room__createPost--show"}>
                         {this.state.createPostHidden ? null :
                             <div >
-                                <CreatePost socket={this.props.socket} />
+                                <CreatePost socket={this.props.socket} toggleNewPostFn = {this.toggleCreatePost} />
                             </div>
                         }
                     </div>
