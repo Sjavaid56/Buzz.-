@@ -87,6 +87,7 @@ class UserProfile extends Component {
     render() {
         let { email, profile_name, picture, user_name } = this.props.currentUser
         let mappedDrinks = this.state.userDrinks.map((drink, index) => {
+            console.log(drink)
             return (
                 <button className="dealParent-container__item" onClick={() => this.toggleCode(drink)}>
                     <img src={drinkImg}></img>
@@ -180,7 +181,7 @@ class UserProfile extends Component {
                         :
                         <div className='profile-tabs__drinks'>
 
-                            {this.state.redeemCode.length ? <div className="current-code-parent"><h2>{currentCodeToShow}</h2></div> : <h2>{mappedDrinks}</h2>}
+                            {/* {this.state.redeemCode.length ? <div className="current-code-parent"><h2>{currentCodeToShow}</h2></div> : <h2>{mappedDrinks}</h2>} */}
                             {
                                 this.state.redeemCode.length? 
                                     <div className = "current-code-parent"><h2>{currentCodeToShow}</h2></div> 
