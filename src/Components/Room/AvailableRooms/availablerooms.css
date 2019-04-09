@@ -118,7 +118,9 @@
     margin-left: auto;
     font-family: 'Montserrat', sans-serif;
     font-size: 12px;
+    outline: none;
 }
+
 @media(max-width:500px){
     .available-container{
         height: 85vh;

@@ -140,7 +140,7 @@ class AvailableRooms extends Component {
                             <button
                                 onClick={() => this.joinSingleRoom(room.room_id, room.business_name)}>
                                 join
-                        </button>
+                            </button>
                         </div>
 
                     </div>
