@@ -28,7 +28,8 @@ class AvailableRooms extends Component {
 
         this.state = {
             rooms: [],
-            width: window.innerWidth
+            width: window.innerWidth,
+            distance: []
         }
         this.props.socket.on("NewDrinkSent", body => {
             if (body.recipient_id === this.props.currentUser.user_id) {
@@ -52,7 +53,7 @@ class AvailableRooms extends Component {
             dist = Math.acos(dist)
             dist = dist * 180 / Math.PI
             dist = dist * 60 * 1.1515
-            if (unit == 'K') { dist = dist * 1.609344 }
+            if (unit == 'K') { dist = dist * 1.609344 * 3280.84}
             if (unit == 'N') { dist = dist * 0.8684 }
             return dist
         }
@@ -62,18 +63,32 @@ class AvailableRooms extends Component {
             //     rooms: rooms.data
             // })
             setTimeout(() => {
-                let availableRooms = rooms.data.filter((value) => {
+                let availableRooms = rooms.data.map((value, i, arr) => {
+                    
+                 value["distance to user"] = distance(this.props.currentLocation.latitude, this.props.currentLocation.longitude, value.latitude, value.longitude, "K") 
 
-                    return distance(this.props.currentLocation.latitude, this.props.currentLocation.longitude, value.latitude, value.longitude, "K") <= .5
-                })
+                }).filter((value => {
+                    return distance(this.props.currentLocation.latitude, this.props.currentLocation.longitude, value.latitude, value.longitude, "K") <= 1400
+                }))
+                console.log("aval rooms", availableRooms)
                 this.setState({
                     rooms: availableRooms
+                   
                 })
-            }, 500)
+            }, 500)     
         })
+
     }
+
+
+    //map through the rooms apply the distance alg again, this time set state with distance for each room.
+  
+    
+
+
     componentWillMount() {
         window.addEventListener('resize', this.handleWindowSizeChange);
+
     }
     handleWindowSizeChange = () => {
         this.setState({ width: window.innerWidth });
@@ -109,6 +124,7 @@ class AvailableRooms extends Component {
 
 
     render() {
+        console.log("distance rooms", this.state.distance)
 
         console.log(this.state.rooms)
 
