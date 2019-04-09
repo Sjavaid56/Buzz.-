@@ -3,8 +3,9 @@ import Axios from "axios";
 import "./AdminDashboard.css"
 import AdminNavBar from "../AdminNavBar/AdminNavBar"
 import AdminMain from "../AdminMain/AdminMain"
+import { connect } from "react-redux"
 
-export default class AdminDashbaord extends Component{
+class AdminDashbaord extends Component{
     constructor(){
         super()
         this.state ={
@@ -25,12 +26,21 @@ export default class AdminDashbaord extends Component{
                 })
             })
     }
+
     render(){
+        console.log("Socket in AdminDashboard: ", this.props.socket)
         return(
             <div className = "Admin-Dash-Parent">
                 <AdminNavBar/>
-                <AdminMain/>
+                <AdminMain socket = {this.props.socket}/>
             </div>
         )
     }
 }
+let MapStateToProps = (state) =>{
+    return{
+        socket:state.socket
+    }
+}
+
+export default connect (MapStateToProps, null)(AdminDashbaord)

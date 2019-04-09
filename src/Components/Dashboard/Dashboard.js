@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import socketIOClient from 'socket.io-client';
 import Map from '../GoogleMaps/GoogleMaps'
 import AvailableRooms from "../Room/AvailableRooms/AvailableRooms"
 import CurrentRoom from '../Room/CurrentRoom/CurrentRoom';
 import './dashboard.css';
 import Axios from 'axios';
 import { connect } from "react-redux"
-import { updateCurrentUser } from "../../redux/reducer"
+import { updateCurrentUser, updateSocket } from "../../redux/reducer"
 import Profile from "../UserProfile/UserProfile"
 import NavBar from "../NavBar/NavBar"
 
-const socket = socketIOClient("http://localhost:4000/");
+
+
+
 
 class Dashboard extends Component {
     constructor(props) {
@@ -35,6 +36,7 @@ class Dashboard extends Component {
             console.log("USER DATA: ", userData)
             this.props.updateCurrentUser(userData.data)
         })
+        
     }
     componentWillMount() {
         window.addEventListener('resize', this.handleWindowSizeChange);
@@ -110,9 +112,9 @@ class Dashboard extends Component {
                         <div className='hive-container'>
                             {
                                 this.state.currentHive ?
-                                    <CurrentRoom socket={socket} toggleHiveView={this.toggleHiveView} />
+                                    <CurrentRoom socket={this.props.socket} toggleHiveView={this.toggleHiveView} />
                                     :
-                                    (this.state.showProfile ? <Profile toggleProfileFn={this.toggleProfile} /> : <AvailableRooms socket={socket} toggleHiveView={this.toggleHiveView} toggleProfileFn={this.toggleProfile} />)
+                                    (this.state.showProfile ? <Profile toggleProfileFn={this.toggleProfile} /> : <AvailableRooms socket={this.props.socket} toggleHiveView={this.toggleHiveView} toggleProfileFn={this.toggleProfile} />)
                             }
                         </div>
 
@@ -136,7 +138,7 @@ class Dashboard extends Component {
                 else if (this.state.currentHiveResp) {
                     dashView = (
                         <div className='map-container__responsive'>
-                            <CurrentRoom socket={socket} />
+                            <CurrentRoom socket={this.props.socket} />
                             <NavBar toggleMap={this.toggleMap} toggleProfileRespFn={this.toggleProfileResp} togglecurrentHiveRespFn={this.togglecurrentHiveResp} toggleAllRoomsRespFn={this.toggleAllRoomsResp} />
                         </div>
                     )
@@ -150,14 +152,14 @@ class Dashboard extends Component {
                                 this.state.currentHive ?
                                     (
                                         <div className='hive-container'>
-                                            <CurrentRoom socket={socket} toggleHiveView={this.toggleHiveView} />
+                                            <CurrentRoom socket={this.props.socket} toggleHiveView={this.toggleHiveView} />
                                             <NavBar toggleMap={this.toggleMap} toggleProfileRespFn={this.toggleProfileResp} togglecurrentHiveRespFn={this.togglecurrentHiveResp} toggleAllRoomsRespFn={this.toggleAllRoomsResp} />
                                         </div>
                                     )
                                     :
                                     (
                                         <div>
-                                            <AvailableRooms socket={socket} toggleHiveView={this.toggleHiveView} toggleProfileFn={this.toggleProfile} />
+                                            <AvailableRooms socket={this.props.socket} toggleHiveView={this.toggleHiveView} toggleProfileFn={this.toggleProfile} />
                                             <NavBar toggleMap={this.toggleMap} toggleProfileRespFn={this.toggleProfileResp} togglecurrentHiveRespFn={this.togglecurrentHiveResp} toggleAllRoomsRespFn={this.toggleAllRoomsResp} />
                                         </div>
                                     )
@@ -193,4 +195,9 @@ class Dashboard extends Component {
         )
     }
 }
-export default connect(null, { updateCurrentUser })(Dashboard)
+let MapStateToProps = (state) =>{
+    return{
+        socket:state.socket
+    }
+}
+export default connect(MapStateToProps, { updateCurrentUser, updateSocket })(Dashboard)

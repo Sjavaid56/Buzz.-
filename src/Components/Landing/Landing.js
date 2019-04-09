@@ -3,8 +3,13 @@ import React, { Component } from 'react';
 import BuzzBeeCharcoal from '../../images/assets/logo/buzz-logo-charcoal-nobg.png';
 import './landing.css';
 import axios from 'axios';
+import socketIOClient from 'socket.io-client';
+import { connect } from "react-redux"
+import {updateSocket} from "../../redux/reducer"
 
-export default class Landing extends Component {
+const socket = socketIOClient("http://localhost:4000/");
+
+class Landing extends Component {
     constructor(props) {
         super(props);
 
@@ -17,6 +22,7 @@ export default class Landing extends Component {
         axios.get('/api/user-data').then(response => {
             console.log(response.data)
         })
+        this.props.updateSocket(socket)
     }
 
     login = () => {
@@ -41,3 +47,5 @@ export default class Landing extends Component {
         )
     }
 }
+
+export default connect( null, {updateSocket})(Landing)

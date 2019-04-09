@@ -1,12 +1,14 @@
 let initialState = {
     currentUser: [],
     currentRoom: 'Home',
-    currentLocation:[]
+    currentLocation:[],
+    socket:""
 }
 
 const updateUser = "updateUser";
 const updateRoom = 'updateRoom'
 const updateCurrentLocation = "updateCurrentLocation"
+const addSocket = "addSocket"
 
 export function reducer(state = initialState, action) {
     switch (action.type) {
@@ -16,8 +18,17 @@ export function reducer(state = initialState, action) {
             return { ...state, currentRoom: action.payload }
         case updateCurrentLocation:
             return {...state, currentLocation: action.payload}
+        case addSocket:
+            return {...state, socket:action.payload}
         default:
             return state
+    }
+}
+export function updateSocket(socket){
+    console.log("Socket in reducer: ", socket)
+    return{
+        type:addSocket,
+        payload:socket
     }
 }
 
