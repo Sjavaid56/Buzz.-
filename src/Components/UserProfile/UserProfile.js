@@ -22,7 +22,8 @@ class UserProfile extends Component {
             user: this.props.currentUser,
             userDrinks: [],
             code: false,
-            redeemCode: []
+            redeemCode: [],
+            input: false
         }
     }
     componentDidMount = () => {
@@ -45,9 +46,9 @@ class UserProfile extends Component {
             showProfile: false
         })
     }
-    toggleAnonymous = () =>{
+    toggleAnonymous = () => {
         console.log(this.props.currentUser)
-        
+
     }
 
     //logout
@@ -82,6 +83,15 @@ class UserProfile extends Component {
     //edit username functionality
     editUsername = () => {
         console.log('edit username clicked')
+        this.setState({
+            input: !this.state.input
+        })
+    }
+
+    submitUsername = () => {
+        this.setState({
+            input: !this.state.input
+        })
     }
 
     render() {
@@ -138,11 +148,11 @@ class UserProfile extends Component {
                     <div className="profile-parent__button-holder">
                         <button onClick={this.props.toggleProfileFn} className="profile-parent__back"><img src={back} /></button>
                     </div>
-                    
+
                     <img src={picture || profileplaceholder} alt='profile img'
                         className='profile-header__picture' />
-                        
-                        {/* <div className = "goAnonToggle">
+
+                    {/* <div className = "goAnonToggle">
                         <p>Go incognito</p>
                         <label className="switch">
                             <input type="checkbox"
@@ -150,7 +160,7 @@ class UserProfile extends Component {
                             <span className="slider round"></span>
                         </label>
                         </div> */}
-                        
+
 
                     <div className='profile-tabs'>
                         <button onClick={this.toggleProfile}>Profile</button>
@@ -164,7 +174,16 @@ class UserProfile extends Component {
                             {/* <h2>Profile</h2> */}
 
                             <h6>Username: <img src={edit} height={18} onClick={this.editUsername} /></h6>
-                            <p>@{user_name || 'No username on file!'}</p>
+                            {
+                                this.state.input
+                                    ?
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} className='profile-tabs__editUsername'>
+                                        <input />
+                                        <button onClick={this.submitUsername}>Submit</button>
+                                    </div>
+                                    :
+                                    <p>@{user_name || 'No username on file'}</p>
+                            }
 
                             <h6>Full Name:</h6>
                             <p>{profile_name}</p>
@@ -173,22 +192,24 @@ class UserProfile extends Component {
                             <p>{email}</p>
 
                             <h6>Payment</h6>
-                            <p>If payment method on file display 'payment method on file, button says 'update'? else Add Card</p>
-                            <button>Add Card</button>
-                            <button onClick={this.logout}>Logout</button>
+                            {/* <p>If payment method on file display 'payment method on file, button says 'update'? else Add Card</p> */}
+                            <div className='profile-tabs__buttons'>
+                                <button style={{ marginBottom: 30, marginTop: 5 }}>Add Card</button>
+                                <button onClick={this.logout}>Logout</button>
+                            </div>
                         </div>
                         :
                         <div className='profile-tabs__drinks'>
 
                             {this.state.redeemCode.length ? <div className="current-code-parent"><h2>{currentCodeToShow}</h2></div> : <h2>{mappedDrinks}</h2>}
                             {
-                                this.state.redeemCode.length? 
-                                    <div className = "current-code-parent"><h2>{currentCodeToShow}</h2></div> 
+                                this.state.redeemCode.length ?
+                                    <div className="current-code-parent"><h2>{currentCodeToShow}</h2></div>
                                     :
-                                    (mappedDrinks.length? <h2>{mappedDrinks}</h2> 
-                                    : 
-                                    <div className = "No_drinks-parent">
-                                        You don't have any honey yet, when someone sends you some it will show up here!
+                                    (mappedDrinks.length ? <h2>{mappedDrinks}</h2>
+                                        :
+                                        <div className="No_drinks-parent">
+                                            You don't have any honey yet, when someone sends you some it will show up here!
                                     </div>
                                     )
                             }
