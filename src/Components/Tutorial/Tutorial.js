@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom"
 import ReactSwipe from 'react-swipe';
 import "./Tutorial.css"
-import buzzMap from "../../images/assets/buzzAvailable.png"
-import buzzSendDrink from "../../images/assets/buzzSendDrink.png"
-import buzzMyDrinks from "../../images/assets/buzzMyDrinks.png"
+import buzzMap from "../../images/iPhone/screengrab-iphone-2.png"
+import buzzSendDrink from "../../images/iPhone/send-honey-iphone.png"
+import buzzMyDrinks from "../../images/iPhone/profile-2-iphone.png"
 import back from "../../Components/Room/CurrentRoom/back.png"
 
 export default class Tutorial extends Component {
