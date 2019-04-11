@@ -22,8 +22,7 @@ class UserProfile extends Component {
             user: this.props.currentUser,
             userDrinks: [],
             code: false,
-            redeemCode: [],
-            input: false
+            redeemCode: []
         }
     }
     componentDidMount = () => {
@@ -81,23 +80,17 @@ class UserProfile extends Component {
     }
 
     //edit username functionality
-    editUsername = () => {
-        console.log('edit username clicked')
-        this.setState({
-            input: !this.state.input
-        })
-    }
+    // editUsername = () => {
+    //     console.log('edit username clicked')
+    //     this.setState({
+    //         input: !this.state.input
+    //     })
+    // }
 
-    submitUsername = () => {
-        this.setState({
-            input: !this.state.input
-        })
-    }
 
     render() {
         let { email, profile_name, picture, user_name } = this.props.currentUser
         let mappedDrinks = this.state.userDrinks.map((drink, index) => {
-            console.log(drink)
             return (
                 <button className="dealParent-container__item" onClick={() => this.toggleCode(drink)}>
                     <img src={drinkImg}></img>
@@ -174,12 +167,14 @@ class UserProfile extends Component {
                         <div className='profile-tabs__infoProfile'>
                             {/* <h2>Profile</h2> */}
 
-                            <h6>Username: <img src={edit} height={18} onClick={this.editUsername} /></h6>
+                            <h6>Username:
+                                {/* <img src={edit} height={18} onClick={this.editUsername} /> */}
+                            </h6>
                             {
                                 this.state.input
                                     ?
                                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} className='profile-tabs__editUsername'>
-                                        <input />
+                                        <input onChange={(e) => this.setState({ user: e.target.value })} />
                                         <button onClick={this.submitUsername}>Submit</button>
                                     </div>
                                     :
@@ -192,20 +187,22 @@ class UserProfile extends Component {
                             <h6>Email:</h6>
                             <p>{email}</p>
 
-                            <h6>Payment</h6>
+                            {/* <h6>Payment</h6> */}
                             {/* <p>If payment method on file display 'payment method on file, button says 'update'? else Add Card</p> */}
                             <div className='profile-tabs__buttons'>
-                                <button style={{ marginBottom: 30, marginTop: 5 }}>Add Card</button>
+                                {/* <button style={{ marginBottom: 30, marginTop: 5 }}>Add Card</button> */}
                                 <button onClick={this.logout}>Logout</button>
                             </div>
                         </div>
                         :
                         <div className='profile-tabs__drinks'>
 
-                            {/* {this.state.redeemCode.length ? <div className="current-code-parent"><h2>{currentCodeToShow}</h2></div> : <h2>{mappedDrinks}</h2>} */}
+                            {this.state.redeemCode.length ? <div className="current-code-parent"><h2>{currentCodeToShow}</h2></div> : <h2>{mappedDrinks}</h2>}
                             {
                                 this.state.redeemCode.length ?
-                                    <div className="current-code-parent"><h2>{currentCodeToShow}</h2></div>
+                                    <div className="current-code-parent">
+                                        <h2>{currentCodeToShow}</h2>
+                                    </div>
                                     :
                                     (mappedDrinks.length ? <h2>{mappedDrinks}</h2>
                                         :
