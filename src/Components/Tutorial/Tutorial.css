@@ -1,6 +1,6 @@
 .tutorial-parent{
     width:100%;
-    height:100%;
+    height:100vh;
     display:flex;
     justify-content: space-evenly;
     align-items:center;
@@ -29,8 +29,8 @@
     padding:20px;
     border:solid #1c1e1f 1px;
     background-color: #fffce7;
-    border-radius:4px;
-    box-shadow: #1c1e1f 4px 4px;
+    border-radius:15px;
+    box-shadow: #1c1e1f 2px 2px;
     color:#f7a41a;
     font-size: 1.5em;
 }
@@ -45,4 +45,18 @@
 }
 .forward{
     transform: rotate(180deg);
+}
+@media(max-width:500px){
+    .tutorial-parent__carousel-parent{
+        justify-content: center;
+        align-items: center;
+        display: flex;
+    }
+    .Slide-image{
+        width:50%;
+        height: auto;
+    }
+    .Caption-container{
+
+    }
 }
