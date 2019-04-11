@@ -13,14 +13,16 @@
     "http": "0.0.0",
     "http-proxy-middleware": "^0.19.1",
     "massive": "^5.7.7",
-    "react": "^16.8.5",
+    "react": "^16.8.6",
     "react-dom": "^16.8.5",
     "react-google-maps": "^9.4.5",
     "react-redux": "^6.0.1",
+    "react-responsive-carousel": "^3.1.47",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
     "react-stripe-checkout": "^2.6.3",
     "react-stripe-elements": "^2.0.3",
+    "react-swipe": "^6.0.4",
     "react-webcam": "^1.1.1",
     "redux": "^4.0.1",
     "semantic-ui-react": "^0.86.0",
@@ -28,7 +30,8 @@
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0",
     "stripe": "^6.28.0",
-    "sweetalert": "^2.1.2"
+    "sweetalert": "^2.1.2",
+    "swipe-js-iso": "^2.1.5"
   },
   "scripts": {
     "start": "react-scripts start",
