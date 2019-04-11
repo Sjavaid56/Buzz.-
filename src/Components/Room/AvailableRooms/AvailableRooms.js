@@ -52,7 +52,7 @@ class AvailableRooms extends Component {
             dist = Math.acos(dist)
             dist = dist * 180 / Math.PI
             dist = dist * 60 * 1.1515
-            if (unit == 'K') { dist = dist * 1.609344 }
+            if (unit == 'K') { dist = dist * 1.609344 * 3280.84}
             if (unit == 'N') { dist = dist * 0.8684 }
             return dist
         }
@@ -62,12 +62,23 @@ class AvailableRooms extends Component {
             //     rooms: rooms.data
             // })
             setTimeout(() => {
-                let availableRooms = rooms.data.filter((value) => {
+                let result = []
 
-                    return distance(this.props.currentLocation.latitude, this.props.currentLocation.longitude, value.latitude, value.longitude, "K") <= .5
+                let availableRooms = rooms.data.map((value) => {
+
+                    value["distanceUser"] = distance(this.props.currentLocation.latitude, this.props.currentLocation.longitude, value.latitude, value.longitude, "K") 
+
+                    console.log("value",value)
+                    
+                    if(distance(this.props.currentLocation.latitude, this.props.currentLocation.longitude, value.latitude, value.longitude, "K") <= 1400){
+                        result.push(value)
+                    }
+                    return result
                 })
+
+                console.log("USER result", availableRooms[0])
                 this.setState({
-                    rooms: availableRooms
+                    rooms: availableRooms[0]
                 })
             }, 500)
         })
@@ -122,7 +133,7 @@ class AvailableRooms extends Component {
                             {room.business_name}
                         </h1>
                         <h3 className='rooms-header__distance'>
-                            800 ft
+                           {Math.ceil(room.distanceUser)} Feet away
                         </h3>
                     </div>
 
