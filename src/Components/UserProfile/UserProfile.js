@@ -196,8 +196,6 @@ class UserProfile extends Component {
                         </div>
                         :
                         <div className='profile-tabs__drinks'>
-
-                            {this.state.redeemCode.length ? <div className="current-code-parent"><h2>{currentCodeToShow}</h2></div> : <h2>{mappedDrinks}</h2>}
                             {
                                 this.state.redeemCode.length ?
                                     <div className="current-code-parent">
