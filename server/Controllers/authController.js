@@ -45,7 +45,7 @@ module.exports = {
           }
           else if(user.admin === false){
             req.session.user = user;
-            res.redirect('/dashboard');
+            res.redirect('https://thebuzzchat.com/dashboard');
           }
           
         } 
@@ -54,7 +54,7 @@ module.exports = {
           return req.app.get('db').create_user(createData).then(newUsers => {
             const user = newUsers[0];
             req.session.user = user
-            res.redirect('/finishregistration');
+            res.redirect('https://thebuzzchat.com/tutorial');
           })
         }
       })
