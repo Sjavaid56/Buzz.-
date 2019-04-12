@@ -10,7 +10,7 @@ module.exports = {
       client_secret: process.env.AUTH0_CLIENT_SECRET,
       code: req.query.code,
       grant_type: 'authorization_code',
-      redirect_uri: `http://${req.headers.host}/auth/`
+      redirect_uri: `https://${req.headers.host}/auth/`
     };
 
     function tradeCodeForAccessToken() {
@@ -31,24 +31,24 @@ module.exports = {
         if (users.length) {
           console.log("FOUND USER TO LOG IN:", users)
           const user = users[0];
-          if(user.admin === true){
-            req.app.get("db").getAdminPostData(user.admin_of).then(allAdminPostData =>{
+          if (user.admin === true) {
+            req.app.get("db").getAdminPostData(user.admin_of).then(allAdminPostData => {
               console.log("ADMIN DATA: ", allAdminPostData)
               req.session.adminPostData = allAdminPostData
               console.log("ADMIN SESSION VARIABLE: ", req.session.adminData)
               req.session.user = user;
-            }).then(() =>{
+            }).then(() => {
               res.status(200).redirect('/adminDashboard')
             })
-            
-            
+
+
           }
-          else if(user.admin === false){
+          else if (user.admin === false) {
             req.session.user = user;
             res.redirect('https://thebuzzchat.com/dashboard');
           }
-          
-        } 
+
+        }
         else {
           const createData = [userData.sub, userData.email, userData.name, userData.picture];
           return req.app.get('db').create_user(createData).then(newUsers => {
@@ -68,8 +68,8 @@ module.exports = {
     console.log("Sending", req.session.user);
     res.status(200).json(req.session.user);
   },
-  getAdminData(req,res){
-    console.log('SESSION:' , req.session)
+  getAdminData(req, res) {
+    console.log('SESSION:', req.session)
     console.log("Sending admin data:", req.session.adminPostData)
     res.status(200).json(req.session.adminPostData)
   }
