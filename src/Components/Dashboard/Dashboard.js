@@ -10,7 +10,7 @@ import { updateCurrentUser } from "../../redux/reducer"
 import Profile from "../UserProfile/UserProfile"
 import NavBar from "../NavBar/NavBar"
 
-const socket = socketIOClient("http://localhost:4000/");
+const socket = socketIOClient();
 
 class Dashboard extends Component {
     constructor(props) {
