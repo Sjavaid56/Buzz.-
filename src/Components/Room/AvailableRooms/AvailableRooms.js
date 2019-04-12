@@ -133,7 +133,7 @@ class AvailableRooms extends Component {
                             {room.business_name}
                         </h1>
                         <h3 className='rooms-header__distance'>
-                           {Math.ceil(room.distanceUser)} Feet away
+                           {Math.ceil(room.distanceUser)} Ft away
                         </h3>
                     </div>
 
