@@ -66,7 +66,7 @@ export default class Tutorial extends Component {
         }
         else{
             caption = ( 
-                <p>Gain Access to all the chat rooms within 500 feet of your location!</p>)
+                <p>Gain Access to all the chat rooms within 800 feet of your location!</p>)
         }
         console.log("Count:" , this.state.count)
         console.log("Finished? ", this.state.showFinish)
