@@ -41,15 +41,15 @@ export default class Landing extends Component {
             <div className='landing-container'>
 
                 <div className='landing-top'>
-                    <img src={screengrab2} className='screenshotBuzz' />
                     <div className='landing-top__right'>
                         <div className='landing-top__rightLogo'>
                             <h1>buzz.</h1>
-                            <img src={BuzzBeeYellow} alt='bee logo in yellow' />
+                            <img className='buzz-bee' src={BuzzBeeYellow} alt='bee logo in yellow' />
                         </div>
-                        <p style={{ padding: '35px 0' }}>Pariatur cupidatat laboris ea fugiat incididunt aliqua esse id duis enim quis. Pariatur cupidatat laboris ea fugiat incididunt aliqua esse id duis enim quis.</p>
+                        <p style={{ padding: '35px 0' }}>Meet and chat with other people at your location. The possibilities are endless. Click below to start buzzing now.</p>
                         <button onClick={this.login}>Login/Register</button>
                     </div>
+                    <img src={screengrab2} className='screenshotBuzz' />
                 </div>
 
                 <div className='landing-middle'>
@@ -65,7 +65,7 @@ export default class Landing extends Component {
                 </div>
 
                 <div className='landing-bottom'>
-                    <h1>About The Founders</h1>
+                    <h1>About Our Team</h1>
                     <div className='landing-bottom__about'>
                         <div className='landing-bottom__aboutSection'>
                             <img src={placeholderImg} />
