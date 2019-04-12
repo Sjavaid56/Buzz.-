@@ -68,7 +68,7 @@ export default class Landing extends Component {
                     <h1>About Our Team</h1>
                     <div className='landing-bottom__about'>
                         <div className='landing-bottom__aboutSection'>
-                            <img src={placeholderImg} />
+                            <img src="https://media.licdn.com/dms/image/C5603AQGZf9jlQAIqWw/profile-displayphoto-shrink_800_800/0?e=1560384000&v=beta&t=XGBXOmc4B8mZhygkMnrcpRx9FdZFwG8y4YP9XiR-ejU" />
                             <h2>Brittany French</h2>
                             <p>Ad eu esse eiusmod officia quis eiusmod consectetur ipsum sunt irure labore cillum cupidatat.</p>
                             <div className='landing-bottom__logos'>
@@ -81,7 +81,7 @@ export default class Landing extends Component {
                             </div>
                         </div>
                         <div className='landing-bottom__aboutSection'>
-                            <img src={placeholderImg} />
+                            <img src="https://media.licdn.com/dms/image/C4D03AQFE3ikNPGC8XA/profile-displayphoto-shrink_200_200/0?e=1560384000&v=beta&t=NjpOpDxg8nxSiQJomJHfMoScUxl5WPpGKRvC1vMMzgQ" />
                             <h2>Zach Hirschman</h2>
                             <p>Ad eu esse eiusmod officia quis eiusmod consectetur ipsum sunt irure labore cillum cupidatat.</p>
                             <div className='landing-bottom__logos'>
@@ -94,7 +94,7 @@ export default class Landing extends Component {
                             </div>
                         </div>
                         <div className='landing-bottom__aboutSection'>
-                            <img src={placeholderImg} />
+                            <img src="https://media.licdn.com/dms/image/C5603AQHQRGJfxTsKyA/profile-displayphoto-shrink_800_800/0?e=1560384000&v=beta&t=824DSTY-imzBt-UgrSK0ZD0fBhfUKQyP-fSiKf17hlM" />
                             <h2>Shawn Javaid</h2>
                             <p>Ad eu esse eiusmod officia quis eiusmod consectetur ipsum sunt irure labore cillum cupidatat.</p>
                             <div className='landing-bottom__logos'>
