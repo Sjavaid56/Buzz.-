@@ -5,7 +5,7 @@ import BuzzBeeYellow from '../../images/assets/logo/buzz-logo-yellow-nobg.png'
 // import screengrab from '../../images/iPhone/screengrab-iphone1.png';
 import screengrab2 from '../../images/iPhone/screengrab-iphone-2.png';
 import placeholderImg from '../../images/Portrait_Placeholder.png';
-import placeholderVideo from '../../images/Puppy-4740.mp4';
+import socialVideo from '../../images/Lunch - 2339_Trim.mp4';
 import liLogo from '../../images/icons8-linkedin-104.png';
 import ghLogo from '../../images/icons8-github-filled-100.png';
 import './landing.css';
@@ -55,7 +55,7 @@ export default class Landing extends Component {
                 <div className='landing-middle'>
                     <div className='landing-middle__left'>
                         <video autoPlay loop muted playsInline>
-                            <source src={placeholderVideo} type='video/mp4' />
+                            <source src={socialVideo} type='video/mp4' />
                         </video>
                     </div>
                     <div className='landing-middle__right'>
