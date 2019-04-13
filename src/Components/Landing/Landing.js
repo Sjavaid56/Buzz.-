@@ -96,7 +96,7 @@ export default class Landing extends Component {
                         <div className='landing-bottom__aboutSection'>
                             <img src="https://media.licdn.com/dms/image/C5603AQHQRGJfxTsKyA/profile-displayphoto-shrink_800_800/0?e=1560384000&v=beta&t=824DSTY-imzBt-UgrSK0ZD0fBhfUKQyP-fSiKf17hlM" />
                             <h2>Shawn Javaid</h2>
-                            <p>Shawn is passionate about building meaningful products with the intent to empowering people of all backgrounds. In his spare time you can catch him eating mexican with some friends at dolores park.</p>
+                            <p>Shawn is passionate about building meaningful products with the intent to empower people of all backgrounds. In his spare time, you can catch him eating Mexican food with friends at Dolores Park.</p>
                             <div className='landing-bottom__logos'>
                                 <a href='https://www.linkedin.com/in/shaian-javaid/' >
                                     <img src={liLogo} alt='linkedin logo in black' />
