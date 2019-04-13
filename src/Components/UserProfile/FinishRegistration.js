@@ -73,16 +73,16 @@ import logo from "../../images/assets/logo/buzz-bee-charcoal.svg"
                     <button class="button-submit" onClick={() => this.handleUsername()}>submit</button>
                 </Link>
 
-                <h2 className="card-text"> Add a payment, dont worry you can always do it later.</h2>
+                {/* <h2 className="card-text"> Add a payment, dont worry you can always do it later.</h2> */}
                 
-                 <StripeCheckout className="Stripe"
+                 {/* <StripeCheckout className="Stripe"
                   description="buzz."
                   image = {logo}
                   token={this.onToken}
                   stripeKey="pk_test_WaVHnhGJpp0M8KlijP56wMeL"
                   label="Set up payment information"
                   style ={{"background-color":"red"}}
-                  />
+                  /> */}
             </div>
         )
   }
