@@ -1,0 +1,44 @@
+.post-parent{
+    height:auto;
+    border-bottom: solid #ffcb34 1px;
+    background: #fffce7;
+    padding:10px;
+    border-left: none;
+    border-right: none;
+}
+
+.post-parent__commentToggle {
+    background: none;
+    border: none;
+    margin-left: 10px;
+}
+
+.post-parent__sendDrink {
+    background: #1C1E1F;
+    color: #FFFCE7;
+    border: none;
+    padding: 4px 12px;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: 10px;
+    outline: none;
+}
+.dealParent-container__item{
+    width:100%;
+    height:50px;
+    display:flex;
+    justify-content:flex-start;
+    align-items:center;
+    font-family: 'Montserrat', sans-serif;
+    font-size:24px;
+    margin-bottom:5px;
+    background: #ffcb34;
+    border: 2px dashed #f7a41a;
+    border-radius:4px;
+    color:white;
+}
+.SendDrink{
+    font-family: 'Montserrat', sans-serif;
+    /* background-color:#1c1E1F; */
+    color:#ffcb34;
+}

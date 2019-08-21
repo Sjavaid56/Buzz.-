@@ -1,0 +1,28 @@
+.create-post__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+.create-post__container > input {
+    border-radius: 10px;
+    border: solid #ffcb34 1px;
+    height: fit-content;
+    padding: 7px;
+    min-width: 65%;
+    margin-bottom: 20px;
+    outline: none;
+}
+
+.create-post__buttonContainer button {
+    background: #1C1E1F;
+    color: #FFFCE7;
+    border: none;
+    padding: 4px 12px;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: 10px;
+    outline: none;
+}

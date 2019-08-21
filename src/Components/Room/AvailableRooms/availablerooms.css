@@ -1,0 +1,136 @@
+.available-container {
+    display: flex;
+    flex-direction: column;
+    height:100vh;
+}
+
+.available-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 35px;
+    min-height: 98px;
+    border-bottom: solid #ffcb34 1px;
+}
+
+/* .available-container__profileView {
+    outline: none;
+    border:none;
+    background:none;
+    border-radius: 50%;
+    flex: 1;
+} */
+.available-header > img {
+    outline: none;
+    border:none;
+    background:none;
+    border-radius: 50%;
+    flex: 1;
+    /* border-radius: 50%; */
+    width: 65px;
+    max-height: 65px;
+    float: left;
+    margin-left: 10px;
+}
+
+.available-header > img:hover {
+    cursor: pointer;
+}
+.available-header__title {
+    margin: 0 auto;
+    flex: 100%;
+    text-align: center;
+    margin-left: -10px;
+}
+
+.mapped-businesses {
+    overflow-y: auto;
+}
+
+    .mapped-businesses::-webkit-scrollbar {
+        width: 7.75px; 
+        background-color: transparent;
+    }
+
+    .mapped-businesses::-webkit-scrollbar-thumb {
+        border-radius: 12px;
+        background-color: rgba(28, 30, 31, 0.877);
+    }
+
+    .mapped-businesses::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        background-color: #F5F5F5;
+        border-radius: 12px;
+        background-clip: content-box;
+    }
+
+.available-rooms {
+    display: flex;
+    flex-direction: column;
+    border-bottom: solid #ffcb34 1px;
+    background: #fffce7;
+    padding: 15px;
+    border-left: none;
+    border-right: none;
+}
+.rooms-header {
+    margin-bottom: 18px;
+}
+
+.rooms-header, .rooms-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* align-items: center; */
+}
+
+.rooms-header__title {
+    font-size: 20px;
+    max-width: 350px;
+}
+
+.rooms-header__distance {
+    font-size: 14px;
+    
+}
+
+.room-type__icon {
+    height: 35px;
+    margin:  0 15px 0 5px;
+}
+
+.room-user__bee {
+    margin-right: 6px;
+}
+
+.rooms-footer__icons {
+    display: flex;
+    align-items: center;
+}
+
+.rooms-footer__button > button {
+    background: #ffcb34;
+    border: none;
+    color: #1C1E1F;
+    padding: 7px 12px;
+    width: 85px;
+    border-radius: 14px;
+    margin-left: auto;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    outline: none;
+}
+
+@media(max-width:500px){
+    .available-container{
+        height: 85vh;
+    }
+    .available-header_{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+    .available-header__title {
+        margin-left:5%;
+    }
+}
