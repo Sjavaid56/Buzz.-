@@ -65,7 +65,7 @@ export default class Landing extends Component {
                 </div>
 
                 <div className='landing-bottom'>
-                    {/* <h1>About Our Team</h1>
+                     <h1>About Our Team</h1>
                     <div className='landing-bottom__about'>
                         <div className='landing-bottom__aboutSection'>
                             <img src="https://media.licdn.com/dms/image/C5603AQGZf9jlQAIqWw/profile-displayphoto-shrink_800_800/0?e=1560384000&v=beta&t=XGBXOmc4B8mZhygkMnrcpRx9FdZFwG8y4YP9XiR-ejU" />
@@ -106,7 +106,7 @@ export default class Landing extends Component {
                                 </a>
                             </div>
                         </div>
-                    </div> */}
+                    </div> 
                 </div>
             </div>
         )
