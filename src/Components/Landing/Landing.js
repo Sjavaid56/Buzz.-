@@ -65,10 +65,10 @@ export default class Landing extends Component {
                 </div>
 
                 <div className='landing-bottom'>
-                     <h1>About Our Team</h1>
+                    <h1>About Our Team</h1>
                     <div className='landing-bottom__about'>
                         <div className='landing-bottom__aboutSection'>
-                            <img src="https://media.licdn.com/dms/image/C5603AQGZf9jlQAIqWw/profile-displayphoto-shrink_800_800/0?e=1560384000&v=beta&t=XGBXOmc4B8mZhygkMnrcpRx9FdZFwG8y4YP9XiR-ejU" />
+                            <img src="https://avatars3.githubusercontent.com/u/37281870?s=400&u=bfe11febddc76a0844e0486240949d1a21bad331&v=4" />
                             <h2>Brittany French</h2>
                             <p>Brittany has a passion for people, and the ways technology can enhance the human experience. She's drawn to beautiful design and will obsess over typography for days. You can always count on her to point out a dog nearby.</p>
                             <div className='landing-bottom__logos'>
@@ -81,7 +81,7 @@ export default class Landing extends Component {
                             </div>
                         </div>
                         <div className='landing-bottom__aboutSection'>
-                            <img src="https://media.licdn.com/dms/image/C4D03AQFE3ikNPGC8XA/profile-displayphoto-shrink_200_200/0?e=1560384000&v=beta&t=NjpOpDxg8nxSiQJomJHfMoScUxl5WPpGKRvC1vMMzgQ" />
+                            <img src="https://avatars1.githubusercontent.com/u/42726824?s=400&v=4" />
                             <h2>Zach Hirschman</h2>
                             <p>Zach loves learning how to use new technologies that he can use in his next project. In his free time, Zach enjoys hangning out with his dog, watching football, and spending time with friends. Zach's computer has enough mass to kill a full grown man</p>
                             <div className='landing-bottom__logos'>
@@ -94,7 +94,7 @@ export default class Landing extends Component {
                             </div>
                         </div>
                         <div className='landing-bottom__aboutSection'>
-                            <img src="https://media.licdn.com/dms/image/C5603AQHQRGJfxTsKyA/profile-displayphoto-shrink_800_800/0?e=1560384000&v=beta&t=824DSTY-imzBt-UgrSK0ZD0fBhfUKQyP-fSiKf17hlM" />
+                            <img src="https://avatars0.githubusercontent.com/u/30484848?s=400&v=4" />
                             <h2>Shawn Javaid</h2>
                             <p>Shawn is passionate about building meaningful products with the intent to empower people of all backgrounds. In his spare time, you can catch him eating Mexican food with friends at Dolores Park.</p>
                             <div className='landing-bottom__logos'>
@@ -106,7 +106,7 @@ export default class Landing extends Component {
                                 </a>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                 </div>
             </div>
         )
